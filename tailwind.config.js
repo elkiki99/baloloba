@@ -11,6 +11,9 @@ export default {
 
     theme: {
         extend: {
+            blur: {
+                xs: '1px',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
