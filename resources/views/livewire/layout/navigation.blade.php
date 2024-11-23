@@ -16,15 +16,15 @@ new class extends Component {
 }; ?>
 
 <nav x-data="{ open: false }"
-    class="fixed top-0 z-50 w-full px-3 mx-auto text-sm font-medium text-center bg-transparent rounded-none sm:rounded-full sm:w-auto sm:top-10 backdrop-filter backdrop-blur-xl sm:flex">
+    class="fixed top-0 z-50 w-full px-3 mx-auto text-sm font-medium text-center bg-transparent rounded-none sm:rounded-full sm:w-auto sm:top-10 backdrop-filter mix-blend-luminosity backdrop-blur-lg sm:flex">
     <!-- Primary Navigation Menu -->
     <div class="flex items-center justify-between h-12 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <!-- Logo -->
         <div class="flex items-center">
             <a href="{{ route('welcome') }}">
-                <x-application-logo class="block w-auto text-black fill-current size-8" />
+                <x-application-logo />
             </a>
-        </div>
+        </div>  
 
         <!-- Hamburguer for mobile -->
         <div class="sm:hidden">
@@ -38,7 +38,7 @@ new class extends Component {
                 </svg>
             </button>
         </div>
-
+        
         <!-- Navigation Links -->
         <div class="hidden sm:flex sm:items-center sm:space-x-8 sm:ml-10">
             <x-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio')">
@@ -63,7 +63,7 @@ new class extends Component {
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="flex sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio')">
                 {{ __('Portfolio') }}
