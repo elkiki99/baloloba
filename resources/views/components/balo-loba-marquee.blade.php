@@ -1,20 +1,20 @@
-<div x-data="marquee" x-init="init()" class="relative w-full bg-black container-block">
+<div x-data="marquee" x-init="init()" class="relative w-full bg-yellow-500 container-block">
     <div
-        class="relative w-full py-3 overflow-hidden tracking-wide text-white uppercase bg-black sm:text-xs md:text-sm lg:text-base xl:text-xl 2xl:text-2xl">
+        class="relative w-full overflow-hidden tracking-wide text-black uppercase bg-yellow-500 sm:text-xs md:text-sm lg:text-base xl:text-xl 2xl:text-2xl">
         <!-- Left gradient -->
-        <div class="absolute left-0 z-20 w-40 h-full bg-gradient-to-r from-black to-transparent"></div>
+        <div class="absolute left-0 z-20 w-40 h-full bg-gradient-to-r from-yellow-500 to-transparent"></div>
         <!-- Right gradient -->
-        <div class="absolute right-0 z-20 w-40 h-full bg-gradient-to-l from-black to-transparent"></div>
+        <div class="absolute right-0 z-20 w-40 h-full bg-gradient-to-l from-yellow-500 to-transparent"></div>
         <!-- Marquee Content -->
         <div x-ref="content" class="flex animate-marquee">
-            <div x-ref="item"
-                class="flex items-center justify-around flex-shrink-0 w-full px-2 py-2 text-xl text-white sm:text-2xl md:text-4xl xl:text-8xl">
-                <p class="w-auto translate-y-0.5 fill-current">BALO</p>
-                <p class="w-auto translate-y-0.5 fill-current">LOBA</p>
-                <p class="w-auto translate-y-0.5 fill-current">•</p>
-                <p class="w-auto translate-y-0.5 fill-current">BALO</p>
-                <p class="w-auto translate-y-0.5 fill-current">LOBA</p>
-                <p class="w-auto translate-y-0.5 fill-current">•</p>
+            <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full px-2 text-sm text-black">
+                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p>•</p>
+                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p>•</p>
+                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p>•</p>
+                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
             </div>
         </div>
     </div>
@@ -42,8 +42,9 @@
         0% {
             transform: translateX(0);
         }
+
         100% {
-            transform: translateX(-300%);
+            transform: translateX(-100%);
         }
     }
 
@@ -56,7 +57,10 @@
         container-type: inline-size;
     }
 
-    @container (max-width: 1100px) {
+    @container (max-width: 1100px)
+
+        {
+
         .container-block svg:nth-child(3),
         .container-block svg:nth-child(4) {
             display: none;

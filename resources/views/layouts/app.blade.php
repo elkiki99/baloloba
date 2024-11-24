@@ -30,24 +30,32 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-white dark:bg-gray-900">
-        <div class="flex items-center justify-center">
+    <div class="min-h-screen bg-white">
+        <div class="relative flex items-center justify-center">
             <livewire:layout.navigation />
         </div>
-
+{{-- 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-white shadow dark:bg-gray-800">
+            <header class="shadow dark:bg-gray-800">
                 <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
-        @endif
+        @endif --}}
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        {{-- <div class="relative z-40 bg-white "> --}}
+
+            <main class="flex-grow">
+                {{ $slot }}
+            </main>
+            
+        {{-- </div> --}}
+        
+        <div class="z-10">
+            <x-footer />
+        </div>
     </div>
 </body>
 

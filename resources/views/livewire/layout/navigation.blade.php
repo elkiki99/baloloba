@@ -24,7 +24,7 @@ new class extends Component {
             <a href="{{ route('welcome') }}">
                 <x-application-logo />
             </a>
-        </div>  
+        </div>
 
         <!-- Hamburguer for mobile -->
         <div class="sm:hidden">
@@ -38,7 +38,7 @@ new class extends Component {
                 </svg>
             </button>
         </div>
-        
+
         <!-- Navigation Links -->
         <div class="hidden sm:flex sm:items-center sm:space-x-8 sm:ml-10">
             <x-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio')">
@@ -47,9 +47,12 @@ new class extends Component {
             <x-nav-link wire:navigate :href="route('about')" :active="request()->routeIs('about')">
                 {{ __('Sobre mi') }}
             </x-nav-link>
+            <button type="button" wire:click="logout"
+                class="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                Cerrar sesión
+            </button>
 
-            <x-nav-link wire:navigate :href="route('contact')" :active="request()->routeIs('contact')"
-                class="">
+            <x-nav-link wire:navigate :href="route('contact')" :active="request()->routeIs('contact')" class="">
                 <div class="flex items-center">
                     {{ __('Contacto') }}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
