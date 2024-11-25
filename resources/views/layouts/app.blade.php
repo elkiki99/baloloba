@@ -29,8 +29,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-white">
+<body class="font-sans antialiased ">
+    <div class="z-40 min-h-screen">
         <div class="relative flex items-center justify-center">
             <livewire:layout.navigation />
         </div>
@@ -47,13 +47,13 @@
         <!-- Page Content -->
         {{-- <div class="relative z-40 bg-white "> --}}
 
-            <main class="flex-grow">
+            <main class="relative z-40 flex-grow bg-white">
                 {{ $slot }}
             </main>
             
         {{-- </div> --}}
         
-        <div class="z-10">
+        <div class="sticky bottom-0 z-10">
             <x-footer />
         </div>
     </div>

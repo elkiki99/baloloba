@@ -3,33 +3,60 @@
         <div class="flex flex-wrap">
             <!-- About Us Section -->
             <div class="w-full px-4 py-2 md:w-1/3">
-                <h3 class="mb-2 text-lg font-bold">About Us</h3>
-                <p class="text-sm text-gray-400 md:text-md">Our company is dedicated to providing the best service and products to our customers. We value quality, reliability, and customer satisfaction.</p>
+                <h3 class="mb-2 text-lg font-bold">Sobre mi</h3>
+                <p class="text-sm text-gray-400 md:text-md">Soy fotógrafa y me encanta transformar momentos especiales en imágenes que no solo se quedan en el recuerdo, sino que también conectan de verdad con cada persona, contando historias únicas en cada foto.</p>
             </div>
 
             <!-- Contact & Socials Section -->
             <div class="w-full px-4 py-2 md:w-2/3">
                 <div class="grid w-full grid-cols-2 gap-4 lg:grid-cols-4">
                     <div class="w-full">
-                        <h3 class="mb-2 text-lg font-bold">Contact Us</h3>
-                        <p class="text-sm text-gray-400 md:text-md">(123) 456-7890</p>
-                        <p class="text-sm text-gray-400 md:text-md">gazette@gmail.com</p>
+                        <h3 class="mb-2 text-lg font-bold">Contame</h3>
+
+                        <!-- Location -->
+                        <a href="https://www.google.com/maps/place/Balo+Loba+Fotograf%C3%ADa/@-34.9108155,-56.1835782,17z/data=!3m1!4b1!4m6!3m5!1s0x959f81b09abd9171:0xcc8f13d506d17e44!8m2!3d-34.9108199!4d-56.1810033!16s%2Fg%2F11tn84rl3g?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
+                            rel="noopener noreferrer" target="blank"
+                            class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="mr-1 size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                            </svg>
+                            Mi estudio
+                        </a>
+
+                        <!-- Call me -->
+                        <div class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                              </svg>
+                              <p class="text-sm text-gray-400 md:text-md">(+598) 92 299 682</p>
+                        </div>
                     </div>
 
+                    <!-- Redes -->
                     <div class="w-full">
-                        <h3 class="mb-2 text-lg font-bold">Socials</h3>
+                        <h3 class="mb-2 text-lg font-bold">Redes</h3>
                         <ul class="ml-[-1.25px]">
-                            <li class="p-0.5">
-                                <a href="#" class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 size-4" fill="none"
-                                        viewBox="0 0 1200 1227">
-                                        <path fill="#fff"
-                                            d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z" />
-                                    </svg>Twitter
+
+                            <!-- Mail -->
+                            <li class="">
+                                <a href="mailto:baloloba.uy@gmail.com"
+                                    class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 size-5" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                    </svg>Gmail
                                 </a>
                             </li>
+
+                            <!-- Linkedin -->
                             <li class="p-0.5">
-                                <a href="#"
+                                <a href="https://www.linkedin.com/in/camila-fernandez16/" rel="noopener noreferrer"
+                                    target="blank"
                                     class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
                                     <svg class="mr-2 size-4" xmlns="http://www.w3.org/2000/svg"
                                         preserveAspectRatio="xMidYMid" viewBox="0 0 256 256">
@@ -39,8 +66,10 @@
                                     </svg>LinkedIn
                                 </a>
                             </li>
+
+                            <!-- Instagram -->
                             <li class="p-0.5">
-                                <a href="#"
+                                <a href="https://www.instagram.com/balo_loba" rel="noopener noreferrer" target="blank"
                                     class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 size-4"
                                         preserveAspectRatio="xMidYMid" viewBox="0 0 256 256">
@@ -52,38 +81,61 @@
                         </ul>
                     </div>
 
+                    <!-- Acessos rápidos -->
                     <div class="w-full">
-                        <h3 class="mb-2 text-lg font-bold">Quick Links</h3>
+                        <h3 class="mb-2 text-lg font-bold">Acceso directo</h3>
                         <ul>
                             <li><a wire:navigate href="{{ route('welcome') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Inicio</a></li>
+                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Inicio</a>
+                            </li>
                             <li><a wire:navigate href="{{ route('about') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Sobre mi</a></li>
+                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Sobre
+                                    mi</a></li>
                             <li><a wire:navigate href="{{ route('contact') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Contacto</a></li>
+                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Contacto</a>
+                            </li>
                             <li><a wire:navigate href="{{ route('portfolio') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Porfolio</a></li>
+                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Porfolio</a>
+                            </li>
                         </ul>
                     </div>
-                    
+
+                    <!-- Páginas legales -->
                     <div class="w-full">
                         <h3 class="mb-2 text-lg font-bold">Legal</h3>
                         <ul>
-                            <li><a wire:navigate href="{{ route('welcome') }}" class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Terms</a></li>
-                            <li><a wire:navigate href="{{ route('welcome') }}" class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Refund</a></li>
-                            <li><a wire:navigate href="{{ route('welcome') }}" class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Cookies</a></li>
-                            <li><a wire:navigate href="{{ route('welcome') }}" class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Disclaimer</a></li>
-                            <li><a wire:navigate href="{{ route('welcome') }}" class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Privacy policy</a></li>
+                            <li><a wire:navigate href="{{ route('welcome') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Terms</a>
+                            </li>
+                            <li><a wire:navigate href="{{ route('welcome') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Refund</a>
+                            </li>
+                            <li><a wire:navigate href="{{ route('welcome') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Cookies</a>
+                            </li>
+                            <li><a wire:navigate href="{{ route('welcome') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Disclaimer</a>
+                            </li>
+                            <li><a wire:navigate href="{{ route('welcome') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Privacy
+                                    policy</a></li>
                         </ul>
                     </div>
                     <div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="justify-start w-full px-2 mt-auto">
-        <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">{{ config('app.name') }}</h1>
-        <p class="text-sm text-gray-400 md:text-md">© {{ now()->year }} {{ config('app.name') }}. All rights reserved.</p>
-    </div>
+        <!-- Info de empresa -->
+        <div class="flex justify-between w-full px-2 mt-auto">
+            <div class="">
+                <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">{{ config('app.name') }}
+                </h1>
+                <p class="text-sm text-gray-400 md:text-md">© {{ now()->year }} {{ config('app.name') }}. Todos los derechos reservados.</p>
+            </div>
+
+            <!-- Logo -->
+            <x-application-logo width="120px" height="120px" color="text-white" class="mx-20" />
+        </div>
 </footer>
