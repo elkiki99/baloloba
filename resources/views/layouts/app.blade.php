@@ -34,25 +34,11 @@
         <div class="relative flex items-center justify-center">
             <livewire:layout.navigation />
         </div>
-{{-- 
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="shadow dark:bg-gray-800">
-                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endif --}}
 
-        <!-- Page Content -->
-        {{-- <div class="relative z-40 bg-white "> --}}
+        <main class="relative z-40 flex-grow bg-white">
+            {{ $slot }}
+        </main>
 
-            <main class="relative z-40 flex-grow bg-white">
-                {{ $slot }}
-            </main>
-            
-        {{-- </div> --}}
-        
         <div class="sticky bottom-0 z-10">
             <x-footer />
         </div>
