@@ -1,21 +1,24 @@
 <x-app-layout>
     <!-- Marquee -->
-    <x-balo-loba-marquee />
+    <div class="pt-12 sm:pt-0">
+        <x-balo-loba-marquee />
+    </div>
 
     <div class="flex flex-col space-y-32">
         <!-- Header -->
-        <div class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
+        <div class="flex flex-col items-start justify-center w-full bg-center bg-cover min-h-screen"
             style="background-image: url('{{ asset('pipi_header.jpg') }}'); background-position: top;">
+            <div class="absolute inset-0 bg-black mt-[68px] sm:mt-5 h-screen bg-opacity-50"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
-                <h1 class="font-bold text-white text-9xl">BALO LOBA</h1>
-                <p class="text-2xl text-gray-200">FOTOGRAFÍA DE AUTOR EN RETRATOS, MODA Y EVENTOS</p>
+                <h1 class="font-bold text-white text-9xl uppercase">{{ config('app.name') }}</h1>
+                <p class="text-2xl text-gray-100 max-w-xl">Fotografía de autor en retratos, moda y eventos</p>
 
                 <!-- CTA -->
                 <div
-                    class="items-center inline-block px-10 py-2 text-3xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
+                    class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
                     <a href="#" class="flex items-center text-white hover:text-gray-200">
-                        CONTACTO
+                        AGENDATE
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 ml-2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -27,9 +30,9 @@
         </div>
 
         <!-- Porfolio -->
-        <div class="min-h-screen mt-12 space-y-6">
+        <div class="mt-12 space-y-6">
             <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-                <h1 class="text-5xl font-bold md:text-7xl">PORTFOLIO</h1>
+                <h1 class="text-5xl font-bold md:text-7xl underline decoration-orange-400/30">PORTFOLIO</h1>
             </div>
             <div class="grid gap-1 mx-1 sm:grid-cols-2 md:grid-cols-3">
                 <a href="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}">
@@ -67,30 +70,33 @@
         </div>
 
         <!-- About me -->
-        <div class="px-4 mt-12 space-y-6 sm:px-6 md:px-8">
+        <div class="px-4 mt-12 space-y-6 sm:px-6 md:px-8">  
             <div class="mx-auto max-w-7xl">
-                <h1 class="text-5xl font-bold md:text-7xl">SOBRE MI</h1>
+                <h1 class="text-5xl font-bold md:text-7xl underline decoration-orange-400/30">SOBRE MI</h1>
 
                 <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
                     <div class="lg:w-1/2">
                         <img class="object-contain w-full h-auto" src="{{ asset('cami2.jpg') }}"
                             alt="Camila Fernández">
                     </div>
-                    
-                    <div class="lg:w-1/2 mt-6 lg:mt-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]
-                        from-orange-600
-                        via-white
-                        to-white">
-                        <h1 class="text-6xl font-bold lg:text-8xl">Camila Fernández</h1>
-                        <p class="text-2xl text-gray-800">Especializada en retratos y moda con un enfoque artístico
-                            único.
-                        </p>
-                        <p class="text-xl text-gray-600">Fundadora y alma creativa detrás de Balo Loba.
-                        </p>
 
-                        <!-- CTA -->
+                    <div
+                        class="lg:w-1/2 mt-6 space-y-6 lg:mt-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-400 via-white to-white">
+
+                        <h1 class="text-6xl font-bold lg:text-8xl">Camila Fernández</h1>
+
+                        <div class="">
+                            <p class="text-xl text-gray-800">Especializada en retratos, moda y eventos con un enfoque
+                                artístico
+                                único.
+                            </p>
+                            <p class="text-lg text-gray-700">- Fundadora y alma creativa detrás de Balo Loba.
+                            </p>
+                        </div>
+
+                        <!-- Button -->
                         <div
-                            class="items-center inline-block px-10 py-2 mt-6 text-3xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
+                            class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-orange-400/20">
                             <a href="#" class="flex items-center text-gray-800 hover:text-gray-900">
                                 SOBRE MI
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -106,9 +112,9 @@
         </div>
 
         <!-- Testimonials -->
-        <div class="min-h-screen mt-12 space-y-6 ">
+        <div class="mt-12 space-y-6 ">
             <div class="mx-auto max-w-7xl">
-                <h1 class="px-4 text-5xl font-bold md:text-7xl sm:px-6 md:px-8">TESTIMONIOS</h1>
+                <h1 class="px-4 text-5xl font-bold md:text-7xl sm:px-6 md:px-8 underline decoration-orange-400/30">TESTIMONIOS</h1>
 
                 <div class="grid-cols-2 gap-6 px-0 mt-6 space-y-4 md:space-y-0 md:grid sm:px-6 md:px-8">
                     <!-- Testimonial 1 -->
@@ -180,7 +186,7 @@
 
                         <div class="relative z-10">
                             <p class="text-gray-800 sm:text-xl"><em>
-                                “Camila es una artista en todo el sentido de la palabra. Ha trabajado con nuestras
+                                    “Camila es una artista en todo el sentido de la palabra. Ha trabajado con nuestras
                                     modelos en producciones increíbles, capturando su esencia con una visión única. Cada
                                     sesión con ella es mágica.”
                                 </em></p>
@@ -255,7 +261,8 @@
 
                         <div class="relative z-10">
                             <p class="text-gray-800 sm:text-xl"><em>
-                                “Fue un placer trabajar con Camila, entendió perfecto lo que quería en mis fotos, sin
+                                    “Fue un placer trabajar con Camila, entendió perfecto lo que quería en mis fotos,
+                                    sin
                                     dudas volvería a elegir este servicio!”
                                 </em></p>
                         </div>
@@ -330,7 +337,7 @@
 
                         <div class="relative z-10">
                             <p class="text-gray-800 sm:text-xl"><em>
-                                “Camila tiene un don para hacer que te sientas cómodo frente a la cámara. Su energía
+                                    “Camila tiene un don para hacer que te sientas cómodo frente a la cámara. Su energía
                                     y profesionalismo son incomparables, y el resultado final es siempre sorprendente.
                                     ¡Es una genia!”
                                 </em></p>
@@ -406,7 +413,7 @@
 
                         <div class="relative z-10">
                             <p class="text-gray-800 sm:text-xl"><em>
-                                “Trabajar con Camila es una experiencia increíble. Su creatividad y atención a los
+                                    “Trabajar con Camila es una experiencia increíble. Su creatividad y atención a los
                                     detalles hacen que cada sesión sea única, y el resultado final siempre supera
                                     cualquier expectativa. ¡100% recomendada!”
                                 </em></p>
@@ -417,17 +424,17 @@
         </div>
 
         <!-- Contact -->
-        <div class="min-h-screen mt-12 pb-[20vh] space-y-6 sm:px-6 md:px-8 px-4">
-            <div class="mx-auto space-y-6 max-w-7xl">
-                <h1 class="text-5xl font-bold md:text-7xl">CONTACTO</h1>
+        <div class="mt-12 pb-[20vh] space-y-6 sm:px-6 md:px-8 px-0">
+            <div class="md:mx-auto space-y-6 max-w-7xl">
+                <h1 class="text-5xl font-bold md:text-7xl px-4 underline decoration-orange-400/30">CONTACTO</h1>
 
                 <div>
                     <div
                         class="
                         max-w-xl p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]
-                        from-gray-100
-                        via-gray-50
-                        to-white sm:rounded-md shadow-xl">
+                        from-gray-200
+                        via-gray-100
+                        to-gray-50 sm:rounded-md border-2 border-orange-400/20 shadow-xl">
                         <section>
                             <header>
                                 <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
@@ -443,7 +450,7 @@
                                 <div>
                                     <x-input-label class="" for="name" :value="__('Nombre')" />
                                     <x-text-input wire:model="name" id="name" name="name" type="text"
-                                        class="block w-full mt-1" required autofocus autocomplete="name" />
+                                        class="block w-full mt-1" required autocomplete="name" />
                                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                 </div>
 
@@ -464,7 +471,7 @@
                                 <div>
                                     <x-input-label class="" for="message" :value="__('Tu consulta')" />
                                     <textarea wire:model="message" id="message" name="message"
-                                        class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                                        class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-orange-500/50 dark:focus:border-orange-600/50 focus:ring-orange-500/50 dark:focus:ring-orange-600/50"
                                         rows="4" required autocomplete="message"></textarea>
                                     <x-input-error class="mt-2" :messages="$errors->get('message')" />
                                 </div>

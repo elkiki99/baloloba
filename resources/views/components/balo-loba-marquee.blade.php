@@ -9,12 +9,13 @@
         <div x-ref="content" class="flex animate-marquee">
             <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full px-2 text-sm text-black">
                 <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
-                <p>•</p>
-                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
-                <p>•</p>
-                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
-                <p>•</p>
-                <p class="w-auto translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p class="w-auto translate-y-0.5 fill-current">•</p>
+                <p class="w-auto hidden xs:block translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p class="hidden xs:block w-auto translate-y-0.5 fill-current">•</p>
+                <p class="w-auto hidden sm:block translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p class="hidden sm:block w-auto translate-y-0.5 fill-current">•</p>
+                <p class="w-auto hidden xl:block translate-y-0.5 fill-current">%15 off - Retratos y polas</p>
+                <p class="hidden xl:block w-auto translate-y-0.5 fill-current">•</p>
             </div>
         </div>
     </div>

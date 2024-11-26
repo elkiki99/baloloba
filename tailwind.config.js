@@ -17,6 +17,11 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+                'xs': { min: '480px' }, // Media query para hasta 1280px
+                'portrait': { raw: '(orientation: portrait)' }, // Media query para orientación vertical
+                'hover-none': { raw: '(hover: none)' }, // Detecta dispositivos que no soportan hover
+              },
         },
     },
 
