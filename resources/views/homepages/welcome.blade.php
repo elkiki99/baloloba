@@ -48,7 +48,7 @@
 
                     <!-- Hover card information -->
                     <div
-                        class="absolute inset-0 space-y-2 transition duration-300 bg-black opacity-0 bg-opacity-40 group-hover:opacity-100">
+                        class="absolute inset-0 space-y-2 transition duration-300 bg-black opacity-0 hover:backdrop-blur-sm bg-opacity-30 group-hover:opacity-100">
                         <div class="absolute bottom-0 left-0 right-0 p-4">
                             <h3 class="text-3xl font-bold text-white">Sesión en exteriores</h3>
                             <p class="text-xl text-gray-100">Ciudad vieja, Montevideo</p>
@@ -92,7 +92,7 @@
 
                 <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
                     <div class="lg:w-1/2">
-                        <img class="object-contain w-full h-auto" src="{{ asset('cami2.jpg') }}"
+                        <img class="object-contain w-full h-auto rounded-3xl" src="{{ asset('cami2.jpg') }}"
                             alt="Camila Fernández">
                     </div>
 

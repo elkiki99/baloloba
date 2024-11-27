@@ -19,12 +19,8 @@ class PhotoShootController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $categories = Category::all();
-        
-        return view('photoshoots.create', [
-            'categories' => $categories
-        ]);
+    {        
+        return view('photoshoots.create');
     }
 
     /**

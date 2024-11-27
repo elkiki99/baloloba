@@ -13,16 +13,10 @@ class Photo extends Model
     protected $fillable = [
         'photoshoot_id',
         'filename',
-        'caption',
-        'is_featured',
     ];
 
-    protected $casts = [
-        'is_featured' => 'boolean',
-    ];
-
-    public function photoshoot()
+    public function photoShoot()
     {
-        return $this->belongsTo(PhotoShoot::class);
+        return $this->belongsTo(PhotoShoot::class, 'photoshoot_id');
     }
 }

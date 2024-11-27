@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('photoshoots', function (Blueprint $table) {
+        Schema::create('photo_shoots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('cover_photo');
+            $table->string('header_photo');
             $table->date('date');
             $table->boolean('status')->default('published');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 10, 2)->nullable();
-            // $table->timestamp('scheduled_at')->nullable();
             $table->string('location');
             $table->integer('duration')->nullable();
             $table->timestamps();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('photoshoots');
+        Schema::dropIfExists('photo_shoots');
     }
 };

@@ -15,17 +15,16 @@ class PhotoShoot extends Model
         'name',
         'description',
         'cover_photo',
+        'header_photo',
         'date',
         'status',
         'category_id',
         'price',
-        // 'scheduled_at',
         'location',
         'duration',
     ];
 
     protected $casts = [
-        'scheduled_at' => 'datetime',
         'price' => 'decimal:2',
         'status' => 'boolean',
     ];
@@ -39,4 +38,6 @@ class PhotoShoot extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    protected $table = 'photo_shoots';
 }
