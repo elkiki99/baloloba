@@ -410,7 +410,7 @@
         </section>
 
         <!-- Contact -->
-        <section class="mt-12 pb-[20vh] space-y-6 sm:px-6 md:px-8 px-0">
+        <section class="mt-12 pb-[20vh] sm:px-6 md:px-8 px-0">
             <div class="space-y-6 md:mx-auto max-w-7xl">
                 <h1 class="px-4 text-5xl font-bold underline md:text-7xl decoration-yellow-500">Contacto</h1>
 

@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('cover_photo');
+            $table->date('date');
             $table->boolean('status')->default('published');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 10, 2)->nullable();
-            $table->timestamp('scheduled_at')->nullable();
+            // $table->timestamp('scheduled_at')->nullable();
             $table->string('location');
             $table->integer('duration')->nullable();
             $table->timestamps();
