@@ -1,14 +1,15 @@
 <x-app-layout>
     <div class="min-h-screen">
-        <div class="pt-12">
+        <div class="pt-12 bg-gradient-to-b from-white via-yellow-300 to-white">
             <div class="px-0 mx-auto space-y-6 sm:mt-10 max-w-7xl lg:px-8">
                 <h1
                     class="px-4 pt-10 text-4xl text-transparent sm:px-4 sm:text-5xl md:text-7xl lg:text-8xl bg-clip-text bg-gradient-to-r from-black to-gray-800">
-                    Agenda tu sesión con <span
-                        class="font-bold text-black underline decoration-yellow-500">Camila Fernández</span>
+                    Agenda tu sesión con <span class="font-bold text-black underline decoration-yellow-500">Camila
+                        Fernández</span>
                     en un solo click
                 </h1>
-                <p class="px-4 pb-5 text-sm text-gray-800 border-b-2 sm:text-2xl sm:px-4">¡Elegí uno de nuestros paquetes
+                <p class="px-4 pb-5 text-sm text-gray-800 border-b border-gray-300 sm:text-2xl sm:px-4">¡Elegí uno de
+                    nuestros paquetes
                     y obtené un 15% de
                     descuento hoy!
                 </p>
@@ -50,7 +51,7 @@
                         </label>
                     </div>
 
-                    <div class="md:space-x-6 md:flex">
+                    <div class="md:space-x-6 md:flex ">
                         <!-- Events -->
                         <div class="max-w-[500px] mx-auto flex flex-col my-10 p-6 text-center transition bg-gray-100 border rounded-lg shadow-lg md:w-1/3 md:hover:scale-[1.02]"
                             x-data="{
@@ -203,7 +204,7 @@
                         </div>
                     </div>
 
-                    <p class="py-10 text-sm text-center text-gray-500 border-b-2">
+                    <p class="py-10 text-sm text-center text-gray-800 border-b border-gray-500">
                         Los precios que se muestran son en pesos uruguayos y no hay cargos extra.
                     </p>
                 </section>

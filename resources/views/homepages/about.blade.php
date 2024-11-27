@@ -29,9 +29,9 @@
                 <div class="relative flex items-center justify-center w-full min-h-screen bg-center bg-cover rounded-3xl"
                     style="background-image: url('{{ asset('estudio.jpg') }}');">
 
-                    <div class="flex flex-col items-start space-y-4">
+                    <div class="flex flex-col items-start space-y-6">
                         <h2 class="inline-block text-xl font-bold text-gray-900 sm:text-3xl md:text-5xl typing-effect">
-                            Situado en el corazón de Palermo
+                            Situado en el corazón de <span class="font-black underline decoration-yellow-500">Palermo</span>
                         </h2>
 
                         <!-- CTA -->

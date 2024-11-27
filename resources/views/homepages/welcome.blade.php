@@ -11,13 +11,16 @@
             <div class="absolute inset-0 bg-black mt-[68px] sm:mt-5 h-screen bg-opacity-50"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
-                <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">Balo<span class="super-thin">Loba</span></h1>
-                <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">Fotografía de autor en retratos, moda y eventos</p>
+                <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">Balo<span class="super-thin">Loba</span>
+                </h1>
+                <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">Fotografía de autor en retratos,
+                    moda y eventos</p>
 
                 <!-- CTA -->
                 <div
                     class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
-                    <a href="{{ route('contact') }}" wire:navigate class="flex items-center text-white hover:text-gray-200">
+                    <a href="{{ route('contact') }}" wire:navigate
+                        class="flex items-center text-white hover:text-gray-200">
                         AGENDATE
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 ml-2">
@@ -35,10 +38,23 @@
                 <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Portfolio</h1>
             </div>
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-                <a href="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}">
+                <!-- Card info -->
+                <a href="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}"
+                    class="relative block w-full h-full group">
                     <div class="w-full h-full overflow-hidden">
                         <img class="object-cover w-full h-full"
-                            src="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}">
+                            src="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}" alt="Imagen">
+                    </div>
+
+                    <!-- Hover card information -->
+                    <div
+                        class="absolute inset-0 space-y-2 transition duration-300 bg-black opacity-0 bg-opacity-40 group-hover:opacity-100">
+                        <div class="absolute bottom-0 left-0 right-0 p-4">
+                            <h3 class="text-3xl font-bold text-white">Sesión en exteriores</h3>
+                            <p class="text-xl text-gray-100">Ciudad vieja, Montevideo</p>
+                            <span class="block text-gray-200 text-md">12 fotografías</span>
+                            <span class="block text-sm text-gray-300">22 julio, 2024</span>
+                        </div>
                     </div>
                 </a>
                 <a href="{{ asset('5.jpg') }}">
@@ -70,7 +86,7 @@
         </section>
 
         <!-- About me -->
-        <section class="px-4 mt-12 space-y-6 sm:px-6 md:px-8">  
+        <section class="px-4 mt-12 space-y-6 sm:px-6 md:px-8">
             <div class="mx-auto max-w-7xl">
                 <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Sobre mi</h1>
 
@@ -97,7 +113,8 @@
                         <!-- Button -->
                         <div
                             class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100">
-                            <a href="{{ route('about') }}" wire:navigate class="flex items-center text-gray-800 hover:text-gray-900">
+                            <a href="{{ route('about') }}" wire:navigate
+                                class="flex items-center text-gray-800 hover:text-gray-900">
                                 SOBRE MI
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
@@ -114,7 +131,8 @@
         <!-- Testimonials -->
         <section class="mt-12 space-y-6">
             <div class="mx-auto max-w-7xl">
-                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">Testimonios</h1>
+                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">
+                    Testimonios</h1>
 
                 <div class="grid-cols-2 gap-6 px-0 mt-6 space-y-4 md:space-y-0 md:grid sm:px-6 md:px-8">
                     <!-- Testimonial 1 -->
