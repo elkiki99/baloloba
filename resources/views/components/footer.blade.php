@@ -135,7 +135,7 @@
         <!-- Info de empresa -->
         <div class="flex justify-between w-full px-2 mt-auto">
             <div class="">
-                <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">{{ config('app.name') }}
+                <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">Balo <span class="super-thin">Loba</span>
                 </h1>
                 <p class="text-sm text-gray-400 md:text-md">© {{ now()->year }} {{ config('app.name') }}. Todos los
                     derechos reservados.</p>

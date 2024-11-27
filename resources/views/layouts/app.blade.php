@@ -13,14 +13,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Gabarito:wght@400..900&family=Outfit:wght@100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Gabarito:wght@400..900&family=Outfit:wght@500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Gabarito:wght@400..900&family=Outfit:wght@100&display=swap"
         rel="stylesheet">
 
     <style>
         * {
-            font-family: "Gabarito", serif;
+            font-family: "Outfit", serif;
             font-optical-sizing: auto;
-            font-weight: normal;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .super-thin {
+            font-family: "Outfit", serif;
+            font-optical-sizing: auto;
+            font-weight: 100;
             font-style: normal;
         }
     </style>
