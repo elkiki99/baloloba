@@ -2,7 +2,7 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
-            style="background-image: url('{{ asset('cami.jpg') }}'); background-position: top;">
+            style="background-image: url('{{ asset('home/cami_header.jpg') }}'); background-position: top;">
             <div class="absolute inset-0 h-screen mt-12 bg-black bg-opacity-50 sm:mt-0"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
@@ -27,7 +27,7 @@
             
             <div class="px-0 sm:px-6 md:px-8">
                 <div class="relative flex items-center justify-center w-full min-h-screen bg-center bg-cover rounded-3xl"
-                    style="background-image: url('{{ asset('estudio.jpg') }}');">
+                    style="background-image: url('{{ asset('home/study.jpg') }}');">
 
                     <div class="flex flex-col items-start space-y-6">
                         <h2 class="inline-block text-xl font-bold text-gray-900 sm:text-3xl md:text-5xl typing-effect">

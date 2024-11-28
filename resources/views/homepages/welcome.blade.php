@@ -7,7 +7,7 @@
     <div class="flex flex-col space-y-32">
         <!-- Header -->
         <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
-            style="background-image: url('{{ asset('pipi_header.jpg') }}'); background-position: top;">
+            style="background-image: url('{{ asset('home/header_pipi.jpg') }}'); background-position: top;">
             <div class="absolute inset-0 bg-black mt-[68px] sm:mt-5 h-screen bg-opacity-50"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
@@ -52,7 +52,7 @@
 
                 <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
                     <div class="lg:w-1/2">
-                        <img class="object-contain w-full h-auto rounded-3xl" src="{{ asset('cami2.jpg') }}"
+                        <img class="object-contain w-full h-auto rounded-3xl" src="{{ asset('home/cami_about.jpg') }}"
                             alt="Camila Fernández">
                     </div>
 
@@ -101,7 +101,7 @@
                         <footer class="pb-6">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="rounded-full size-24" src="{{ asset('vale.jpg') }}"
+                                    <img class="rounded-full size-24" src="{{ asset('home/vale_quote.jpg') }}"
                                         alt="Valentina Camejo">
                                 </div>
                                 <div class="ml-4">
@@ -138,7 +138,7 @@
                                             <div x-show="hoverCardHovered"
                                                 class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                                 x-transition>
-                                                <img src="{{ asset('vale.jpg') }}" alt="Valentina Camejo"
+                                                <img src="{{ asset('home/vale_quote.jpg') }}" alt="Valentina Camejo"
                                                     class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@valentinacamejo16</p>
@@ -170,7 +170,7 @@
                         <footer class="pb-6">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="z-20 rounded-full size-24" src="{{ asset('vico.jpg') }}"
+                                    <img class="z-20 rounded-full size-24" src="{{ asset('home/vicoo_quote.jpg') }}"
                                         alt="Victoria Otero">
                                 </div>
                                 <div class="ml-4">
@@ -207,7 +207,7 @@
                                             <div x-show="hoverCardHovered"
                                                 class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                                 x-transition>
-                                                <img src="{{ asset('vico.jpg') }}" alt="Victoria Otero"
+                                                <img src="{{ asset('home/vicoo_quote.jpg') }}" alt="Victoria Otero"
                                                     class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@vicootero</p>
@@ -236,7 +236,7 @@
                         <footer class="pb-6">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="rounded-full size-24" src="{{ asset('pia.jpg') }}"
+                                    <img class="rounded-full size-24" src="{{ asset('home/pia_mallarin_quote.jpg') }}"
                                         alt="Pia Mallarini">
                                 </div>
                                 <div class="ml-4">
@@ -273,7 +273,7 @@
                                             <div x-show="hoverCardHovered"
                                                 class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                                 x-transition>
-                                                <img src="{{ asset('pia.jpg') }}" alt="Pia Mallarini"
+                                                <img src="{{ asset('home/pipa_mallarin_quote.jpg') }}" alt="Pia Mallarini"
                                                     class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@piamallarini_</p>
@@ -305,7 +305,7 @@
                         <footer class="pb-6">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="rounded-full size-24" src="{{ asset('diana.jpg') }}"
+                                    <img class="rounded-full size-24" src="{{ asset('home/diana_quote.jpg') }}"
                                         alt="Diana Morgades">
                                 </div>
                                 <div class="ml-4">
@@ -342,7 +342,7 @@
                                             <div x-show="hoverCardHovered"
                                                 class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                                 x-transition>
-                                                <img src="{{ asset('diana.jpg') }}" alt="Diana Morgades"
+                                                <img src="{{ asset('home/diana_quote.jpg') }}" alt="Diana Morgades"
                                                     class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@morgades_diana</p>

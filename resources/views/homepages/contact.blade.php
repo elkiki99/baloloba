@@ -19,7 +19,7 @@
                 
                 <!-- Paquetes -->
                 <div class="bg-gradient-to-b from-white via-yellow-400 to-white">
-                    <section class="py-16 mx-auto max-w-7xl" x-data="{ isExtended: $el.querySelector('#checkbox').checked }">
+                    <section class="py-16 mx-auto md:px-4 max-w-7xl" x-data="{ isExtended: $el.querySelector('#checkbox').checked }">
                         <h2 class="px-4 text-6xl font-bold underline decoration-yellow-500 sm:px-6 md:px-8">Paquetes</h2>
                         <!-- Toggle switch -->
                         <div class="flex flex-col items-center justify-center gap-4 py-5 sm:flex-row sm:gap-6">

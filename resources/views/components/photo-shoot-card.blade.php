@@ -1,9 +1,6 @@
-<a href="{{ route('photoshoot.show', $photoshoot->slug) }}"
-    class="relative block w-full h-full group">
+<a href="{{ route('photoshoot.show', $photoshoot->slug) }}" class="relative block w-full h-full group">
     <div class="w-full h-full overflow-hidden">
-        <img class="object-cover w-full h-full"
-            src="{{ asset($photoshoot->cover_photo) }}"
-            {{-- Storage::disk('s3')->url($photoshoot->cover_photo) --}}
+        <img class="object-cover w-full h-full" src="{{ Storage::disk('s3')->url($photoshoot->cover_photo) }}"
             alt="{{ $photoshoot->name }}">
     </div>
 
@@ -13,8 +10,11 @@
         <div class="absolute bottom-0 left-0 right-0 p-4">
             <h3 class="text-3xl font-bold text-white">{{ $photoshoot->name }}</h3>
             <p class="text-xl text-gray-100">{{ $photoshoot->location }}</p>
-            <span class="block text-gray-200 text-md">{{ $photoshoot->photos->count() }} {{ $photoshoot->photos->count() == 1 ? 'fotografia,' : 'fotografías,'}} {{ $photoshoot->category->name }}</span>
-            <span class="block text-sm text-gray-300">{{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</span>
+            <span class="block text-gray-200 text-md">{{ $photoshoot->photos->count() }}
+                {{ $photoshoot->photos->count() == 1 ? 'fotografia,' : 'fotografías,' }}
+                {{ $photoshoot->category->name }}</span>
+            <span
+                class="block text-sm text-gray-300">{{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</span>
         </div>
     </div>
 </a>

@@ -110,20 +110,24 @@ new class extends Component {
         ]);
 
         $photoshootFolder = 'photoshoots/' . $slug;
+        $uniqueFileName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
 
-        // Store cover photo on S3
-        $coverPhotoPath = $this->cover_photo->getRealPath(); // Get the temp file path
-        $coverPhotoName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
-        $coverPhotoUrl = Storage::disk('s3')->putFileAs($photoshootFolder, new HttpFile($coverPhotoPath), $coverPhotoName);
+        // Store on public (local storage)
+        $coverPhotoPath = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 'public');
 
-        // Store header photo on S3
-        $headerPhotoPath = $this->header_photo->getRealPath(); // Get the temp file path
-        $headerPhotoName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
-        $headerPhotoUrl = Storage::disk('s3')->putFileAs($photoshootFolder, new HttpFile($headerPhotoPath), $headerPhotoName);
+        // Store on s3
+        $coverPhotoUrl = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 's3');
+
+        // Store on public (local storage)
+        $uniqueHeaderFileName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
+        $headerPhotoPath = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 'public');
+
+        // Store on s3
+        $headerPhotoUrl = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 's3');
 
         $photoshoot->update([
-            'cover_photo' => $coverPhotoPath,
-            'header_photo' => $headerPhotoPath,
+            'cover_photo' => $coverPhotoUrl,
+            'header_photo' => $headerPhotoUrl,
         ]);
 
         $this->uploadPhotos($photoshoot);
@@ -143,7 +147,10 @@ new class extends Component {
             $extension = $photo['extension'];
             $fileName = uniqid() . '.' . $extension;
 
+            // Store on public (local storage)
             $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
+
+            // Store on s3
             $storedPath = Storage::disk('s3')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
 
             Photo::create([
