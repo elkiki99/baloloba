@@ -20,17 +20,16 @@ new class extends Component {
     public $price;
     public $location;
     public $duration;
-
-    public $filename;
+    public $slug;
 
     public $photos = [];
     public $categories = [];
 
     protected $rules = [
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string|max:1000',
-        'cover_photo' => 'required|image|max:2048',
-        'header_photo' => 'required|image|max:2048',
+        'name' => 'required|string|max:48|',
+        'description' => 'nullable|string|max:500',
+        'cover_photo' => 'required|image|max:10240',
+        'header_photo' => 'required|image|max:10240',
         'date' => 'required|date',
         'status' => 'required|in:published,draft',
         'category_id' => 'required|exists:categories,id',
@@ -38,22 +37,22 @@ new class extends Component {
         'price' => 'nullable|numeric|min:0',
         'duration' => 'nullable|integer|min:1',
 
-        'photos' => 'required|array',
-        'photos.*' => 'image|mimes:png,jpeg,jpg,webp|max:10240',
+        'photos.*' => 'required',
+        'photos' => 'required',
     ];
 
     protected $messages = [
         'name.required' => 'El nombre es obligatorio.',
         'name.string' => 'El nombre debe ser una cadena de texto.',
-        'name.max' => 'El nombre no puede superar los 255 caracteres.',
+        'name.max' => 'El nombre no puede superar los 48 caracteres.',
         'description.string' => 'La descripción debe ser una cadena de texto.',
-        'description.max' => 'La descripción no puede superar los 1000 caracteres.',
+        'description.max' => 'La descripción no puede superar los 500 caracteres.',
         'cover_photo.required' => 'La foto de portada es obligatoria.',
         'cover_photo.image' => 'La foto de portada debe ser una imagen válida.',
-        'cover_photo.max' => 'La foto de portada no debe superar los 2 MB.',
+        'cover_photo.max' => 'La foto de portada no debe superar los 10 MB.',
         'header_photo.required' => 'La foto del encabezado es obligatoria.',
         'header_photo.image' => 'La foto del encabezado debe ser una imagen válida.',
-        'header_photo.max' => 'La foto del encabezado no debe superar los 2 MB.',
+        'header_photo.max' => 'La foto del encabezado no debe superar los 10 MB.',
         'date.required' => 'La fecha es obligatoria.',
         'date.date' => 'La fecha debe ser válida.',
         'status.required' => 'El estado es obligatorio.',
@@ -69,7 +68,6 @@ new class extends Component {
         'duration.min' => 'La duración debe ser al menos de 1 minuto.',
 
         'photos.required' => 'Las fotos son obligatorias.',
-        'photos.array' => 'Las fotos son obligatorias.',
         'photos.*.required' => 'Las fotos son obligatorias.',
         'photos.*.image' => 'Cada foto debe ser una imagen válida.',
         'photos.*.mimes' => 'Cada foto debe tener una extensión válida (png, jpeg, jpg, webp).',
@@ -79,11 +77,21 @@ new class extends Component {
     public function mount()
     {
         $this->categories = Category::all();
+        $this->date = now()->toDateString();
     }
 
     public function createPhotoShoot()
     {
         $this->validate();
+
+        $slug = Str::slug($this->name);
+        $originalSlug = $slug;
+        $i = 1;
+
+        while (PhotoShoot::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $i;
+            $i++;
+        }
 
         $photoshoot = PhotoShoot::create([
             'name' => $this->name,
@@ -96,9 +104,10 @@ new class extends Component {
             'price' => $this->price,
             'location' => $this->location,
             'duration' => $this->duration,
+            'slug' => $slug,
         ]);
 
-        $photoshootFolder = 'photoshoots/' . Str::slug($photoshoot->name);
+        $photoshootFolder = 'photoshoots/' . $slug;
 
         $coverPhotoPath = $this->cover_photo->store("{$photoshootFolder}", 'public');
         $headerPhotoPath = $this->header_photo->store("{$photoshootFolder}", 'public');
@@ -108,19 +117,32 @@ new class extends Component {
             'header_photo' => $headerPhotoPath,
         ]);
 
+        $this->uploadPhotos($photoshoot);
+
+        $this->reset(['name', 'description', 'cover_photo', 'header_photo', 'date', 'status', 'category_id', 'price', 'location', 'duration', 'photos']);
+
+        Session::flash('status', 'photoshoot-created');
+    }
+
+    public function uploadPhotos(PhotoShoot $photoshoot)
+    {
+        $photoshootId = $photoshoot->id;
+        $photoshootFolder = 'photoshoots/' . Str::slug($photoshoot->name);
+
         foreach ($this->photos as $photo) {
-            $fileName = Str::random(20) . '.' . $photo->getClientOriginalExtension();
-            $storedPath = Storage::putFileAs("{$photoshootFolder}", $photo, $fileName, 'public');
+            $temporaryPath = $photo['path'];
+            $extension = $photo['extension'];
+            $fileName = uniqid() . '.' . $extension;
+
+            $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
 
             Photo::create([
-                'photoshoot_id' => $photoshoot->id,
+                'photo_shoot_id' => $photoshootId,
                 'filename' => $storedPath,
             ]);
         }
 
-        $this->reset(['name', 'description', 'cover_photo', 'header_photo', 'date', 'status', 'category_id', 'price', 'location', 'duration', 'photos']);
-
-        session()->flash('message', 'Photoshoot creado exitosamente.');
+        $this->reset('photos');
     }
 }; ?>
 
@@ -146,16 +168,6 @@ new class extends Component {
         <x-input-error class="mt-2" :messages="$errors->get('description')" />
     </div>
 
-    <!-- Cover Photo -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="cover_photo" :value="__('Portada')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-        <x-text-input wire:model="cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
-        <x-input-error :messages="$errors->get('cover_photo')" class="mt-2" />
-    </div>
-
     <!-- Header Photo -->
     <div>
         <div class="flex items-center gap-1">
@@ -166,26 +178,63 @@ new class extends Component {
         <x-input-error :messages="$errors->get('header_photo')" class="mt-2" />
     </div>
 
+    <!-- Cover Photo -->
+    <div>
+        <div class="flex items-center gap-1">
+            <x-input-label for="cover_photo" :value="__('Portada')" />
+            <span class="text-yellow-600">*</span>
+        </div>
+        <x-text-input wire:model="cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
+        <x-input-error :messages="$errors->get('cover_photo')" class="mt-2" />
+    </div>
+
     <!-- Photos -->
     <div>
         <div class="flex items-center gap-1">
             <x-input-label for="photos" :value="__('Fotos')" />
             <span class="text-yellow-600">*</span>
         </div>
-        {{-- <livewire:dropzone required wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10024']" :multiple="true" /> --}}
-        <input type="file" wire:model="photos" multiple accept="image/*">
+        <livewire:dropzone wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
         <x-input-error :messages="$errors->get('photos')" class="mt-2" />
     </div>
 
+    <div class="flex items-center gap-4">
+        <!-- Price -->
+        <div class="w-1/2">
+            <x-input-label for="price" :value="__('Precio (pesos)')" />
+            <x-text-input wire:model="price" class="block w-full mt-1" type="number" step="0.01"
+                autocomplete="price" />
+            <x-input-error :messages="$errors->get('price')" class="mt-2" />
+        </div>
+
+        <!-- Duration -->
+        <div class="w-1/2">
+            <x-input-label for="duration" :value="__('Duración (minutos)')" />
+            <x-text-input wire:model="duration" class="block w-full mt-1" type="number" step="0.5" />
+            <x-input-error :messages="$errors->get('duration')" class="mt-2" />
+        </div>
+    </div>
 
     <!-- Date -->
-    <div>
+    <div x-data="{ today: new Date().toISOString().split('T')[0] }">
         <div class="flex items-center gap-1">
             <x-input-label for="date" :value="__('Fecha')" />
             <span class="text-yellow-600">*</span>
         </div>
-        <x-text-input wire:model="date" class="block w-full mt-1" type="date" required />
+        <x-text-input wire:model="date" class="block w-full mt-1" type="date" required x-bind:value="today"
+            x-bind:max="today" id="date-input" />
         <x-input-error :messages="$errors->get('date')" class="mt-2" />
+    </div>
+
+    <!-- Location -->
+    <div>
+        <div class="flex items-center gap-1">
+            <x-input-label for="location" :value="__('Ubicación')" />
+            <span class="text-yellow-600">*</span>
+        </div>
+        <x-text-input placeholder="Ciudad Vieja, Uruguay" wire:model="location" class="block w-full mt-1" type="text"
+            required autocomplete="location" />
+        <x-input-error :messages="$errors->get('location')" class="mt-2" />
     </div>
 
     <!-- Status -->
@@ -217,37 +266,15 @@ new class extends Component {
         <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
     </div>
 
-    <!-- Location -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="location" :value="__('Ubicación')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-        <x-text-input placeholder="Ciudad vieja, Uruguay" wire:model="location" class="block w-full mt-1" type="text"
-            required autocomplete="location" />
-        <x-input-error :messages="$errors->get('location')" class="mt-2" />
-    </div>
-
-    <div class="flex items-center gap-4">
-        <!-- Price -->
-        <div class="w-1/2">
-            <x-input-label for="price" :value="__('Precio (pesos)')" />
-            <x-text-input wire:model="price" class="block w-full mt-1" type="number" step="0.01"
-                autocomplete="price" />
-            <x-input-error :messages="$errors->get('price')" class="mt-2" />
-        </div>
-
-        <!-- Duration -->
-        <div class="w-1/2">
-            <x-input-label for="duration" :value="__('Duración (minutos)')" />
-            <x-text-input wire:model="duration" class="block w-full mt-1" type="number" step="0.5" />
-            <x-input-error :messages="$errors->get('duration')" class="mt-2" />
-        </div>
-    </div>
-
     <div class="flex justify-end mt-4">
         <x-primary-button>
             {{ __('Crear') }}
         </x-primary-button>
     </div>
+
+    @if (session('status') === 'photoshoot-created')
+        <p class="mt-5 text-sm font-medium text-green-600 dark:text-green-400">
+            {{ __('¡Photoshoot creado exitosamente!') }}
+        </p>
+    @endif
 </form>

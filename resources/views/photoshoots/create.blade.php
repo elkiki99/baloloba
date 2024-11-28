@@ -21,12 +21,5 @@
                 <livewire:photoshoot.create />
             </div>
         </div>
-
-        <div class="mt-5">
-            @if (session('message'))
-                <p class="text-sm text-green-600">{{ session('message') }}</p>
-            @endif
-        </div>
-        
     </section>
 </x-app-layout>

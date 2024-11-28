@@ -38,26 +38,29 @@
                 <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Portfolio</h1>
             </div>
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-                <!-- Card info -->
-                <a href="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}"
-                    class="relative block w-full h-full group">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full"
-                            src="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}" alt="Imagen">
-                    </div>
-
-                    <!-- Hover card information -->
-                    <div
-                        class="absolute inset-0 space-y-2 transition duration-300 bg-black opacity-0 hover:backdrop-blur-sm bg-opacity-30 group-hover:opacity-100">
-                        <div class="absolute bottom-0 left-0 right-0 p-4">
-                            <h3 class="text-3xl font-bold text-white">Sesión en exteriores</h3>
-                            <p class="text-xl text-gray-100">Ciudad vieja, Montevideo</p>
-                            <span class="block text-gray-200 text-md">12 fotografías</span>
-                            <span class="block text-sm text-gray-300">22 julio, 2024</span>
+                @foreach ($photoshoots as $photoshoot)
+                    <!-- Card info -->
+                    <a href="{{ route('photoshoot.show', $photoshoot->slug) }}"
+                        class="relative block w-full h-full group">
+                        <div class="w-full h-full overflow-hidden">
+                            <img class="object-cover w-full h-full"
+                                src="{{ asset($photoshoot->cover_photo) }}"
+                                alt="{{ $photoshoot->name }}">
                         </div>
-                    </div>
-                </a>
-                <a href="{{ asset('5.jpg') }}">
+
+                        <!-- Hover card information -->
+                        <div
+                            class="absolute inset-0 space-y-2 transition duration-300 bg-black opacity-0 hover:backdrop-blur-sm bg-opacity-30 group-hover:opacity-100">
+                            <div class="absolute bottom-0 left-0 right-0 p-4">
+                                <h3 class="text-3xl font-bold text-white">{{ $photoshoot->name }}</h3>
+                                <p class="text-xl text-gray-100">{{ $photoshoot->location }}</p>
+                                <span class="block text-gray-200 text-md">{{ $photoshoot->photos->count() }} fotografías</span>
+                                <span class="block text-sm text-gray-300">{{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+                {{-- <a href="{{ asset('5.jpg') }}">
                     <div class="w-full h-full overflow-hidden">
                         <img class="object-cover w-full h-full" src="{{ asset('5.jpg') }}">
                     </div>
@@ -81,7 +84,7 @@
                     <div class="w-full h-full overflow-hidden">
                         <img class="object-cover w-full h-full" src="{{ asset('DSC_0723 (1) (1).jpg') }}">
                     </div>
-                </a>
+                </a> --}}
             </div>
         </section>
 

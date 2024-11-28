@@ -36,7 +36,7 @@
 
                         <!-- CTA -->
                         <div
-                            class="inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-700 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/20">
+                            class="inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-700 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100/50">
                             <a href="{{ route('contact') }}" wire:navigate
                                 class="flex items-center text-black hover:text-gray-800">
                                 AGENDATE

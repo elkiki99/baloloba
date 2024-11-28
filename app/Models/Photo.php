@@ -11,12 +11,12 @@ class Photo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'photoshoot_id',
+        'photo_shoot_id',
         'filename',
     ];
 
-    public function photoShoot()
+    public function photoshoot()
     {
-        return $this->belongsTo(PhotoShoot::class, 'photoshoot_id');
+        return $this->belongsTo(PhotoShoot::class, 'photo_shoot_id');
     }
 }

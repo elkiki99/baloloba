@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\PhotoShoot;
 use Illuminate\Http\Request;
 
 class PhotoShootController extends Controller
@@ -34,9 +35,11 @@ class PhotoShootController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(PhotoShoot $photoshoot)
     {
-        return view('photoshoots.show');
+        return view('photoshoots.show', [
+            'photoshoot' => $photoshoot,
+        ]);
     }
 
     /**

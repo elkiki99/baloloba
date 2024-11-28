@@ -22,6 +22,7 @@ class PhotoShoot extends Model
         'price',
         'location',
         'duration',
+        'slug',
     ];
 
     protected $casts = [
