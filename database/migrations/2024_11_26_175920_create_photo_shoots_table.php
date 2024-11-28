@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->nullable();
             $table->string('location');
             $table->integer('duration')->nullable();
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

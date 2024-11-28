@@ -6,13 +6,16 @@
             <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
-                <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">PORT<span class="super-thin">FOLIO</span></h1>
-                <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">Explora mi catálogo, conocé mi trabajo</p>
+                <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">PORT<span class="super-thin">FOLIO</span>
+                </h1>
+                <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">Explora mi catálogo, conocé mi
+                    trabajo</p>
 
                 <!-- CTA -->
                 <div
                     class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
-                    <a href="{{ route('contact') }}" wire:navigate class="flex items-center text-white hover:text-gray-200">
+                    <a href="{{ route('contact') }}" wire:navigate
+                        class="flex items-center text-white hover:text-gray-200">
                         AGENDATE
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 ml-2">
@@ -23,41 +26,13 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Porfolio -->
         <section class="mt-12 space-y-6 pb-[20vh]">
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-                <a href="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full"
-                            src="{{ asset('308234441_1215140699031874_3114405947350534715_n.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('5.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('5.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('3 (4).jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('3 (4).jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('DSC_0335.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('DSC_0335.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('DSC_0386.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('DSC_0386.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('DSC_0723 (1) (1).jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('DSC_0723 (1) (1).jpg') }}">
-                    </div>
-                </a>
+                @foreach ($photoshoots as $photoshoot)
+                    <x-photo-shoot-card :photoshoot="$photoshoot" />
+                @endforeach
             </div>
         </section>
     </div>

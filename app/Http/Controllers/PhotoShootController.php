@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\PhotoShoot;
-use Illuminate\Http\Request;
 
 class PhotoShootController extends Controller
 {
@@ -13,7 +11,11 @@ class PhotoShootController extends Controller
      */
     public function index()
     {
-        return view('photoshoots.index');
+        $photoshoots = PhotoShoot::all();
+
+        return view('photoshoots.index', [
+            'photoshoots' => $photoshoots
+        ]);
     }
 
     /**
@@ -22,14 +24,6 @@ class PhotoShootController extends Controller
     public function create()
     {        
         return view('photoshoots.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        return view('photoshoots.store');
     }
 
     /**
@@ -45,24 +39,10 @@ class PhotoShootController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(PhotoShoot $photoshoot)
     {
-        return view('photoshoots.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        return view('photoshoots.update');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        return view('photoshoots.destroy');
+        return view('photoshoots.edit', [
+            'photoshoot' => $photoshoot
+        ]);
     }
 }

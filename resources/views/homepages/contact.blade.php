@@ -18,9 +18,9 @@
                 </div>
 
                 <!-- Paquetes -->
-                <div class="px-4 bg-gradient-to-b sm:px-6 md:px-8 from-white via-yellow-400 to-white">
+                <div class="bg-gradient-to-b from-white via-yellow-400 to-white">
                     <section class="py-16 mx-auto max-w-7xl" x-data="{ isExtended: $el.querySelector('#checkbox').checked }">
-                        <h2 class="text-6xl font-bold underline decoration-yellow-500">Paquetes</h2>
+                        <h2 class="px-4 text-6xl font-bold underline decoration-yellow-500 sm:px-6 md:px-8">Paquetes</h2>
                         <!-- Toggle switch -->
                         <div class="flex flex-col items-center justify-center gap-4 py-5 sm:flex-row sm:gap-6">
                             <!-- Label básico -->
@@ -238,40 +238,7 @@
                                 </p>
                             </header>
 
-                            <form wire:submit="sendMessage" class="mt-6 space-y-6">
-                                <div>
-                                    <x-input-label class="" for="name" :value="__('Nombre')" />
-                                    <x-text-input wire:model="name" id="name" name="name" type="text"
-                                        class="block w-full mt-1" required autocomplete="name" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label class="" for="email" :value="__('Email')" />
-                                    <x-text-input wire:model="email" id="email" name="email" type="email"
-                                        class="block w-full mt-1" required autocomplete="username" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('email')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label class="" for="phone" :value="__('Teléfono')" />
-                                    <x-text-input wire:model="phone" id="phone" name="phone" type="tel"
-                                        class="block w-full mt-1" required autocomplete="phone" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('phone')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label class="" for="message" :value="__('Tu consulta')" />
-                                    <textarea wire:model="message" id="message" name="message"
-                                        class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-                                        rows="4" required autocomplete="message"></textarea>
-                                    <x-input-error class="mt-2" :messages="$errors->get('message')" />
-                                </div>
-
-                                <div class="flex items-center gap-4">
-                                    <x-primary-button>{{ __('Enviar') }}</x-primary-button>
-                                </div>
-                            </form>
+                            <livewire:homepages.contact-form />
                         </div>
                     </div>
                 </section>

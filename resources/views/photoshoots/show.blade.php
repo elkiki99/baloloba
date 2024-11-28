@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
-        <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
+        <section class="flex flex-col items-start justify-end w-full min-h-screen py-12 bg-center bg-cover"
             style="background-image: url('{{ asset($photoshoot->header_photo) }}'); background-position: top;">
             <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>
 
@@ -16,7 +16,7 @@
                     $secondPart = implode(' ', array_slice($words, $splitIndex));
                 @endphp
 
-                <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">
+                <h1 class="text-6xl font-bold text-white uppercase md:text-7xl">
                     {{ $firstPart }}
                     <span class="super-thin">{{ $secondPart }}</span>
                 </h1>
@@ -38,7 +38,7 @@
 
                 <!-- Date & Time -->
                 <div class="">
-                    <p class="text-gray-300 text-lg">{{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</p>
+                    <p class="text-lg text-gray-300">{{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</p>
                     <p class="text-gray-400 text-md">{{ $photoshoot->location }}</p>
                 </div>
             </div>

@@ -19,6 +19,7 @@
         href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Gabarito:wght@400..900&family=Outfit:wght@100&display=swap"
         rel="stylesheet">
 
+    <!-- Google fonts -->
     <style>
         * {
             font-family: "Outfit", serif;

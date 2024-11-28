@@ -34,63 +34,20 @@
 
         <!-- Porfolio -->
         <section class="mt-12 space-y-6">
-            <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-                <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Portfolio</h1>
+            <div class="mx-auto max-w-7xl">
+                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">
+                    Portfolio</h1>
             </div>
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
                 @foreach ($photoshoots as $photoshoot)
-                    <!-- Card info -->
-                    <a href="{{ route('photoshoot.show', $photoshoot->slug) }}"
-                        class="relative block w-full h-full group">
-                        <div class="w-full h-full overflow-hidden">
-                            <img class="object-cover w-full h-full"
-                                src="{{ asset($photoshoot->cover_photo) }}"
-                                alt="{{ $photoshoot->name }}">
-                        </div>
-
-                        <!-- Hover card information -->
-                        <div
-                            class="absolute inset-0 space-y-2 transition duration-300 bg-black opacity-0 hover:backdrop-blur-sm bg-opacity-30 group-hover:opacity-100">
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <h3 class="text-3xl font-bold text-white">{{ $photoshoot->name }}</h3>
-                                <p class="text-xl text-gray-100">{{ $photoshoot->location }}</p>
-                                <span class="block text-gray-200 text-md">{{ $photoshoot->photos->count() }} fotografías</span>
-                                <span class="block text-sm text-gray-300">{{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</span>
-                            </div>
-                        </div>
-                    </a>
+                    <x-photo-shoot-card :photoshoot="$photoshoot" />
                 @endforeach
-                {{-- <a href="{{ asset('5.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('5.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('3 (4).jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('3 (4).jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('DSC_0335.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('DSC_0335.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('DSC_0386.jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('DSC_0386.jpg') }}">
-                    </div>
-                </a>
-                <a href="{{ asset('DSC_0723 (1) (1).jpg') }}">
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ asset('DSC_0723 (1) (1).jpg') }}">
-                    </div>
-                </a> --}}
             </div>
         </section>
 
         <!-- About me -->
-        <section class="px-4 mt-12 space-y-6 sm:px-6 md:px-8">
-            <div class="mx-auto max-w-7xl">
+        <section class="mt-12 space-y-6">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
                 <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Sobre mi</h1>
 
                 <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
@@ -412,65 +369,29 @@
             </div>
         </section>
 
-        <!-- Contact -->
-        <section class="mt-12 pb-[20vh] sm:px-6 md:px-8 px-0">
-            <div class="space-y-6 md:mx-auto max-w-7xl">
-                <h1 class="px-4 text-5xl font-bold underline md:text-7xl decoration-yellow-500">Contacto</h1>
+        <!-- Contacto -->
+        <section class="space-y-6 pb-[20vh] mt-12">
+            <h1
+                class="px-4 mx-auto text-5xl font-bold text-transparent underline max-w-7xl sm:px-6 md:px-8 md:text-7xl bg-clip-text bg-gradient-to-r from-black to-gray-800 decoration-yellow-500">
+                Contacto</h1>
 
-                <div>
-                    <div
-                        class="
-                        max-w-xl p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]
-                        from-gray-200
-                        via-gray-100
-                        to-gray-50 sm:rounded-md shadow-xl">
-                        <section>
-                            <header>
-                                <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
-                                    {{ __('Hablemos') }}
-                                </h2>
+            <div class="px-0 mx-auto sm:px-6 md:px-8 sm:max-w-7xl">
+                <div
+                    class="max-w-xl p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]
+                    from-gray-200
+                    via-gray-100
+                    to-gray-50 sm:rounded-md shadow-xl">
+                    <header>
+                        <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
+                            {{ __('Hablemos') }}
+                        </h2>
 
-                                <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
-                                    {{ __('¡Mandame tus dudas por acá! Siempre respondo.') }}
-                                </p>
-                            </header>
+                        <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                            {{ __('¡Mandame tus dudas por acá! Siempre respondo.') }}
+                        </p>
+                    </header>
 
-                            <form wire:submit="sendMessage" class="mt-6 space-y-6">
-                                <div>
-                                    <x-input-label class="" for="name" :value="__('Nombre')" />
-                                    <x-text-input wire:model="name" id="name" name="name" type="text"
-                                        class="block w-full mt-1" required autocomplete="name" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label class="" for="email" :value="__('Email')" />
-                                    <x-text-input wire:model="email" id="email" name="email" type="email"
-                                        class="block w-full mt-1" required autocomplete="username" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('email')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label class="" for="phone" :value="__('Teléfono')" />
-                                    <x-text-input wire:model="phone" id="phone" name="phone" type="tel"
-                                        class="block w-full mt-1" required autocomplete="phone" />
-                                    <x-input-error class="mt-2" :messages="$errors->get('phone')" />
-                                </div>
-
-                                <div>
-                                    <x-input-label class="" for="message" :value="__('Tu consulta')" />
-                                    <textarea wire:model="message" id="message" name="message"
-                                        class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-                                        rows="4" required autocomplete="message"></textarea>
-                                    <x-input-error class="mt-2" :messages="$errors->get('message')" />
-                                </div>
-
-                                <div class="flex items-center gap-4">
-                                    <x-primary-button>{{ __('Enviar') }}</x-primary-button>
-                                </div>
-                            </form>
-                        </section>
-                    </div>
+                    <livewire:homepages.contact-form />
                 </div>
             </div>
         </section>
