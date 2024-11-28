@@ -3,6 +3,7 @@
     <div class="w-full h-full overflow-hidden">
         <img class="object-cover w-full h-full"
             src="{{ asset($photoshoot->cover_photo) }}"
+            {{-- Storage::disk('s3')->url($photoshoot->cover_photo) --}}
             alt="{{ $photoshoot->name }}">
     </div>
 

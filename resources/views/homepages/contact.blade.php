@@ -16,7 +16,7 @@
                         descuento hoy!
                     </p>
                 </div>
-
+                
                 <!-- Paquetes -->
                 <div class="bg-gradient-to-b from-white via-yellow-400 to-white">
                     <section class="py-16 mx-auto max-w-7xl" x-data="{ isExtended: $el.querySelector('#checkbox').checked }">

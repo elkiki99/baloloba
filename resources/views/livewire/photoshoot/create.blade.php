@@ -1,6 +1,8 @@
 <?php
 
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File as HttpFile;
 use Livewire\Volt\Component;
 use Illuminate\Support\Str;
 use App\Models\PhotoShoot;
@@ -109,8 +111,15 @@ new class extends Component {
 
         $photoshootFolder = 'photoshoots/' . $slug;
 
-        $coverPhotoPath = $this->cover_photo->store("{$photoshootFolder}", 'public');
-        $headerPhotoPath = $this->header_photo->store("{$photoshootFolder}", 'public');
+        // Store cover photo on S3
+        $coverPhotoPath = $this->cover_photo->getRealPath(); // Get the temp file path
+        $coverPhotoName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
+        $coverPhotoUrl = Storage::disk('s3')->putFileAs($photoshootFolder, new HttpFile($coverPhotoPath), $coverPhotoName);
+
+        // Store header photo on S3
+        $headerPhotoPath = $this->header_photo->getRealPath(); // Get the temp file path
+        $headerPhotoName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
+        $headerPhotoUrl = Storage::disk('s3')->putFileAs($photoshootFolder, new HttpFile($headerPhotoPath), $headerPhotoName);
 
         $photoshoot->update([
             'cover_photo' => $coverPhotoPath,
@@ -135,6 +144,7 @@ new class extends Component {
             $fileName = uniqid() . '.' . $extension;
 
             $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
+            $storedPath = Storage::disk('s3')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
 
             Photo::create([
                 'photo_shoot_id' => $photoshootId,
