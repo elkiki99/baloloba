@@ -1,7 +1,10 @@
 <a href="{{ route('photoshoot.show', $photoshoot->slug) }}" class="relative block w-full h-full group">
     <div class="w-full h-full overflow-hidden">
-        <img class="object-cover w-full h-full" src="{{ Storage::disk('s3')->url($photoshoot->cover_photo) }}"
-            alt="{{ $photoshoot->name }}">
+        <img class="object-cover w-full h-full" src="{{ 
+                // Str::startsWith($photoshoot->cover_photo, ['http://', 'https://']) ? $photoshoot->cover_photo : 
+                Storage::disk('s3')->url($photoshoot->cover_photo) }}"
+            alt="{{ $photoshoot->name }}"
+            >
     </div>
 
     <!-- Hover card information -->

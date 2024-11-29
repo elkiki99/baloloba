@@ -110,18 +110,20 @@ new class extends Component {
         ]);
 
         $photoshootFolder = 'photoshoots/' . $slug;
-        $uniqueFileName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
+        $uniqueCoverFileName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
 
         // Store on public (local storage)
-        $coverPhotoPath = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 'public');
+        // $coverPhotoPath = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 'public');
 
         // Store on s3
-        $coverPhotoUrl = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 's3');
-
-        // Store on public (local storage)
+        $coverPhotoUrl = $this->cover_photo->storeAs($photoshootFolder, $uniqueCoverFileName, 's3');
+        
+        
         $uniqueHeaderFileName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
-        $headerPhotoPath = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 'public');
-
+        
+        // Store on public (local storage)
+        // $headerPhotoPath = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 'public');
+        
         // Store on s3
         $headerPhotoUrl = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 's3');
 
@@ -148,7 +150,7 @@ new class extends Component {
             $fileName = uniqid() . '.' . $extension;
 
             // Store on public (local storage)
-            $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
+            // $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
 
             // Store on s3
             $storedPath = Storage::disk('s3')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);

@@ -2,9 +2,11 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         <section class="flex flex-col items-start justify-end w-full min-h-screen py-12 bg-center bg-cover"
-            style="background-image: url('{{ Storage::disk('s3')->url($photoshoot->header_photo) }}'); background-position: top;"
+            style="background-image: url( {{ 
+                // Str::startsWith($photoshoot->header_photo, ['http://', 'https://']) ? $photoshoot->header_photo : 
+                Storage::disk('s3')->url($photoshoot->header_photo) }}); background-position: top;"
             >
-            <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>
+            <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>            
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
                 @php
@@ -50,7 +52,9 @@
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
                 @foreach ($photoshoot->photos as $photo)
                     <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full" src="{{ Storage::disk('s3')->url($photo->filename) }}" alt="{{ $photoshoot->name }}">
+                        <img class="object-cover w-full h-full" src="{{ 
+                                // Str::startsWith($photo->filename, ['http://', 'https://']) ? $photo->filename : 
+                            Storage::disk('s3')->url($photo->filename) }}" alt="{{ $photo->filename }}">
                     </div>
                 @endforeach
             </div>

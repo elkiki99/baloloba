@@ -10,7 +10,7 @@
         "dasundev/livewire-dropzone": "^2.0",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
-        "league/flysystem-aws-s3-v3": "3.0",
+        "league/flysystem-aws-s3-v3": "3.29.0",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0"
     },
