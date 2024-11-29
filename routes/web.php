@@ -26,4 +26,9 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+    Route::view('panel', 'panel')
+    ->middleware(['auth'])
+    ->middleware(['admin'])
+    ->name('panel');
+
 require __DIR__.'/auth.php';

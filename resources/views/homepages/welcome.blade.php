@@ -23,9 +23,9 @@
                         class="flex items-center text-white hover:text-gray-200">
                         AGENDATE
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 ml-2">
+                            stroke="currentColor" class="ml-2 size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
                 </div>
@@ -77,9 +77,9 @@
                                 class="flex items-center text-gray-800 hover:text-gray-900">
                                 SOBRE MI
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
+                                    stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                                 </svg>
                             </a>
                         </div>
@@ -273,8 +273,8 @@
                                             <div x-show="hoverCardHovered"
                                                 class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                                 x-transition>
-                                                <img src="{{ asset('home/pipa_mallarin_quote.jpg') }}" alt="Pia Mallarini"
-                                                    class="rounded-full w-14 h-14" />
+                                                <img src="{{ asset('home/pipa_mallarin_quote.jpg') }}"
+                                                    alt="Pia Mallarini" class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@piamallarini_</p>
                                                     <p class="mb-1 text-sm text-gray-600">Pia Mallarini, actriz
