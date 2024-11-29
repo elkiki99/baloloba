@@ -12,19 +12,23 @@ use App\Models\Photo;
 new class extends Component {
     use WithFileUploads;
 
+    public $photoshoot;
     public $name;
     public $description;
     public $cover_photo;
+    public $existing_cover_photo;
     public $header_photo;
+    public $existing_header_photo;
     public $date;
-    public $status = 'published';
-    public $category_id = 1;
+    public $status;
+    public $category_id;
     public $price;
     public $location;
     public $duration;
     public $slug;
 
     public $photos = [];
+    public $existing_photos = [];
     public $categories = [];
 
     protected $rules = [
@@ -76,92 +80,32 @@ new class extends Component {
         'photos.*.max' => 'Cada foto no debe superar los 10 MB.',
     ];
 
-    public function mount()
+    public function mount($id)
     {
+        $photoshoot = PhotoShoot::findOrFail($id);
+
+        $this->id = $photoshoot->id;
+        $this->name = $photoshoot->name;
+        $this->description = $photoshoot->description;
+        $this->date = $photoshoot->date;
+        $this->status = $photoshoot->status;
+        $this->category_id = $photoshoot->category_id;
+        $this->existing_header_photo = $photoshoot->header_photo;
+        $this->existing_cover_photo = $photoshoot->cover_photo;
+        $this->price = $photoshoot->price;
+        $this->location = $photoshoot->location;
+        $this->duration = $photoshoot->duration;
+        $this->slug = $photoshoot->slug;
+        $this->existing_photos = $photoshoot->photos;
+
+        $this->existing_photos = $photoshoot->photos
+            ->pluck('filename')
+            ->map(function ($filename) {
+                return Storage::disk('s3')->url($filename);
+            })
+            ->toArray();
+
         $this->categories = Category::all();
-        $this->date = now()->toDateString();
-    }
-
-    public function createPhotoShoot()
-    {
-        $this->validate();
-
-        $slug = Str::slug($this->name);
-        $originalSlug = $slug;
-        $i = 1;
-
-        while (PhotoShoot::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $i;
-            $i++;
-        }
-
-        $photoshoot = PhotoShoot::create([
-            'name' => $this->name,
-            'description' => $this->description,
-            'cover_photo' => $this->cover_photo,
-            'header_photo' => $this->header_photo,
-            'date' => $this->date,
-            'status' => $this->status,
-            'category_id' => $this->category_id,
-            'price' => $this->price,
-            'location' => $this->location,
-            'duration' => $this->duration,
-            'slug' => $slug,
-        ]);
-
-        $photoshootFolder = 'photoshoots/' . $slug;
-        $uniqueCoverFileName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
-
-        // Store on public (local storage)
-        // $coverPhotoPath = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 'public');
-
-        // Store on s3
-        $coverPhotoUrl = $this->cover_photo->storeAs($photoshootFolder, $uniqueCoverFileName, 's3');
-        
-        
-        $uniqueHeaderFileName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
-        
-        // Store on public (local storage)
-        // $headerPhotoPath = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 'public');
-        
-        // Store on s3
-        $headerPhotoUrl = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 's3');
-
-        $photoshoot->update([
-            'cover_photo' => $coverPhotoUrl,
-            'header_photo' => $headerPhotoUrl,
-        ]);
-
-        $this->uploadPhotos($photoshoot);
-
-        $this->reset(['name', 'description', 'cover_photo', 'header_photo', 'date', 'status', 'category_id', 'price', 'location', 'duration', 'photos']);
-
-        Session::flash('status', 'photoshoot-created');
-    }
-
-    public function uploadPhotos(PhotoShoot $photoshoot)
-    {
-        $photoshootId = $photoshoot->id;
-        $photoshootFolder = 'photoshoots/' . Str::slug($photoshoot->name);
-
-        foreach ($this->photos as $photo) {
-            $temporaryPath = $photo['path'];
-            $extension = $photo['extension'];
-            $fileName = uniqid() . '.' . $extension;
-
-            // Store on public (local storage)
-            // $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
-
-            // Store on s3
-            $storedPath = Storage::disk('s3')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
-
-            Photo::create([
-                'photo_shoot_id' => $photoshootId,
-                'filename' => $storedPath,
-            ]);
-        }
-
-        $this->reset('photos');
     }
 }; ?>
 
@@ -195,13 +139,16 @@ new class extends Component {
         </div>
         <x-text-input wire:model="header_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if($header_photo)
-            <img class="mt-4" src="{{ $header_photo->temporaryUrl() }}">
+        @if ($existing_header_photo && !$header_photo)
+            <img src="{{ Storage::disk('s3')->url($existing_header_photo) }}" alt="Header Photo" class="mt-4">
+        @endif
+
+        @if ($header_photo)
+            <img src="{{ $header_photo->temporaryUrl() }}" alt="New Header Photo" class="mt-4">
         @endif
 
         <x-input-error :messages="$errors->get('header_photo')" class="mt-2" />
     </div>
-
 
     <!-- Cover Photo -->
     <div>
@@ -211,8 +158,12 @@ new class extends Component {
         </div>
         <x-text-input wire:model="cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if($cover_photo)
-            <img class="mt-4" src="{{ $cover_photo->temporaryUrl() }}">
+        @if ($existing_cover_photo && !$cover_photo)
+            <img src="{{ Storage::disk('s3')->url($existing_cover_photo) }}" alt="Cover Photo" class="mt-4">
+        @endif
+
+        @if ($cover_photo)
+            <img src="{{ $cover_photo->temporaryUrl() }}" alt="New Cover Photo" class="mt-4">
         @endif
 
         <x-input-error :messages="$errors->get('cover_photo')" class="mt-2" />
@@ -224,7 +175,14 @@ new class extends Component {
             <x-input-label for="photos" :value="__('Fotos')" />
             <span class="text-yellow-600">*</span>
         </div>
-        <livewire:dropzone wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+
+        @foreach ($existing_photos as $index => $photo)
+            <div class="relative group">
+                <img src="{{ $photo }}" alt="Foto existente" class="rounded-lg w-12 h-12 shadow-md">
+            </div>
+        @endforeach
+
+        <livewire:dropzone  wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
         <x-input-error :messages="$errors->get('photos')" class="mt-2" />
     </div>
 
@@ -298,13 +256,13 @@ new class extends Component {
 
     <div class="flex justify-end mt-4">
         <x-primary-button>
-            {{ __('Crear') }}
+            {{ __('Actualizar') }}
         </x-primary-button>
     </div>
 
-    @if (session('status') === 'photoshoot-created')
+    @if (session('status') === 'photoshoot-updated')
         <p class="mt-5 text-sm font-medium text-green-600 dark:text-green-400">
-            {{ __('¡Photoshoot creado exitosamente!') }}
+            {{ __('¡Photoshoot actualizado exitosamente!') }}
         </p>
     @endif
 </form>
