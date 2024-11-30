@@ -98,12 +98,7 @@ new class extends Component {
         $this->slug = $photoshoot->slug;
         $this->existingPhotos = $photoshoot->photos;
 
-        $this->existingPhotos = $photoshoot->photos
-            ->pluck('filename')
-            ->map(function ($filename) {
-                return Storage::disk('s3')->url($filename);
-            })
-            ->toArray();
+        $this->existingPhotos = Photo::where('photo_shoot_id', $photoshoot->id)->get()->toArray();
 
         $this->categories = Category::all();
     }
