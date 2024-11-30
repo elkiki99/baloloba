@@ -28,7 +28,7 @@ new class extends Component {
     public $slug;
 
     public $photos = [];
-    public $existing_photos = [];
+    public $existingPhotos = [];
     public $categories = [];
 
     protected $rules = [
@@ -96,9 +96,9 @@ new class extends Component {
         $this->location = $photoshoot->location;
         $this->duration = $photoshoot->duration;
         $this->slug = $photoshoot->slug;
-        $this->existing_photos = $photoshoot->photos;
+        $this->existingPhotos = $photoshoot->photos;
 
-        $this->existing_photos = $photoshoot->photos
+        $this->existingPhotos = $photoshoot->photos
             ->pluck('filename')
             ->map(function ($filename) {
                 return Storage::disk('s3')->url($filename);
@@ -107,9 +107,27 @@ new class extends Component {
 
         $this->categories = Category::all();
     }
+
+    // public function editPhotoShoot(Photoshoot $photoshoot)
+    // {
+    //     // Mapear las fotos a un formato compatible con el componente Dropzone
+    //     $initialFiles = $photoshoot->photos
+    //         ->map(function ($photo) {
+    //             return [
+    //                 'name' => $photo->filename,
+    //                 'extension' => $photo->extension,
+    //                 'path' => $photo->path,
+    //                 'url' => asset('storage/' . $photo->path), // URL completa al archivo
+    //                 'size' => $photo->size,
+    //             ];
+    //         })
+    //         ->toArray();
+
+    //     return view('photoshoot.edit', compact('photoshoot', 'initialFiles'));
+    // }
 }; ?>
 
-<form wire:submit.prevent="createPhotoShoot" class="mt-6 space-y-6">
+<form wire:submit.prevent="editPhotoShoot" class="mt-6 space-y-6">
     <!-- Name -->
     <div>
         <div class="flex items-center gap-1">
@@ -176,13 +194,7 @@ new class extends Component {
             <span class="text-yellow-600">*</span>
         </div>
 
-        @foreach ($existing_photos as $index => $photo)
-            <div class="relative group">
-                <img src="{{ $photo }}" alt="Foto existente" class="rounded-lg w-12 h-12 shadow-md">
-            </div>
-        @endforeach
-
-        <livewire:dropzone  wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+        <livewire:dropzone :existing-photos="$existingPhotos" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
         <x-input-error :messages="$errors->get('photos')" class="mt-2" />
     </div>
 
