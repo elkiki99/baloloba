@@ -34,6 +34,10 @@
             font-weight: 100;
             font-style: normal;
         }
+
+        .x-cloak {
+            display: none !important;
+        }
     </style>
 
     <!-- Scripts -->

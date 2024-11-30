@@ -80,6 +80,11 @@ new class extends Component {
         'photos.*.max' => 'Cada foto no debe superar los 10 MB.',
     ];
 
+    protected $listeners = [
+        'existingFileRemoved' => 'removeExistingFile',
+    ];
+
+    #[On('removeExistingFile')]
     public function mount($id)
     {
         $photoshoot = PhotoShoot::findOrFail($id);
@@ -96,30 +101,11 @@ new class extends Component {
         $this->location = $photoshoot->location;
         $this->duration = $photoshoot->duration;
         $this->slug = $photoshoot->slug;
-        $this->existingPhotos = $photoshoot->photos;
 
         $this->existingPhotos = Photo::where('photo_shoot_id', $photoshoot->id)->get()->toArray();
 
         $this->categories = Category::all();
     }
-
-    // public function editPhotoShoot(Photoshoot $photoshoot)
-    // {
-    //     // Mapear las fotos a un formato compatible con el componente Dropzone
-    //     $initialFiles = $photoshoot->photos
-    //         ->map(function ($photo) {
-    //             return [
-    //                 'name' => $photo->filename,
-    //                 'extension' => $photo->extension,
-    //                 'path' => $photo->path,
-    //                 'url' => asset('storage/' . $photo->path), // URL completa al archivo
-    //                 'size' => $photo->size,
-    //             ];
-    //         })
-    //         ->toArray();
-
-    //     return view('photoshoot.edit', compact('photoshoot', 'initialFiles'));
-    // }
 }; ?>
 
 <form wire:submit.prevent="editPhotoShoot" class="mt-6 space-y-6">
