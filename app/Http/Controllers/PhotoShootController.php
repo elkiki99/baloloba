@@ -11,7 +11,7 @@ class PhotoShootController extends Controller
      */
     public function index()
     {
-        $photoshoots = PhotoShoot::all();
+        $photoshoots = PhotoShoot::latest()->get();
 
         return view('photoshoots.index', [
             'photoshoots' => $photoshoots

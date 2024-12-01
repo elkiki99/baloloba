@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('cover_photo');
             $table->string('header_photo');
             $table->date('date');
-            $table->boolean('status')->default('published');
+            $table->string('status');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->decimal('price', 10, 2)->nullable();
             $table->string('location');

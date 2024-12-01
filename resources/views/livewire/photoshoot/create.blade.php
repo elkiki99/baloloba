@@ -27,21 +27,23 @@ new class extends Component {
     public $photos = [];
     public $categories = [];
 
-    protected $rules = [
-        'name' => 'required|string|max:48|',
-        'description' => 'nullable|string|max:500',
-        'cover_photo' => 'required|image|max:10240',
-        'header_photo' => 'required|image|max:10240',
-        'date' => 'required|date',
-        'status' => 'required|in:published,draft',
-        'category_id' => 'required|exists:categories,id',
-        'location' => 'required|string|max:255',
-        'price' => 'nullable|numeric|min:0',
-        'duration' => 'nullable|integer|min:1',
-
-        'photos.*' => 'required',
-        'photos' => 'required',
-    ];
+    protected function rules()
+    {
+        return [
+            'name' => 'required|string|max:48|',
+            'description' => 'nullable|string|max:500',
+            'cover_photo' => 'required|image|max:10240',
+            'header_photo' => 'required|image|max:10240',
+            'date' => 'required|date',
+            'status' => 'required|string|in:published,draft',
+            'category_id' => 'required|exists:categories,id',
+            'location' => 'required|string|max:255',
+            'price' => 'nullable|numeric|min:0',
+            'duration' => 'nullable|integer|min:1',
+            'photos.*' => 'required',
+            'photos' => 'required',
+        ];
+    }
 
     protected $messages = [
         'name.required' => 'El nombre es obligatorio.',
@@ -82,10 +84,8 @@ new class extends Component {
         $this->date = now()->toDateString();
     }
 
-    public function createPhotoShoot()
+    public function generateSlug()
     {
-        $this->validate();
-
         $slug = Str::slug($this->name);
         $originalSlug = $slug;
         $i = 1;
@@ -94,6 +94,15 @@ new class extends Component {
             $slug = $originalSlug . '-' . $i;
             $i++;
         }
+
+        $this->slug = $slug;
+    }
+
+    public function createPhotoShoot()
+    {
+        $this->validate();
+
+        $this->generateSlug();
 
         $photoshoot = PhotoShoot::create([
             'name' => $this->name,
@@ -106,24 +115,21 @@ new class extends Component {
             'price' => $this->price,
             'location' => $this->location,
             'duration' => $this->duration,
-            'slug' => $slug,
+            'slug' => $this->slug,
         ]);
 
-        $photoshootFolder = 'photoshoots/' . $slug;
+        $photoshootFolder = 'photoshoots/' . $this->slug;
         $uniqueCoverFileName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
+        $uniqueHeaderFileName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
 
         // Store on public (local storage)
         // $coverPhotoPath = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 'public');
-
         // Store on s3
         $coverPhotoUrl = $this->cover_photo->storeAs($photoshootFolder, $uniqueCoverFileName, 's3');
-        
-        
-        $uniqueHeaderFileName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
-        
+
         // Store on public (local storage)
         // $headerPhotoPath = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 'public');
-        
+
         // Store on s3
         $headerPhotoUrl = $this->header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 's3');
 
@@ -195,7 +201,7 @@ new class extends Component {
         </div>
         <x-text-input wire:model="header_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if($header_photo)
+        @if ($header_photo)
             <img class="mt-4" src="{{ $header_photo->temporaryUrl() }}">
         @endif
 
@@ -211,7 +217,7 @@ new class extends Component {
         </div>
         <x-text-input wire:model="cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if($cover_photo)
+        @if ($cover_photo)
             <img class="mt-4" src="{{ $cover_photo->temporaryUrl() }}">
         @endif
 

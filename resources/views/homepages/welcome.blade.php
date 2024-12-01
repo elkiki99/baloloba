@@ -273,7 +273,7 @@
                                             <div x-show="hoverCardHovered"
                                                 class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                                 x-transition>
-                                                <img src="{{ asset('home/pipa_mallarin_quote.jpg') }}"
+                                                <img src="{{ asset('home/pia_mallarin_quote.jpg') }}"
                                                     alt="Pia Mallarini" class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@piamallarini_</p>
