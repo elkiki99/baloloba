@@ -27,8 +27,9 @@ new class extends Component {
     public $duration;
     public $slug;
 
-    public $photos = [];
-    public $existingPhotos = [];
+    public $new_photos = [];
+    public $existing_photos = [];
+    public $existing_deleted_photos = [];
     public $categories = [];
 
     protected function rules()
@@ -42,8 +43,8 @@ new class extends Component {
             'location' => 'required|string|max:255',
             'price' => 'nullable|numeric|min:0',
             'duration' => 'nullable|integer|min:1',
-            // 'photos.*' => 'required|image|max:10240', // Reglas para fotos adicionales
-            // 'photos' => 'required', // Si se suben fotos adicionales, deben ser requeridas
+            'new_photos.*' => 'nullable',
+            'new_photos' => 'nullable',
         ];
 
         return $rules;
@@ -75,11 +76,9 @@ new class extends Component {
         'duration.integer' => 'La duración debe ser un número entero.',
         'duration.min' => 'La duración debe ser al menos de 1 minuto.',
 
-        'photos.required' => 'Las fotos son obligatorias.',
-        'photos.*.required' => 'Las fotos son obligatorias.',
-        'photos.*.image' => 'Cada foto debe ser una imagen válida.',
-        'photos.*.mimes' => 'Cada foto debe tener una extensión válida (png, jpeg, jpg, webp).',
-        'photos.*.max' => 'Cada foto no debe superar los 10 MB.',
+        'new_photos.*.image' => 'Cada foto debe ser una imagen válida.',
+        'new_photos.*.mimes' => 'Cada foto debe tener una extensión válida (png, jpeg, jpg, webp).',
+        'new_photos.*.max' => 'Cada foto no debe superar los 10 MB.',
     ];
 
     protected $listeners = [
@@ -101,75 +100,41 @@ new class extends Component {
         $this->duration = $this->photoshoot->duration;
         $this->slug = $this->photoshoot->slug;
 
-        $this->existingPhotos = Photo::where('photo_shoot_id', $this->photoshoot->id)
+        $this->existing_photos = Photo::where('photo_shoot_id', $this->photoshoot->id)
             ->get()
             ->toArray();
 
         $this->categories = Category::all();
-
     }
-
-    #[On('existingFileRemoved')]
-    public function removeExistingFile($photoId)
-    {
-        $this->existingPhotos = array_filter($this->existingPhotos, function ($photo) use ($photoId) {
-            return $photo['id'] !== $photoId;
-        });
-    }
-
-    // public function checkSlug()
-    // {
-    //     if ($this->name !== $this->photoshoot->name) {
-    //         $slug = Str::slug($this->name);
-    //         $originalSlug = $slug;
-    //         $i = 1;
-
-    //         while (
-    //             PhotoShoot::where('slug', $slug)
-    //                 ->where('id', '!=', $this->photoshoot->id)
-    //                 ->exists()
-    //         ) {
-    //             $slug = $originalSlug . '-' . $i;
-    //             $i++;
-    //         }
-
-    //         $this->photoshoot->slug = $slug;
-    //     }
-    // }
 
     public function editPhotoShoot()
     {
         $this->validate();
-        // $this->checkSlug();
 
         $photoshootFolder = 'photoshoots/' . $this->slug;
 
         if ($this->new_cover_photo) {
-            // Eliminar la portada antigua si existe
             if ($this->photoshoot->cover_photo) {
                 Storage::disk('s3')->delete($this->photoshoot->cover_photo);
             }
-            // Subir la nueva portada
             $uniqueCoverFileName = uniqid() . '.' . $this->new_cover_photo->getClientOriginalExtension();
             $coverPhotoUrl = $this->new_cover_photo->storeAs($photoshootFolder, $uniqueCoverFileName, 's3');
         } else {
-            // Mantener la portada existente
             $coverPhotoUrl = $this->photoshoot->cover_photo;
         }
 
-        // Manejar el header
         if ($this->new_header_photo) {
-            // Eliminar el header antiguo si existe
             if ($this->photoshoot->header_photo) {
                 Storage::disk('s3')->delete($this->photoshoot->header_photo);
             }
-            // Subir el nuevo header
             $uniqueHeaderFileName = uniqid() . '.' . $this->new_header_photo->getClientOriginalExtension();
             $headerPhotoUrl = $this->new_header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 's3');
         } else {
-            // Mantener el header existente
             $headerPhotoUrl = $this->photoshoot->header_photo;
         }
+
+        $this->checkForNewPhotos();
+        $this->checkForExistingDeletedPhotos();
 
         $this->photoshoot->update([
             'name' => $this->name,
@@ -185,9 +150,53 @@ new class extends Component {
             'slug' => $this->slug,
         ]);
 
-        // $this->uploadPhotos($this->photoshoot);
-
         Session::flash('status', 'photoshoot-updated');
+    }
+
+    public function checkForNewPhotos()
+    {
+        $photoshootId = $this->photoshoot->id;
+        $photoshootFolder = 'photoshoots/' . Str::slug($this->photoshoot->name);
+
+        foreach ($this->new_photos as $new_photo) {
+            $temporaryPath = $new_photo['path'];
+            $extension = $new_photo['extension'];
+            $fileName = uniqid() . '.' . $extension;
+
+            // Store on public (local storage)
+            // $storedPath = Storage::disk('public')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
+
+            // Store on s3
+            $storedPath = Storage::disk('s3')->putFileAs($photoshootFolder, new \Illuminate\Http\File($temporaryPath), $fileName);
+
+            Photo::create([
+                'photo_shoot_id' => $photoshootId,
+                'filename' => $storedPath,
+            ]);
+        }
+    }
+
+    #[On('existingFileRemoved')]
+    public function removeExistingFile($photoId)
+    {
+        $this->existing_photos = array_filter($this->existing_photos, function ($photo) use ($photoId) {
+            return $photo['id'] !== $photoId;
+        });
+        $this->existing_deleted_photos[] = $photoId;
+    }
+
+    public function checkForExistingDeletedPhotos()
+    {
+        if ($this->existing_deleted_photos !== null) {
+            foreach ($this->existing_deleted_photos as $photoId) {
+                $photo = Photo::find($photoId);
+                if ($photo) {
+                    Storage::disk('s3')->delete($photo->filename);
+                    $photo->delete();
+                }
+            }
+        }
+        $this->existing_deleted_photos = [];
     }
 }; ?>
 
@@ -221,7 +230,7 @@ new class extends Component {
         </div>
         <x-text-input wire:model="new_header_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if ($header_photo && !$new_header_photo)
+        @if (!$new_header_photo)
             <img src="{{ Storage::disk('s3')->url($header_photo) }}" alt="Header Photo" class="mt-4">
         @elseif ($new_header_photo)
             <img src="{{ $new_header_photo->temporaryUrl() }}" alt="New Header Photo" class="mt-4">
@@ -238,7 +247,7 @@ new class extends Component {
         </div>
         <x-text-input wire:model="new_cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if ($cover_photo && !$new_cover_photo)
+        @if (!$new_cover_photo)
             <img src="{{ Storage::disk('s3')->url($cover_photo) }}" alt="Cover Photo" class="mt-4">
         @elseif ($new_cover_photo)
             <img src="{{ $new_cover_photo->temporaryUrl() }}" alt="New Cover Photo" class="mt-4">
@@ -250,12 +259,13 @@ new class extends Component {
     <!-- Photos -->
     <div>
         <div class="flex items-center gap-1">
-            <x-input-label for="photos" :value="__('Fotos')" />
+            <x-input-label for="new_photos" :value="__('Fotos')" />
             <span class="text-yellow-600">*</span>
         </div>
 
-        <livewire:dropzone :existing-photos="$existingPhotos" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
-        <x-input-error :messages="$errors->get('photos')" class="mt-2" />
+        <livewire:dropzone :key="'edit-photoshoot'" :existing-photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
+            :multiple="true" />
+        <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
     </div>
 
     <div class="flex items-center gap-4">
@@ -281,8 +291,8 @@ new class extends Component {
             <x-input-label for="date" :value="__('Fecha')" />
             <span class="text-yellow-600">*</span>
         </div>
-        <x-text-input wire:model="date" class="block w-full mt-1" type="date" required x-bind:value="today"
-            x-bind:max="today" id="date-input" />
+        <x-text-input wire:model="date" class="block w-full mt-1" type="date" required x-bind:max="today"
+            id="date-input" />
         <x-input-error :messages="$errors->get('date')" class="mt-2" />
     </div>
 

@@ -230,7 +230,7 @@ new class extends Component {
             <x-input-label for="photos" :value="__('Fotos')" />
             <span class="text-yellow-600">*</span>
         </div>
-        <livewire:dropzone wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+        <livewire:dropzone :key="'create-photoshoot'" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
         <x-input-error :messages="$errors->get('photos')" class="mt-2" />
     </div>
 
