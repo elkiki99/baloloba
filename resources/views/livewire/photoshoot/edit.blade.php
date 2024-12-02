@@ -45,6 +45,21 @@ new class extends Component {
             'duration' => 'nullable|integer|min:1',
             'new_photos.*' => 'nullable',
             'new_photos' => 'nullable',
+            'existing_photos' => [
+                function ($attribute, $value, $fail) {
+                    $remainingExistingPhotos = count(
+                        array_filter($this->existing_photos, function ($photo) {
+                            return !in_array($photo['id'], $this->existing_deleted_photos);
+                        }),
+                    );
+
+                    $totalPhotosAfterChanges = $remainingExistingPhotos + count($this->new_photos);
+
+                    if ($totalPhotosAfterChanges < 1) {
+                        $fail('Debe haber al menos una foto en el photoshoot.');
+                    }
+                },
+            ],
         ];
 
         return $rules;
@@ -110,6 +125,7 @@ new class extends Component {
     public function editPhotoShoot()
     {
         $this->validate();
+        // $this->validatePhotosBeforeChanges();
 
         $photoshootFolder = 'photoshoots/' . $this->slug;
 
@@ -266,6 +282,8 @@ new class extends Component {
         <livewire:dropzone :key="'edit-photoshoot'" :existing-photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
             :multiple="true" />
         <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
+        <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
+
     </div>
 
     <div class="flex items-center gap-4">
