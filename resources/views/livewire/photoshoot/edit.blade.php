@@ -122,7 +122,7 @@ new class extends Component {
         $this->categories = Category::all();
     }
 
-    public function editPhotoShoot()
+    public function updatePhotoShoot()
     {
         $this->validate();
         // $this->validatePhotosBeforeChanges();
@@ -172,7 +172,7 @@ new class extends Component {
     public function checkForNewPhotos()
     {
         $photoshootId = $this->photoshoot->id;
-        $photoshootFolder = 'photoshoots/' . Str::slug($this->photoshoot->name);
+        $photoshootFolder = 'photoshoots/' . $this->photoshoot->slug;
 
         foreach ($this->new_photos as $new_photo) {
             $temporaryPath = $new_photo['path'];
@@ -216,153 +216,179 @@ new class extends Component {
     }
 }; ?>
 
-<form wire:submit.prevent="editPhotoShoot" class="mt-6 space-y-6">
-    <!-- Name -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="name" :value="__('Nombre')" />
-            <span class="text-yellow-600">*</span>
+<div>
+    <form wire:submit.prevent="updatePhotoShoot" class="mt-6 space-y-6">
+        <!-- Name -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="name" :value="__('Nombre')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Polaroids en estudio" wire:model="name" class="block w-full mt-1" type="text"
+                required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-        <x-text-input placeholder="Polaroids en estudio" wire:model="name" class="block w-full mt-1" type="text" required
-            autofocus autocomplete="name" />
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-    </div>
 
-    <!-- Description -->
-    <div>
-        <x-input-label class="" for="description" :value="__('Descripción')" />
-        <textarea placeholder="Capturando momentos únicos en escenarios naturales con un toque artístico"
-            wire:model="description"
-            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-            rows="4" autocomplete="description"></textarea>
-        <x-input-error class="mt-2" :messages="$errors->get('description')" />
-    </div>
-
-    <!-- Header Photo -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="new_header_photo" :value="__('Header')" />
-            <span class="text-yellow-600">*</span>
+        <!-- Description -->
+        <div>
+            <x-input-label class="" for="description" :value="__('Descripción')" />
+            <textarea placeholder="Capturando momentos únicos en escenarios naturales con un toque artístico"
+                wire:model="description"
+                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+                rows="4" autocomplete="description"></textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('description')" />
         </div>
-        <x-text-input wire:model="new_header_photo" class="block w-full mt-1" type="file" accept="image/*" />
 
-        @if (!$new_header_photo)
-            <img src="{{ Storage::disk('s3')->url($header_photo) }}" alt="Header Photo" class="mt-4">
-        @elseif ($new_header_photo)
-            <img src="{{ $new_header_photo->temporaryUrl() }}" alt="New Header Photo" class="mt-4">
+        <!-- Header Photo -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="new_header_photo" :value="__('Header')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input wire:model="new_header_photo" class="block w-full mt-1" type="file" accept="image/*" />
+
+            @if (!$new_header_photo)
+                <img src="{{ Storage::disk('s3')->url($header_photo) }}" alt="Header Photo" class="mt-4">
+            @elseif ($new_header_photo)
+                <img src="{{ $new_header_photo->temporaryUrl() }}" alt="New Header Photo" class="mt-4">
+            @endif
+
+            <x-input-error :messages="$errors->get('new_header_photo')" class="mt-2" />
+        </div>
+
+        <!-- Cover Photo -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="new_cover_photo" :value="__('Portada')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input wire:model="new_cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
+
+            @if (!$new_cover_photo)
+                <img src="{{ Storage::disk('s3')->url($cover_photo) }}" alt="Cover Photo" class="mt-4">
+            @elseif ($new_cover_photo)
+                <img src="{{ $new_cover_photo->temporaryUrl() }}" alt="New Cover Photo" class="mt-4">
+            @endif
+
+            <x-input-error :messages="$errors->get('new_cover_photo')" class="mt-2" />
+        </div>
+
+        <!-- Photos -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="new_photos" :value="__('Fotos')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+
+            <livewire:dropzone :key="'edit-photoshoot'" :existing-photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
+                :multiple="true" />
+            <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
+            <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
+
+        </div>
+
+        <div class="flex items-center gap-4">
+            <!-- Price -->
+            <div class="w-1/2">
+                <x-input-label for="price" :value="__('Precio (pesos)')" />
+                <x-text-input wire:model="price" class="block w-full mt-1" type="number" step="0.01"
+                    autocomplete="price" />
+                <x-input-error :messages="$errors->get('price')" class="mt-2" />
+            </div>
+
+            <!-- Duration -->
+            <div class="w-1/2">
+                <x-input-label for="duration" :value="__('Duración (minutos)')" />
+                <x-text-input wire:model="duration" class="block w-full mt-1" type="number" step="0.5" />
+                <x-input-error :messages="$errors->get('duration')" class="mt-2" />
+            </div>
+        </div>
+
+        <!-- Date -->
+        <div x-data="{ today: new Date().toISOString().split('T')[0] }">
+            <div class="flex items-center gap-1">
+                <x-input-label for="date" :value="__('Fecha')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input wire:model="date" class="block w-full mt-1" type="date" required
+                x-bind:max="today" id="date-input" />
+            <x-input-error :messages="$errors->get('date')" class="mt-2" />
+        </div>
+
+        <!-- Location -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="location" :value="__('Ubicación')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Ciudad Vieja, Uruguay" wire:model="location" class="block w-full mt-1"
+                type="text" required autocomplete="location" />
+            <x-input-error :messages="$errors->get('location')" class="mt-2" />
+        </div>
+
+        <!-- Status -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="status" :value="__('Estado')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+
+            <select wire:model="status" class="block w-full mt-1">
+                <option value="published">{{ __('Publicado') }}</option>
+                <option value="draft">{{ __('Borrador') }}</option>
+            </select>
+            <x-input-error :messages="$errors->get('status')" class="mt-2" />
+        </div>
+
+        <!-- Category -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="category_id" :value="__('Categoría')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <select wire:model="category_id" class="block w-full mt-1">
+                <!-- Populate options dynamically -->
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+        </div>
+
+        <div class="flex items-center justify-between">
+            <x-danger-button x-on:click.prevent="$dispatch('open-modal', 'confirm-photoshoot-deletion')">
+                {{ __('Eliminar') }}
+            </x-danger-button>
+
+            <x-primary-button wire:click="updatePhotoShoot">
+                {{ __('Actualizar') }}
+            </x-primary-button>
+        </div>
+
+        @if (session('status') === 'photoshoot-updated')
+            <p class="mt-5 text-sm font-medium text-green-600 dark:text-green-400">
+                {{ __('¡Photoshoot actualizado exitosamente!') }}
+            </p>
         @endif
+    </form>
 
-        <x-input-error :messages="$errors->get('new_header_photo')" class="mt-2" />
-    </div>
+    <x-modal name="confirm-photoshoot-deletion">
+        <div class="p-6">
+            <h3 class="text-lg font-medium text-gray-900">
+                {{ __('¿Segura que queres eliminar este photoshoot?') }}
+            </h3>
 
-    <!-- Cover Photo -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="new_cover_photo" :value="__('Portada')" />
-            <span class="text-yellow-600">*</span>
+            <p class="mt-1 text-sm text-gray-600">
+                {{ __('No se puede revertir') }}
+            </p>
+
+            <div class="flex justify-end mt-6">
+                <x-secondary-button class="px-4 py-2" x-on:click="$dispatch('close')">
+                    {{ __('Cancelar') }}
+                </x-secondary-button>
+
+                <livewire:photoshoot.delete :photoshootId="$photoshoot->id" />
+            </div>
         </div>
-        <x-text-input wire:model="new_cover_photo" class="block w-full mt-1" type="file" accept="image/*" />
-
-        @if (!$new_cover_photo)
-            <img src="{{ Storage::disk('s3')->url($cover_photo) }}" alt="Cover Photo" class="mt-4">
-        @elseif ($new_cover_photo)
-            <img src="{{ $new_cover_photo->temporaryUrl() }}" alt="New Cover Photo" class="mt-4">
-        @endif
-
-        <x-input-error :messages="$errors->get('new_cover_photo')" class="mt-2" />
-    </div>
-
-    <!-- Photos -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="new_photos" :value="__('Fotos')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-
-        <livewire:dropzone :key="'edit-photoshoot'" :existing-photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
-            :multiple="true" />
-        <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
-        <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
-
-    </div>
-
-    <div class="flex items-center gap-4">
-        <!-- Price -->
-        <div class="w-1/2">
-            <x-input-label for="price" :value="__('Precio (pesos)')" />
-            <x-text-input wire:model="price" class="block w-full mt-1" type="number" step="0.01"
-                autocomplete="price" />
-            <x-input-error :messages="$errors->get('price')" class="mt-2" />
-        </div>
-
-        <!-- Duration -->
-        <div class="w-1/2">
-            <x-input-label for="duration" :value="__('Duración (minutos)')" />
-            <x-text-input wire:model="duration" class="block w-full mt-1" type="number" step="0.5" />
-            <x-input-error :messages="$errors->get('duration')" class="mt-2" />
-        </div>
-    </div>
-
-    <!-- Date -->
-    <div x-data="{ today: new Date().toISOString().split('T')[0] }">
-        <div class="flex items-center gap-1">
-            <x-input-label for="date" :value="__('Fecha')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-        <x-text-input wire:model="date" class="block w-full mt-1" type="date" required x-bind:max="today"
-            id="date-input" />
-        <x-input-error :messages="$errors->get('date')" class="mt-2" />
-    </div>
-
-    <!-- Location -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="location" :value="__('Ubicación')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-        <x-text-input placeholder="Ciudad Vieja, Uruguay" wire:model="location" class="block w-full mt-1" type="text"
-            required autocomplete="location" />
-        <x-input-error :messages="$errors->get('location')" class="mt-2" />
-    </div>
-
-    <!-- Status -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="status" :value="__('Estado')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-
-        <select wire:model="status" class="block w-full mt-1">
-            <option value="published">{{ __('Publicado') }}</option>
-            <option value="draft">{{ __('Borrador') }}</option>
-        </select>
-        <x-input-error :messages="$errors->get('status')" class="mt-2" />
-    </div>
-
-    <!-- Category -->
-    <div>
-        <div class="flex items-center gap-1">
-            <x-input-label for="category_id" :value="__('Categoría')" />
-            <span class="text-yellow-600">*</span>
-        </div>
-        <select wire:model="category_id" class="block w-full mt-1">
-            <!-- Populate options dynamically -->
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-        </select>
-        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
-    </div>
-
-    <div class="flex justify-end mt-4">
-        <x-primary-button>
-            {{ __('Actualizar') }}
-        </x-primary-button>
-    </div>
-
-    @if (session('status') === 'photoshoot-updated')
-        <p class="mt-5 text-sm font-medium text-green-600 dark:text-green-400">
-            {{ __('¡Photoshoot actualizado exitosamente!') }}
-        </p>
-    @endif
-</form>
+    </x-modal>
+</div>

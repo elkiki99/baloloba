@@ -15,7 +15,7 @@ class PhotoShoot extends Model
         'name',
         'description',
         'cover_photo',
-        'header_photo',
+        'header_photo', 
         'date',
         'status',
         'category_id',

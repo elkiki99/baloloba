@@ -34,6 +34,15 @@
                     <x-photo-shoot-card :photoshoot="$photoshoot" />
                 @endforeach
             </div>
+
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+                @if (session('photoshoot-deleted'))
+                <div class="space-y-1 text-sm text-red-600 dark:text-red-400">
+                    {{ session('photoshoot-deleted') }}
+                </div>
+                @endif
+            </div>
         </section>
+
     </div>
 </x-app-layout>

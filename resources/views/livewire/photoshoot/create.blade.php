@@ -148,7 +148,7 @@ new class extends Component {
     public function uploadPhotos(PhotoShoot $photoshoot)
     {
         $photoshootId = $photoshoot->id;
-        $photoshootFolder = 'photoshoots/' . Str::slug($photoshoot->name);
+        $photoshootFolder = 'photoshoots/' . $photoshoot->slug;
 
         foreach ($this->photos as $photo) {
             $temporaryPath = $photo['path'];

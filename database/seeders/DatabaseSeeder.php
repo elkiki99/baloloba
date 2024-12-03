@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
+use App\Models\PhotoShoot;
 use Illuminate\Database\Seeder;
 use Database\Factories\CategoryFactory;
 
@@ -27,5 +28,7 @@ class DatabaseSeeder extends Seeder
         foreach ($categories as $category) {
             Category::create($category);
         }
+
+        PhotoShoot::factory(10)->create();
     }
 }
