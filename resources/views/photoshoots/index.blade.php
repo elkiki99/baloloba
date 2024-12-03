@@ -26,7 +26,7 @@
                 </div>
             </div>
         </section>
-
+        
         <!-- Porfolio -->
         <section class="mt-12 space-y-6 pb-[20vh]">
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
@@ -35,14 +35,17 @@
                 @endforeach
             </div>
 
-            <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-                @if (session('photoshoot-deleted'))
-                <div class="space-y-1 text-sm text-red-600 dark:text-red-400">
-                    {{ session('photoshoot-deleted') }}
-                </div>
-                @endif
-            </div>
+            @if (session('toast'))
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const toastData = @json(session('toast'));
+                        toast(toastData.message, {
+                            type: toastData.type,
+                            position: toastData.position
+                        });
+                    });
+                </script>
+            @endif
         </section>
-
     </div>
 </x-app-layout>

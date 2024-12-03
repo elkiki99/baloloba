@@ -125,7 +125,6 @@ new class extends Component {
     public function updatePhotoShoot()
     {
         $this->validate();
-        // $this->validatePhotosBeforeChanges();
 
         $photoshootFolder = 'photoshoots/' . $this->slug;
 
@@ -166,7 +165,8 @@ new class extends Component {
             'slug' => $this->slug,
         ]);
 
-        Session::flash('status', 'photoshoot-updated');
+        // Photoshoot updated toast
+        $this->dispatch('toast');
     }
 
     public function checkForNewPhotos()
@@ -364,12 +364,6 @@ new class extends Component {
                 {{ __('Actualizar') }}
             </x-primary-button>
         </div>
-
-        @if (session('status') === 'photoshoot-updated')
-            <p class="mt-5 text-sm font-medium text-green-600 dark:text-green-400">
-                {{ __('¡Photoshoot actualizado exitosamente!') }}
-            </p>
-        @endif
     </form>
 
     <x-modal name="confirm-photoshoot-deletion">
@@ -391,4 +385,15 @@ new class extends Component {
             </div>
         </div>
     </x-modal>
+
+    <!-- Photoshoot updated toast -->
+    <script>
+        document.addEventListener('toast', () => {
+            toast('Actualizado', {
+                type: 'success',
+                position: 'bottom-right',
+                description: 'Photoshoot actualizado exitosamente.'
+            });
+        });
+    </script>
 </div>

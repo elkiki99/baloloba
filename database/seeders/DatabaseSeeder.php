@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
             Category::create($category);
         }
 
-        PhotoShoot::factory(10)->create();
+        PhotoShoot::factory(30)->create();
     }
 }

@@ -58,6 +58,8 @@
             <x-footer />
         </div>
     </div>
+
+    <x-toast />
 </body>
 
 </html>
