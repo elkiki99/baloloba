@@ -166,7 +166,7 @@ new class extends Component {
         ]);
 
         // Photoshoot updated toast
-        $this->dispatch('toast');
+        $this->dispatch('photoshootUpdatedToast');
     }
 
     public function checkForNewPhotos()
@@ -360,7 +360,7 @@ new class extends Component {
                 {{ __('Eliminar') }}
             </x-danger-button>
 
-            <x-primary-button wire:click="updatePhotoShoot">
+            <x-primary-button>
                 {{ __('Actualizar') }}
             </x-primary-button>
         </div>
@@ -388,11 +388,13 @@ new class extends Component {
 
     <!-- Photoshoot updated toast -->
     <script>
-        document.addEventListener('toast', () => {
-            toast('Actualizado', {
-                type: 'success',
-                position: 'bottom-right',
-                description: 'Photoshoot actualizado exitosamente.'
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('photoshootUpdatedToast', (event) => {
+                toast('Actualizado', {
+                    type: 'success',
+                    position: 'bottom-right',
+                    description: 'Photoshoot actualizado correctamente.'
+                });
             });
         });
     </script>

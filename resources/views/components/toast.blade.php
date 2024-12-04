@@ -97,7 +97,6 @@
             }
         }
 
-
         if (this.toasts.length == 2) return;
         let bottomToast = document.getElementById(this.toasts[2].id);
         bottomToast.style.zIndex = 80;
@@ -125,8 +124,6 @@
                 bottomToast.style.transform = 'translateY(32px)';
             }
         }
-
-
 
         if (this.toasts.length == 3) return;
         let burnToast = document.getElementById(this.toasts[3].id);
@@ -328,7 +325,7 @@
                     deleteToastWithId(toast.id)
                 }, 300);
             }, 5);
-        }, 4000);" @mouseover="toastHovered=true"
+        }, 40000);" @mouseover="toastHovered=true"
             @mouseout="toastHovered=false" class="absolute w-full duration-300 ease-out select-none sm:max-w-xs"
             :class="{ 'toast-no-description': !toast.description }">
             <span
@@ -370,9 +367,11 @@
                             class="mt-1.5 text-xs leading-none opacity-70" x-text="toast.description"></p>
                     </div>
                 </template>
+                
                 <template x-if="toast.html">
                     <div x-html="toast.html"></div>
                 </template>
+                
                 <span @click="burnToast(toast.id)"
                     class="absolute right-0 p-1.5 mr-2.5 text-gray-400 duration-100 ease-in-out rounded-full opacity-0 cursor-pointer hover:bg-gray-50 hover:text-gray-500"
                     :class="{ 'top-1/2 -translate-y-1/2': !toast.description && !toast.html, 'top-0 mt-2.5': (toast

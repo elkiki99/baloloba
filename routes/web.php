@@ -10,9 +10,9 @@ Route::get('/about', [HomePages::class, 'about'])->name('about');
 Route::get('/contact', [HomePages::class, 'contact'])->name('contact');
 
 Route::get('/portfolio', [PhotoShootController::class, 'index'])->name('portfolio');
-Route::get('/photoshoot/create', [PhotoShootController::class, 'create'])->name('photoshoot.create');
-Route::get('/photoshoots/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
-Route::get('/photoshoots/edit/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
+Route::get('/photoshoots/create', [PhotoShootController::class, 'create'])->name('photoshoot.create');
+Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
+Route::get('/photoshoot/edit/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
 
 Route::get('/categorias/{category:slug}', [CategoryController::class, 'index'])->name('categories.index');
 
