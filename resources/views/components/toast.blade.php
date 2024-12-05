@@ -325,7 +325,7 @@
                     deleteToastWithId(toast.id)
                 }, 300);
             }, 5);
-        }, 40000);" @mouseover="toastHovered=true"
+        }, 4000);" @mouseover="toastHovered=true"
             @mouseout="toastHovered=false" class="absolute w-full duration-300 ease-out select-none sm:max-w-xs"
             :class="{ 'toast-no-description': !toast.description }">
             <span

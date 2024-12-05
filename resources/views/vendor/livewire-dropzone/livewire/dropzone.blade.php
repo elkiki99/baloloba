@@ -140,37 +140,7 @@
         @endif
 
         <!-- Check for Existing Photos in the Photoshoot -->
-        @if (isset($existingPhotos) && count($existingPhotos) > 0)
-            <div class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-5">
-                @foreach ($existingPhotos as $photo)
-                    <div class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700"
-                        wire:key='{{ $photo['id'] }}'>
-                        <div class="dz-flex dz-items-center dz-gap-3" wire:remove>
-                            <div class="dz-flex-none dz-w-14 dz-h-14">
-                                <img src="{{ Storage::disk('s3')->url($photo['filename']) }}"
-                                    class="dz-object-fill dz-w-full dz-h-full" alt="{{ $photo['filename'] }}">
-                            </div>
-                            <div class="dz-flex dz-flex-col dz-items-start dz-gap-1">
-                                <div
-                                    class="dz-text-center dz-text-slate-900 dz-text-sm dz-font-medium dark:dz-text-slate-100">
-                                    {{ basename($photo['filename']) }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dz-flex dz-items-center dz-mr-3">
-                            <button type="button" wire:click="removeExistingFile({{ $photo['id'] }})">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="dz-w-6 dz-h-6 dz-text-black dark:dz-text-white">
-                                    <path fill-rule="evenodd"
-                                        d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @endif
+        <!-- Moved this functionality to edit photoshoot form -->
     </div>
 
     @script

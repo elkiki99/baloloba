@@ -190,6 +190,16 @@ new class extends Component {
                 'filename' => $storedPath,
             ]);
         }
+
+        $this->updatePhotosOnEditForm();
+        $this->new_photos = [];
+    }
+
+    public function updatePhotosOnEditForm()
+    {
+        $this->existing_photos = Photo::where('photo_shoot_id', $this->photoshoot->id)
+            ->get()
+            ->toArray();
     }
 
     #[On('existingFileRemoved')]
@@ -217,7 +227,7 @@ new class extends Component {
 }; ?>
 
 <div>
-    <form wire:submit.prevent="updatePhotoShoot" class="mt-6 space-y-6">
+    <form class="mt-6 space-y-6">
         <!-- Name -->
         <div>
             <div class="flex items-center gap-1">
@@ -282,9 +292,39 @@ new class extends Component {
 
             <livewire:dropzone :key="'edit-photoshoot'" :existing-photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
                 :multiple="true" />
+
+            <div class="flex flex-wrap justify-start w-full mt-5 gap-x-10 gap-y-2">
+                @foreach ($existing_photos as $photo)
+                    <div class="flex items-center justify-between w-full h-auto gap-2 overflow-hidden border border-gray-200 rounded dark:border-gray-700"
+                        wire:key='{{ $photo['id'] }}'>
+                        <div class="flex items-center gap-3" wire:remove>
+                            <div class="flex-none w-14 h-14">
+                                <img src="{{ Storage::disk('s3')->url($photo['filename']) }}"
+                                    class="object-fill w-full h-full" alt="{{ $photo['filename'] }}">
+                            </div>
+                            <div class="flex flex-col items-start gap-1">
+                                <div class="text-sm font-medium text-center text-slate-900 dark:text-slate-100">
+                                    {{ basename($photo['filename']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center mr-3">
+                            <button type="button" wire:click="removeExistingFile({{ $photo['id'] }})">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6 text-black dark:text-white">
+                                    <path fill-rule="evenodd"
+                                        d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            
+            <!-- Check for Existing Photos in the Photoshoot -->
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
-
         </div>
 
         <div class="flex items-center gap-4">
@@ -360,9 +400,13 @@ new class extends Component {
                 {{ __('Eliminar') }}
             </x-danger-button>
 
-            <x-primary-button>
+            <x-primary-button wire:click.prevent='updatePhotoShoot'>
                 {{ __('Actualizar') }}
             </x-primary-button>
+        </div>
+
+        <div wire:loading wire:target="updatePhotoShoot" class="">
+            <x-spinner :text="__('Actualizando photoshoot...')" />
         </div>
     </form>
 
@@ -385,17 +429,17 @@ new class extends Component {
             </div>
         </div>
     </x-modal>
+</div>
 
-    <!-- Photoshoot updated toast -->
-    <script>
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('photoshootUpdatedToast', (event) => {
-                toast('Actualizado', {
-                    type: 'success',
-                    position: 'bottom-right',
-                    description: 'Photoshoot actualizado correctamente.'
-                });
+<!-- Photoshoot updated toast -->
+<script>
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('photoshootUpdatedToast', (event) => {
+            toast('Actualizado', {
+                type: 'success',
+                position: 'bottom-right',
+                description: 'Photoshoot actualizado correctamente.'
             });
         });
-    </script>
-</div>
+    });
+</script>

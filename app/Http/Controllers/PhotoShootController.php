@@ -11,11 +11,7 @@ class PhotoShootController extends Controller
      */
     public function index()
     {
-        $photoshoots = PhotoShoot::latest()->get();
-
-        return view('photoshoots.index', [
-            'photoshoots' => $photoshoots
-        ]);
+        return view('photoshoots.index');
     }
 
     /**

@@ -27,25 +27,7 @@
             </div>
         </section>
         
-        <!-- Porfolio -->
-        <section class="mt-12 space-y-6 pb-[20vh]">
-            <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-                @foreach ($photoshoots as $photoshoot)
-                    <x-photo-shoot-card :photoshoot="$photoshoot" />
-                @endforeach
-            </div>
-
-            @if (session('toast'))
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const toastData = @json(session('toast'));
-                        toast(toastData.message, {
-                            type: toastData.type,
-                            position: toastData.position
-                        });
-                    });
-                </script>
-            @endif
-        </section>
+        <!-- Photoshoots -->
+        <livewire:photoshoot.index />
     </div>
 </x-app-layout>

@@ -172,7 +172,7 @@ new class extends Component {
 }; ?>
 
 <div class="">
-    <form wire:submit.prevent="createPhotoShoot" class="mt-6 space-y-6">
+    <form class="mt-6 space-y-6">
         <!-- Name -->
         <div>
             <div class="flex items-center gap-1">
@@ -304,21 +304,16 @@ new class extends Component {
         </div>
 
         <div class="flex items-center justify-between mt-4">
-            <!-- Spinner a la izquierda -->
-            <div wire:loading wire:target="createPhotoShoot" class="flex items-center space-x-2 text-green-500">
-                <div class="w-4 h-4 border-4 border-green-500 rounded-full border-t-transparent animate-spin"></div>
-                <span>Guardando photoshoot...</span>
+            <!-- Spinner -->
+            <div wire:loading wire:target="createPhotoShoot" class="">
+                <x-spinner :text="__('Creando photoshoot...')" />
             </div>
 
-            <!-- Reservar espacio cuando no hay spinner -->
-            <div wire:loading.remove wire:target="createPhotoShoot" class="flex items-center invisible space-x-2">
-                <div class="w-4 h-4"></div>
-                <span></span>
-            </div>
+            <!-- Maintaining button to right-->
+            <div></div>
 
-            <!-- Botón a la derecha -->
             <div>
-                <x-primary-button>
+                <x-primary-button wire:click.prevent='createPhotoShoot'>
                     {{ __('Crear') }}
                 </x-primary-button>
             </div>
