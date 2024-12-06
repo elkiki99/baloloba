@@ -2,14 +2,14 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         <section class="flex flex-col items-start justify-end w-full min-h-screen py-12 bg-center bg-cover"
-            style="background-image: url( {{ // Str::startsWith($photoshoot->header_photo, ['http://', 'https://']) ? $photoshoot->header_photo :
-                Storage::disk('s3')->url($photoshoot->header_photo) }}); background-position: top;">
+            style="background-image: url( {{ // Str::startsWith($randomPhotoshoot->header_photo, ['http://', 'https://']) ? $randomPhotoshoot->header_photo :
+                Storage::disk('s3')->url($randomPhotoshoot->header_photo) }}); background-position: top;">
             <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
                 @php
                     // Divide el título en palabras
-                    $words = explode(' ', $photoshoot->name);
+                    $words = explode(' ', $randomPhotoshoot->name);
                     // Calcula el índice de división
                     $splitIndex = ceil(count($words) / 2);
                     // Separa las palabras en dos partes
@@ -23,7 +23,7 @@
                         <span class="super-thin">{{ $secondPart }}</span>
                     </h1>
 
-                    <a href="{{ route('photoshoot.edit', $photoshoot->slug) }}">
+                    <a href="{{ route('photoshoot.edit', $randomPhotoshoot->slug) }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="text-gray-300 size-8">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -32,40 +32,34 @@
                     </a>
                 </div>
 
-                <p class="max-w-2xl leading-relaxed text-gray-200 text-md md:text-lg">{{ $photoshoot->description }}</p>
+                <p class="max-w-2xl leading-relaxed text-gray-200 text-md md:text-lg">{{ $randomPhotoshoot->description }}</p>
 
                 <!-- CTA -->
                 <div
                     class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
-                    <a href="{{ route('categories.show', $photoshoot->category) }}" wire:navigate
+                    <a href="{{ route('contact') }}" wire:navigate
                         class="flex items-center text-white hover:text-gray-200">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="mr-2 size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-
-                        {{ $photoshoot->category->name }}
+                        AGENDATE
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="ml-2 size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
-
                     </a>
                 </div>
 
                 <!-- Date & Time -->
                 <div class="">
                     <p class="text-lg text-gray-300">
-                        {{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</p>
-                    <p class="text-gray-400 text-md">{{ $photoshoot->location }}</p>
+                        {{ \Carbon\Carbon::parse($randomPhotoshoot->date)->toFormattedDateString() }}</p>
+                    <p class="text-gray-400 text-md">{{ $randomPhotoshoot->location }}</p>
                 </div>
             </div>
         </section>
 
         <!-- Photoshoot photo gallery -->
         <section class="mt-12 px-1 space-y-6 pb-[20vh]">
-            <livewire:photoshoot.show :id="$photoshoot->id" />
+            <livewire:categories.show :id="$category->id" />
         </section>
     </div>
 </x-app-layout>

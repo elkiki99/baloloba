@@ -13,8 +13,8 @@ Route::get('/portfolio', [PhotoShootController::class, 'index'])->name('portfoli
 Route::get('/photoshoots/create', [PhotoShootController::class, 'create'])->name('photoshoot.create');
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
 Route::get('/photoshoot/edit/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
-
-Route::get('/categorias/{category:slug}', [CategoryController::class, 'index'])->name('categories.index');
+    
+Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::view('dashboard', 'dashboard')
     ->name('dashboard');

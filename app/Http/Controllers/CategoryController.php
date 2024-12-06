@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\PhotoShoot;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -36,7 +37,13 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $photoshoots = PhotoShoot::where('category_id', $category->id)->get();
+        $randomPhotoshoot = $photoshoots->random();
+
+        return view('categories.show', [
+            'category' => $category,
+            'randomPhotoshoot' => $randomPhotoshoot
+        ]);
     }
 
     /**
