@@ -32,7 +32,7 @@
                     </a>
                 </div>
 
-                <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">{{ $photoshoot->description }}</p>
+                <p class="max-w-2xl leading-relaxed text-gray-200 text-md md:text-lg">{{ $photoshoot->description }}</p>
 
                 <!-- CTA -->
                 <div
@@ -63,18 +63,9 @@
             </div>
         </section>
 
-        <!-- Photoshoot photos -->
-        <section class="mt-12 space-y-6 pb-[20vh]">
-            <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-                @foreach ($photoshoot->photos as $photo)
-                    <div class="w-full h-full overflow-hidden">
-                        <img class="object-cover w-full h-full"
-                            src="{{ // Str::startsWith($photo->filename, ['http://', 'https://']) ? $photo->filename :
-                                Storage::disk('s3')->url($photo->filename) }}"
-                            alt="{{ $photo->filename }}">
-                    </div>
-                @endforeach
-            </div>
+        <!-- Photoshoot photo gallery -->
+        <section class="mt-12 px-1 space-y-6 pb-[20vh]">
+            <livewire:photoshoot.show :id="$photoshoot->id" />
         </section>
     </div>
 </x-app-layout>

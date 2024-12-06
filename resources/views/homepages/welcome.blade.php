@@ -33,7 +33,7 @@
         </section>
 
         <!-- Porfolio -->
-        <section class="mt-12 space-y-6">
+        <section class="px-1 mt-12 space-y-6">
             <div class="mx-auto max-w-7xl">
                 <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">
                     Portfolio</h1>
@@ -142,14 +142,14 @@
                                                     class="rounded-full w-14 h-14" />
                                                 <div class="relative">
                                                     <p class="mb-1 font-bold">@valentinacamejo16</p>
-                                                    <p class="mb-1 text-sm text-gray-600">Valentina Camejo, Miss
-                                                        Uruguay 2021 y directora de Miss Océano y Turismo. Lidera con
+                                                    <p class="mb-1 text-sm text-gray-600">Valentina Camejo, Miss Mundo
+                                                        Uruguay 2020 y directora de Miss Océano y Turismo. Lidera con
                                                         excelencia uno de los certámenes internacionales de belleza más
                                                         destacados de Uruguay.</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-lg text-gray-500">Miss Uruguay 2021</div>
+                                        <div class="text-lg text-gray-500">Miss Mundo Uruguay 2020</div>
                                     </div>
                                 </div>
                         </footer>

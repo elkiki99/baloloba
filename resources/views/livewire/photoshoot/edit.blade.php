@@ -148,9 +148,9 @@ new class extends Component {
             $headerPhotoUrl = $this->photoshoot->header_photo;
         }
 
-        $this->checkForNewPhotos();
         $this->checkForExistingDeletedPhotos();
-
+        $this->checkForNewPhotos();
+        
         $this->photoshoot->update([
             'name' => $this->name,
             'description' => $this->description,
@@ -200,6 +200,8 @@ new class extends Component {
         $this->existing_photos = Photo::where('photo_shoot_id', $this->photoshoot->id)
             ->get()
             ->toArray();
+            
+        $this->dispatch('updateExistingPhotos', $this->existing_photos);
     }
 
     #[On('existingFileRemoved')]
@@ -290,10 +292,10 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <livewire:dropzone :key="'edit-photoshoot'" :existing-photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
+            <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
                 :multiple="true" />
 
-            <div class="flex flex-wrap justify-start w-full mt-5 gap-x-10 gap-y-2">
+            {{-- <div class="flex flex-wrap justify-start w-full mt-5 gap-x-10 gap-y-2">
                 @foreach ($existing_photos as $photo)
                     <div class="flex items-center justify-between w-full h-auto gap-2 overflow-hidden border border-gray-200 rounded dark:border-gray-700"
                         wire:key='{{ $photo['id'] }}'>
@@ -320,7 +322,7 @@ new class extends Component {
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
             
             <!-- Check for Existing Photos in the Photoshoot -->
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
