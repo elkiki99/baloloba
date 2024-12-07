@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="mx-auto max-w-7xl py-[20vh] space-y-6">
+    <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 md:px-8 space-y-6">
         <h1 class="text-5xl md:text-7xl font-bold">Política de cookies</h1>
         <p>En esta página web utilizamos cookies para mejorar tu experiencia de usuario. A continuación, te explicamos
             qué son las cookies, cómo las usamos y cómo puedes gestionarlas.</p>
@@ -31,20 +31,13 @@
                 gestionar tus preferencias de cookies desde la sección de configuración. A continuación, algunos enlaces
                 útiles:</p>
             <ul>
-                <strong>
-                    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Google Chrome</a></li>
-                </strong>
-                <strong>
-                    <li><a href="https://support.mozilla.org/es/kb/activar-y-desactivar-cookies" target="_blank">Mozilla
-                </strong>
-                Firefox</a></li>
-                <strong>
-                </strong>
+                <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Google Chrome</a></li>
+                <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias"
+                        target="_blank">Mozilla
+                        Firefox</a></li>
                 <li><a href="https://support.apple.com/es-es/HT201265" target="_blank">Safari</a></li>
-                <strong>
-                    <li><a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies"
-                            </strong>
-                            target="_blank">Internet Explorer</a></li>
+                <li><a href="https://support.microsoft.com/es-es/help/17442/windows-internet-explorer-delete-manage-cookies"
+                        target="_blank">Internet Explorer</a></li>
             </ul>
         </div>
 
@@ -56,9 +49,11 @@
 
         <p>Última actualización: 06/12/24</p>
 
-        <h2 class="text-lg font-semibold md:text-xl">5. Contacto</h2>
-        <p>Si tienes preguntas sobre nuestra Política de Cookies, no dudes en escribirme a <a
-                href="mailto:tu_email@example.com">tu_email@example.com</a>.</p>
+        <div>
+            <h2 class="text-lg font-semibold md:text-xl">5. Contacto</h2>
+            <p>Si tienes preguntas sobre nuestra Política de Cookies, no dudes en escribirme a <a
+                    href="mailto:baloloba.uy@gmail.com">baloloba.uy@gmail.com</a>.</p>
+        </div>
 
         <p>¡Gracias por visitar mi página! 🌸</p>
     </div>
