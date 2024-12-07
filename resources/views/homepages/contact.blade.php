@@ -19,7 +19,7 @@
 
                 <!-- Paquetes -->
                 <div class="py-16">
-                    <livewire:homepages.packages />
+                    @include('packages.index')
                 </div>
 
                 <!-- Contacto -->
@@ -45,7 +45,7 @@
                                 </p>
                             </header>
 
-                            <livewire:homepages.contact-form />
+                            <livewire:components.contact-form />
                         </div>
                     </div>
                 </section>

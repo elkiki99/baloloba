@@ -7,12 +7,9 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('packages.index');
     }
 
     /**
@@ -36,7 +33,7 @@ class PackageController extends Controller
      */
     public function show(Package $package)
     {
-        //
+        //  
     }
 
     /**
@@ -44,7 +41,7 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
-        //
+        return view('packages.edit');
     }
 
     /**

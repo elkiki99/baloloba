@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 md:px-8 space-y-6">
-        <h1 class="text-5xl md:text-7xl font-bold">Términos y Condiciones</h1>
+        <h1 class="text-5xl md:text-7xl font-bold">Términos y condiciones</h1>
         <p>Bienvenidos a mi página web. Soy Camila Fernández, fotógrafa en Uruguay, y estoy muy feliz de que estés aquí.
             Antes
             de

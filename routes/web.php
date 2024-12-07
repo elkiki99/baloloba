@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomePages;
-use App\Http\Controllers\LegalPagesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LegalPagesController;
 use App\Http\Controllers\PhotoShootController;
 
 Route::get('/', [HomePages::class, 'welcome'])->name('welcome');
@@ -20,11 +21,10 @@ Route::get('/portfolio', [PhotoShootController::class, 'index'])->name('portfoli
 Route::get('/photoshoots/create', [PhotoShootController::class, 'create'])->name('photoshoot.create');
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
 Route::get('/photoshoot/edit/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
+
+Route::get('/packages/edit', [PackageController::class, 'packages.edit'])->name('packages.edit');
     
 Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
-
-Route::view('dashboard', 'dashboard')
-    ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

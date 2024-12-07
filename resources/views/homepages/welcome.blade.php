@@ -381,8 +381,8 @@
         </section>
 
         <!-- Paquetes -->
-        <livewire:homepages.packages />
-
+        @include('packages.index')
+        
         <!-- Contacto -->
         <section class="space-y-6 pb-[20vh]">
             <h1
@@ -406,7 +406,7 @@
                         </p>
                     </header>
 
-                    <livewire:homepages.contact-form />
+                    <livewire:components.contact-form />
                 </div>
             </div>
         </section>

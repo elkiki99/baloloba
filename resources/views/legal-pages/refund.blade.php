@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 md:px-8 space-y-6">
-        <h1 class="text-5xl md:text-7xl font-bold">Política de Reembolsos</h1>
+        <h1 class="text-5xl md:text-7xl font-bold">Política de devoluciones</h1>
         <p>Gracias por confiar en mis servicios de fotografía. Mi prioridad es ofrecerte una experiencia personalizada y
             profesional. Sin embargo, entiendo que pueden surgir imprevistos, por lo que te invito a leer mi política de
             reembolsos.</p>
