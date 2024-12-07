@@ -18,7 +18,7 @@
                 @endphp
 
                 <div class="flex items-center gap-12">
-                    <h1 class="text-6xl font-bold text-white uppercase md:text-7xl">
+                    <h1 class="text-6xl font-bold text-white  md:text-7xl">
                         {{ $firstPart }}
                         <span class="super-thin">{{ $secondPart }}</span>
                     </h1>
@@ -36,7 +36,7 @@
 
                 <!-- CTA -->
                 <div
-                    class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
+                    class="items-center hover:blur-xs inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
                     <a href="{{ route('categories.show', $photoshoot->category) }}" wire:navigate
                         class="flex items-center text-white hover:text-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -56,9 +56,9 @@
 
                 <!-- Date & Time -->
                 <div class="">
-                    <p class="text-lg text-gray-300">
-                        {{ \Carbon\Carbon::parse($photoshoot->date)->toFormattedDateString() }}</p>
-                    <p class="text-gray-400 text-md">{{ $photoshoot->location }}</p>
+                    <p class="text-md text-gray-300">
+                        {{ \Carbon\Carbon::parse($photoshoot->date)->translatedFormat('j \d\e F \d\e Y') }}</p>
+                    <p class="text-gray-400 text-sm">{{ $photoshoot->location }}</p>
                 </div>
             </div>
         </section>

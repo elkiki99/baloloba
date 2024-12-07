@@ -13,7 +13,7 @@
 
                 <!-- CTA -->
                 <div
-                    class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
+                    class="items-center hover:blur-xs inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
                     <a href="{{ route('contact') }}" wire:navigate
                         class="flex items-center text-white hover:text-gray-200">
                         AGENDATE

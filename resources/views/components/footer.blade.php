@@ -111,21 +111,24 @@
                     <div class="w-full">
                         <h3 class="mb-2 text-lg font-bold">Legal</h3>
                         <ul>
-                            <li><a wire:navigate href="{{ route('welcome') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Terms</a>
+                            <li><a wire:navigate href="{{ route('terms') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Términos
+                                    y condiciones</a>
                             </li>
-                            <li><a wire:navigate href="{{ route('welcome') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Refund</a>
+                            <li><a wire:navigate href="{{ route('privacy') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Política
+                                    de privacidad</a></li>
+                            <li><a wire:navigate href="{{ route('refund') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Devoluciones</a>
                             </li>
-                            <li><a wire:navigate href="{{ route('welcome') }}"
+
+                            <li><a wire:navigate href="{{ route('disclaimer') }}"
+                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Aviso
+                                    legal</a>
+                            </li>
+                            <li><a wire:navigate href="{{ route('cookies') }}"
                                     class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Cookies</a>
                             </li>
-                            <li><a wire:navigate href="{{ route('welcome') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Disclaimer</a>
-                            </li>
-                            <li><a wire:navigate href="{{ route('welcome') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Privacy
-                                    policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -135,7 +138,8 @@
         <!-- Info de empresa -->
         <div class="flex justify-between w-full px-2 mt-auto">
             <div class="">
-                <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">Balo <span class="super-thin">Loba</span>
+                <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">Balo <span
+                        class="super-thin">Loba</span>
                 </h1>
                 <p class="text-sm text-gray-400 md:text-md">© {{ now()->year }} {{ config('app.name') }}. Todos los
                     derechos reservados.</p>

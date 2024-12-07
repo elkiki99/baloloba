@@ -18,7 +18,7 @@
 
                 <!-- CTA -->
                 <div
-                    class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
+                    class="items-center hover:blur-xs inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
                     <a href="{{ route('contact') }}" wire:navigate
                         class="flex items-center text-white hover:text-gray-200">
                         AGENDATE
@@ -42,6 +42,17 @@
                 @foreach ($photoshoots as $photoshoot)
                     <x-photo-shoot-card :photoshoot="$photoshoot" />
                 @endforeach
+            </div>
+
+            <div class="flex">
+                <a wire:navigate class="flex hover:blur-xs items-center gap-2 px-4 py-2 ml-auto hover:cursor-pointer"
+                    href="{{ route('portfolio') }}">
+                    <p>Ver portfolio completo</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
             </div>
         </section>
 
@@ -72,7 +83,7 @@
 
                         <!-- Button -->
                         <div
-                            class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100">
+                            class="items-center hover:blur-xs inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100">
                             <a href="{{ route('about') }}" wire:navigate
                                 class="flex items-center text-gray-800 hover:text-gray-900">
                                 SOBRE MI
@@ -369,25 +380,29 @@
             </div>
         </section>
 
+        <!-- Paquetes -->
+        <livewire:homepages.packages />
+
         <!-- Contacto -->
-        <section class="space-y-6 pb-[20vh] mt-12">
+        <section class="space-y-6 pb-[20vh]">
             <h1
-                class="px-4 mx-auto text-5xl font-bold text-transparent underline max-w-7xl sm:px-6 md:px-8 md:text-7xl bg-clip-text bg-gradient-to-r from-black to-gray-800 decoration-yellow-500">
-                Contacto</h1>
+                class="px-4 mx-auto text-5xl text-transparent max-w-7xl sm:px-6 md:px-8 md:text-7xl bg-clip-text bg-gradient-to-r from-black to-gray-800">
+                <span class="font-bold text-black underline decoration-yellow-500">Contactame</span>
+            </h1>
 
             <div class="px-0 mx-auto sm:px-6 md:px-8 sm:max-w-7xl">
                 <div
                     class="max-w-xl p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]
-                    from-gray-200
-                    via-gray-100
-                    to-gray-50 sm:rounded-md shadow-xl">
+                            from-gray-200
+                            via-gray-100
+                            to-gray-50 sm:rounded-md shadow-xl">
                     <header>
                         <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
-                            {{ __('Hablemos') }}
+                            {{ __('¿Necesitas un presupuesto?') }}
                         </h2>
 
                         <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
-                            {{ __('¡Mandame tus dudas por acá! Siempre respondo.') }}
+                            {{ __('Escribime en caso de necesitar más información sobre nuestros paquetes.') }}
                         </p>
                     </header>
 
