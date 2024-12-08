@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="pt-12 pb-[20vh] sm:px-6 md:px-8 px-0">
+    <section class="pt-12 pb-[20vh] sm:px-6 lg:px-8 px-0">
         <div class="space-y-6 md:mx-auto sm:mt-10 max-w-7xl">
             <h1 class="px-4 pt-10 text-5xl font-bold underline md:text-7xl decoration-yellow-500">Crear photoshoot</h1>
 

@@ -34,7 +34,7 @@ new class extends Component {
         <div class="flex flex-col items-end gap-2">
             <span class="text-3xl lg:text-4xl font-bold underline decoration-yellow-500"
                 x-text="isExtended ? extendedPrice : basicPrice"></span>
-            <span class="text-md lg:text-xl font-bold line-through"
+            <span class="text-md text-gray-500 lg:text-xl font-bold line-through"
                 x-text="isExtended ? beforeExtendedPrice : beforeBasicPrice"></span>
         </div>
     </div>
@@ -46,10 +46,10 @@ new class extends Component {
         </template>
     </ul>
 
-    @guest
+    {{-- @guest --}}
         <a :href="isExtended ? annualMasterUrl : monthlyMasterUrl"
             class="flex items-center justify-center w-full px-4 py-2 text-gray-100 rounded-lg hover:blur-xs hover:cursor-pointer bg-gray-950">Obtener
             sesión
         </a>
-    @endguest
+    {{-- @endguest --}}
 </div>

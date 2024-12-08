@@ -18,7 +18,7 @@
 
                 <!-- CTA -->
                 <div
-                    class="items-center hover:blur-xs inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
+                    class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:blur-xs hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
                     <a href="{{ route('contact') }}" wire:navigate
                         class="flex items-center text-white hover:text-gray-200">
                         AGENDATE
@@ -35,7 +35,7 @@
         <!-- Porfolio -->
         <section class="px-1 mt-12 space-y-6">
             <div class="mx-auto max-w-7xl">
-                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">
+                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 lg:px-8 decoration-yellow-500">
                     Portfolio</h1>
             </div>
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="flex">
-                <a wire:navigate class="flex hover:blur-xs items-center gap-2 px-4 py-2 ml-auto hover:cursor-pointer"
+                <a wire:navigate class="flex items-center gap-2 px-4 py-2 ml-auto hover:blur-xs hover:cursor-pointer"
                     href="{{ route('portfolio') }}">
                     <p>Ver portfolio completo</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -58,7 +58,7 @@
 
         <!-- About me -->
         <section class="mt-12 space-y-6">
-            <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Sobre mi</h1>
 
                 <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
@@ -83,7 +83,7 @@
 
                         <!-- Button -->
                         <div
-                            class="items-center hover:blur-xs inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100">
+                            class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:blur-xs hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100">
                             <a href="{{ route('about') }}" wire:navigate
                                 class="flex items-center text-gray-800 hover:text-gray-900">
                                 SOBRE MI
@@ -102,10 +102,10 @@
         <!-- Testimonials -->
         <section class="mt-12 space-y-6">
             <div class="mx-auto max-w-7xl">
-                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">
+                <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 lg:px-8 decoration-yellow-500">
                     Testimonios</h1>
 
-                <div class="grid-cols-2 gap-6 px-0 mt-6 space-y-4 md:space-y-0 md:grid sm:px-6 md:px-8">
+                <div class="grid-cols-2 gap-6 px-0 mt-6 space-y-4 md:space-y-0 md:grid sm:px-6 lg:px-8">
                     <!-- Testimonial 1 -->
                     <blockquote
                         class="relative w-full max-w-3xl p-4 pb-6 mx-auto border-b border-gray-200 rounded shadow md:p-8">
@@ -381,16 +381,16 @@
         </section>
 
         <!-- Paquetes -->
-        @include('packages.index')
+        @include('packages.show')
         
         <!-- Contacto -->
         <section class="space-y-6 pb-[20vh]">
             <h1
-                class="px-4 mx-auto text-5xl text-transparent max-w-7xl sm:px-6 md:px-8 md:text-7xl bg-clip-text bg-gradient-to-r from-black to-gray-800">
+                class="px-4 mx-auto text-5xl text-transparent max-w-7xl sm:px-6 lg:px-8 md:text-7xl bg-clip-text bg-gradient-to-r from-black to-gray-800">
                 <span class="font-bold text-black underline decoration-yellow-500">Contactame</span>
             </h1>
 
-            <div class="px-0 mx-auto sm:px-6 md:px-8 sm:max-w-7xl">
+            <div class="px-0 mx-auto sm:px-6 lg:px-8 sm:max-w-7xl">
                 <div
                     class="max-w-xl p-8 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]
                             from-gray-200

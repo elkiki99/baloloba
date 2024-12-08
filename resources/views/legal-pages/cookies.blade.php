@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 md:px-8 space-y-6">
-        <h1 class="text-5xl md:text-7xl font-bold">Política de cookies</h1>
+    <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 lg:px-8 space-y-6">
+        <h1 class="text-5xl font-bold md:text-7xl">Política de cookies</h1>
         <p>En esta página web utilizamos cookies para mejorar tu experiencia de usuario. A continuación, te explicamos
             qué son las cookies, cómo las usamos y cómo puedes gestionarlas.</p>
 

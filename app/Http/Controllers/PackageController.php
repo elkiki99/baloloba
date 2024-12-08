@@ -33,7 +33,7 @@ class PackageController extends Controller
      */
     public function show(Package $package)
     {
-        //  
+        return view('packages.show');
     }
 
     /**

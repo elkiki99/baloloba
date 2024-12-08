@@ -7,6 +7,9 @@ new class extends Component {
     /**
      * Log the current user out of the application.
      */
+    
+    public $class;
+    
     public function logout(Logout $logout): void
     {
         $logout();
@@ -16,7 +19,7 @@ new class extends Component {
 }; ?>
 
 <nav
-    class="fixed top-0 z-50 w-full px-3 mx-auto text-sm font-medium text-center bg-transparent rounded-none sm:rounded-full sm:w-auto sm:top-10 backdrop-filter mix-blend-luminosity backdrop-blur-lg sm:flex">
+    class="{{ $class }} top-0 z-50 w-full px-3 mx-auto text-sm font-medium text-center bg-transparent rounded-none sm:rounded-full sm:w-auto sm:top-10 backdrop-filter mix-blend-luminosity backdrop-blur-lg sm:flex">
     <!-- Primary Navigation Menu -->
     <div class="flex items-center justify-between h-12 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <!-- Logo -->
@@ -38,6 +41,12 @@ new class extends Component {
             <x-nav-link wire:navigate :href="route('contact')" :active="request()->routeIs('contact')">
                 {{ __('Contacto') }}
             </x-nav-link>
+
+            @if (Auth::user() && Auth::user()->isAdmin())
+                <x-nav-link wire:navigate :href="route('panel')" :active="request()->routeIs('panel')">
+                    {{ __('Panel') }}
+                </x-nav-link>
+            @endif
         </div>
     </div>
 </nav>

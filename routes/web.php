@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\HomePages;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LegalPagesController;
 use App\Http\Controllers\PhotoShootController;
 
 Route::get('/', [HomePages::class, 'welcome'])->name('welcome');
-Route::get('/about', [HomePages::class, 'about'])->name('about');
-Route::get('/contact', [HomePages::class, 'contact'])->name('contact');
+Route::get('/acerca-de', [HomePages::class, 'about'])->name('about');
+Route::get('/contacto', [HomePages::class, 'contact'])->name('contact');
 
 Route::get('/cookies', [LegalPagesController::class, 'cookies'])->name('cookies');
 Route::get('/aviso-legal', [LegalPagesController::class, 'disclaimer'])->name('disclaimer');
@@ -18,21 +19,21 @@ Route::get('/devoluciones', [LegalPagesController::class, 'refund'])->name('refu
 Route::get('/terminos-y-conciones', [LegalPagesController::class, 'terms'])->name('terms');
 
 Route::get('/portfolio', [PhotoShootController::class, 'index'])->name('portfolio');
-Route::get('/photoshoots/create', [PhotoShootController::class, 'create'])->name('photoshoot.create');
+Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->name('photoshoot.create');
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
-Route::get('/photoshoot/edit/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
+Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
 
-Route::get('/packages/edit', [PackageController::class, 'packages.edit'])->name('packages.edit');
-    
+Route::get('/paquetes/editar', [PackageController::class, 'edit'])->name('packages.edit');
+
 Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-    Route::view('panel', 'panel')
+Route::view('panel', 'admin.panel')
     ->middleware(['auth'])
-    ->middleware(['admin'])
+    ->middleware([EnsureUserIsAdmin::class])
     ->name('panel');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

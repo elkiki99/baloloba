@@ -44,17 +44,25 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased ">
+<body class="font-sans antialiased">
     <div class="z-40 min-h-screen">
         <div class="relative flex items-center justify-center">
-            <livewire:layout.navigation :class="'fixed'" />
+            <livewire:layout.navigation :class="'relative'" />
         </div>
 
-        <main class="relative z-40 flex-grow bg-white">
-            {{ $slot }}
-        </main>
+        <div class="relative z-30 bg-white">
+            <div class="flex min-h-screen px-4 mx-auto bg-white max-w-7xl sm:px-6 lg:px-8">
+                <div class="w-1/4">
+                    <livewire:admin.sidebar />
+                </div>
 
-        <div class="sticky bottom-0 z-10">
+                <main class="relative z-40 flex-grow bg-white">
+                    {{ $slot }}
+                </main>
+            </div>
+        </div>
+
+        <div class="sticky bottom-0">
             <x-footer />
         </div>
     </div>

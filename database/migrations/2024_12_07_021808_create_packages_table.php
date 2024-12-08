@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('extended_price');
             $table->decimal('before_basic_price');
             $table->decimal('before_extended_price');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->json('basic_features');
             $table->json('extended_features');
             $table->timestamps();

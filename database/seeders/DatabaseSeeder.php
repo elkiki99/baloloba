@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Package;
 use App\Models\Category;
 use App\Models\PhotoShoot;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Database\Factories\PackageFactory;
 use Database\Factories\CategoryFactory;
 
@@ -20,10 +22,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Camila',
+            'email' => 'baloloba.uy@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('Neron101'),
+            'isAdmin' => true,
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         $categories = CategoryFactory::new()->defaultCategories();
 

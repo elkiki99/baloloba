@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 md:px-8 space-y-6">
-        <h1 class="text-5xl md:text-7xl font-bold">Aviso legal</h1>
+    <div class="mx-auto max-w-7xl py-[10vh] sm:py-[20vh] px-4 sm:px-6 lg:px-8 space-y-6">
+        <h1 class="text-5xl font-bold md:text-7xl">Aviso legal</h1>
         <p>Este aviso legal tiene como objetivo informar a los usuarios sobre las
             limitaciones y
             responsabilidades relacionadas con el uso del contenido y servicios de este sitio web. Si tienes preguntas,
