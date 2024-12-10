@@ -59,7 +59,7 @@ new class extends Component {
     }
 }; ?>
 
-<form class="mt-6">
+<form class="mt-6 space-y-6">
     <x-package-form :package="$eventsPackage" />
 
     <div class="flex">
@@ -71,7 +71,7 @@ new class extends Component {
     </div>
 </form>
 
-<!-- events package updated toast -->
+<!-- Events package updated toast -->
 <script>
     document.addEventListener('livewire:init', () => {
         Livewire.on('eventsPackageUpdatedToast', (event) => {

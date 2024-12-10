@@ -6,7 +6,7 @@ new class extends Component {
     
 }; ?>
 
-<aside class="flex sticky top-0 flex-col space-y-6 py-[20vh]">
+<aside class="flex sticky top-0 flex-col space-y-6 pb-[20vh] pt-[12vh]">
     <!-- Home -->
     <div class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -19,7 +19,7 @@ new class extends Component {
     </div>
 
     <!-- Porfolio -->
-    <div class="flex items-center gap-2">
+    <a wire:navigate href="{{ route('photoshoot.index') }}" class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="text-gray-500 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -27,7 +27,7 @@ new class extends Component {
         </svg>
 
         <p class="text-gray-800">Portfolio</p>
-    </div>
+    </a>
 
     <!-- Packages -->
     <a href="{{ route('packages.edit') }}" class="flex items-center gap-2 hover:cursor-pointer">
@@ -75,7 +75,7 @@ new class extends Component {
     </div>
 
     <!-- Profile -->
-    <div class="flex items-center gap-2">
+    <a wire:navigate href="{{ route('profile') }}" class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="text-gray-500 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -83,5 +83,5 @@ new class extends Component {
         </svg>
 
         <p class="text-gray-800">Perfil</p>
-    </div>
+    </a>
 </aside>

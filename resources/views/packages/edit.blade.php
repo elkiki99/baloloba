@@ -1,5 +1,5 @@
 <x-admin-panel-layout>
-    <section class="py-[20vh] sm:px-6 lg:px-8 px-0">
+    <section class="pb-[20vh] pt-[12vh] sm:px-6 lg:px-8 px-0">
         <div class="space-y-6 md:mx-auto max-w-7xl">
             <h1 class="px-4 text-5xl font-bold underline md:text-7xl decoration-yellow-500">Editar paquetes</h1>
 

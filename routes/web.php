@@ -18,7 +18,9 @@ Route::get('/politica-de-privacidad', [LegalPagesController::class, 'privacy'])-
 Route::get('/devoluciones', [LegalPagesController::class, 'refund'])->name('refund');
 Route::get('/terminos-y-conciones', [LegalPagesController::class, 'terms'])->name('terms');
 
-Route::get('/portfolio', [PhotoShootController::class, 'index'])->name('portfolio');
+Route::get('/portfolio', [PhotoShootController::class, 'portfolio'])->name('portfolio');
+
+Route::get('/photoshoots', [PhotoShootController::class, 'index'])->name('photoshoot.index');
 Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->name('photoshoot.create');
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
 Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');

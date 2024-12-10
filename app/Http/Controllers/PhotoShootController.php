@@ -6,6 +6,15 @@ use App\Models\PhotoShoot;
 
 class PhotoShootController extends Controller
 {
+
+    /**
+     * Display the index view for non auth users
+     */
+    public function portfolio()
+    {
+        return view('photoshoots.portfolio');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -18,7 +27,7 @@ class PhotoShootController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {        
+    {
         return view('photoshoots.create');
     }
 
