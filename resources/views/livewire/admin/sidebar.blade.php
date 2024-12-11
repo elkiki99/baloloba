@@ -30,7 +30,7 @@ new class extends Component {
     </a>
 
     <!-- Packages -->
-    <a href="{{ route('packages.edit') }}" class="flex items-center gap-2 hover:cursor-pointer">
+    <a wire:navigate href="{{ route('packages.index') }}" class="flex items-center gap-2 hover:cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="text-gray-500 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -49,7 +49,7 @@ new class extends Component {
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
         </svg>
 
-        <p class="text-gray-800">Catgegorías</p>
+        <p class="text-gray-800">Categorías</p>
     </div>
 
     <!-- Legal -->

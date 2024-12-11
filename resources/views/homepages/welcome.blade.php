@@ -381,7 +381,7 @@
         </section>
 
         <!-- Paquetes -->
-        @include('packages.show')
+        @include('packages.packages')
         
         <!-- Contacto -->
         <section class="space-y-6 pb-[20vh]">

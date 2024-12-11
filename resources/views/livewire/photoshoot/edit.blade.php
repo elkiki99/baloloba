@@ -150,7 +150,7 @@ new class extends Component {
 
         $this->checkForExistingDeletedPhotos();
         $this->checkForNewPhotos();
-        
+
         $this->photoshoot->update([
             'name' => $this->name,
             'description' => $this->description,
@@ -200,7 +200,7 @@ new class extends Component {
         $this->existing_photos = Photo::where('photo_shoot_id', $this->photoshoot->id)
             ->get()
             ->toArray();
-            
+
         $this->dispatch('updateExistingPhotos', $this->existing_photos);
     }
 
@@ -292,8 +292,7 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
-                :multiple="true" />
+            <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
 
             {{-- <div class="flex flex-wrap justify-start w-full mt-5 gap-x-10 gap-y-2">
                 @foreach ($existing_photos as $photo)
@@ -323,7 +322,7 @@ new class extends Component {
                     </div>
                 @endforeach
             </div> --}}
-            
+
             <!-- Check for Existing Photos in the Photoshoot -->
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
@@ -434,14 +433,16 @@ new class extends Component {
 </div>
 
 <!-- Photoshoot updated toast -->
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('photoshootUpdatedToast', (event) => {
-            toast('Actualizado', {
-                type: 'success',
-                position: 'bottom-right',
-                description: 'Photoshoot actualizado correctamente.'
+@script
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('photoshootUpdatedToast', () => {
+                toast('Actualizado', {
+                    type: 'success',
+                    position: 'bottom-right',
+                    description: 'Photoshoot actualizado correctamente.'
+                });
             });
         });
-    });
-</script>
+    </script>
+@endscript

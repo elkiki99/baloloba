@@ -19,7 +19,7 @@
 
                 <!-- Paquetes -->
                 <div class="py-16">
-                    @include('packages.show')
+                    @include('packages.packages')
                 </div>
 
                 <!-- Contacto -->

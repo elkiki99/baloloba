@@ -56,7 +56,7 @@
                     <livewire:admin.sidebar />
                 </div>
 
-                <main class="relative z-40 flex-grow bg-white">
+                <main class="relative z-40 flex-grow w-full bg-white">
                     {{ $slot }}
                 </main>
             </div>

@@ -31,6 +31,7 @@ class PackageFactory extends Factory
                 'before_basic_price' => round(2499 / 0.85, 2),
                 'before_extended_price' => round(3199 / 0.85, 2),
                 'description' => 'Fotografías instantáneas clásicas',
+                'slug' => 'polaroids',
                 'basic_features' => json_encode([
                     '10 fotografías instantáneas impresas',
                     'Selección de fondo o marco prediseñado',
@@ -53,6 +54,7 @@ class PackageFactory extends Factory
                 'before_basic_price' => round(3199 / 0.85, 2),
                 'before_extended_price' => round(4499 / 0.85, 2),
                 'description' => 'Fotografía de estilo y moda',
+                'slug' => 'moda',
                 'basic_features' => json_encode([
                     '5 looks o cambios de vestuario',
                     'Dirección de poses básica',
@@ -75,6 +77,7 @@ class PackageFactory extends Factory
                 'before_basic_price' => round(4499 / 0.85, 2),
                 'before_extended_price' => round(5799 / 0.85, 2),
                 'description' => 'Cobertura de eventos sociales',
+                'slug' => 'eventos',
                 'basic_features' => json_encode([
                     'Cobertura de 2 horas',
                     'Entrega de 50 fotografías digitales',

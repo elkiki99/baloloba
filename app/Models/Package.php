@@ -19,6 +19,7 @@ class Package extends Model
         'description',
         'basic_features',
         'extended_features',
+        'slug'
     ];
 
     protected $casts = [

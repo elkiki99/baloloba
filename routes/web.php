@@ -25,11 +25,13 @@ Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->name(
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
 Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
 
-Route::get('/paquetes/editar', [PackageController::class, 'edit'])->name('packages.edit');
+Route::get('/paquetes', [PackageController::class, 'index'])->name('packages.index');
+Route::get('/paquete/{package:slug}', [PackageController::class, 'show'])->name('packages.show');
+Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->name('packages.edit');
 
 Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
-Route::view('profile', 'profile')
+Route::view('perfil', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 

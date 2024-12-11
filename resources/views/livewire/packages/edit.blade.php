@@ -4,7 +4,7 @@ use Livewire\Volt\Component;
 use App\Models\Package;
 
 new class extends Component {
-    public $polaroidsPackage;
+    public $package;
     public $name;
     public $basic_price;
     public $extended_price;
@@ -23,18 +23,18 @@ new class extends Component {
         'extended_features.*' => 'string|max:255',
     ];
 
-    public function mount()
+    public function mount($id)
     {
-        $this->polaroidsPackage = Package::where('id', 1)->first();
-        $this->name = $this->polaroidsPackage->name;
-        $this->basic_price = $this->polaroidsPackage->basic_price;
-        $this->extended_price = $this->polaroidsPackage->extended_price;
-        $this->description = $this->polaroidsPackage->description;
-        $this->basic_features = implode(', ', json_decode($this->polaroidsPackage->basic_features, true));
-        $this->extended_features = implode(', ', json_decode($this->polaroidsPackage->extended_features, true));
+        $this->package = Package::findOrFail($id);
+        $this->name = $this->package->name;
+        $this->basic_price = $this->package->basic_price;
+        $this->extended_price = $this->package->extended_price;
+        $this->description = $this->package->description;
+        $this->basic_features = implode(', ', json_decode($this->package->basic_features, true));
+        $this->extended_features = implode(', ', json_decode($this->package->extended_features, true));
     }
 
-    public function updatePolaroidsPackage()
+    public function updatePackage()
     {
         $this->validate();
 
@@ -44,7 +44,7 @@ new class extends Component {
         $extended_features_array = array_map('trim', explode(',', $this->extended_features));
         $extended_features_json = json_encode($extended_features_array);
 
-        $this->polaroidsPackage->update([
+        $this->package->update([
             'name' => $this->name,
             'basic_price' => $this->basic_price,
             'before_basic_price' => round($this->basic_price / 0.85, 2),
@@ -55,31 +55,33 @@ new class extends Component {
             'extended_features' => $extended_features_json,
         ]);
 
-        $this->dispatch('polaroidsPackageUpdatedToast');
+        // Package updated toast
+        $this->dispatch('packageUpdatedToast');
     }
 }; ?>
 
 <form class="mt-6 space-y-6">
-    <x-package-form :package="$polaroidsPackage" />
+    <x-package-form :package="$package" />
 
     <div class="flex">
         <div class="ml-auto">
-            <x-primary-button wire:click.prevent='updatePolaroidsPackage'>
+            <x-primary-button wire:click.prevent='updatePackage'>
                 {{ __('Actualizar') }}
             </x-primary-button>
         </div>
     </div>
 </form>
 
-<!-- Polaroids package updated toast -->
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('polaroidsPackageUpdatedToast', (event) => {
+<!-- Package updated toast -->
+@script
+    <script>
+        Livewire.on('packageUpdatedToast', () => {
             toast('Actualizado', {
                 type: 'success',
                 position: 'bottom-right',
-                description: 'Paquete de polaroids actualizado correctamente.'
+                description: 'Paquete actualizado correctamente.'
             });
         });
-    });
-</script>
+    </script>
+@endscript
+

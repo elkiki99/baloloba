@@ -14,7 +14,7 @@ new class extends Component {
         Storage::disk('s3')->deleteDirectory('photoshoots/' . $photoshoot->slug);
         $photoshoot->delete();
 
-        return redirect()->route('portfolio')->with('photoshoot-deleted', 'Photoshoot eliminado exitosamente');
+        return redirect()->route('photoshoot.index')->with('photoshoot-deleted', 'Photoshoot eliminado exitosamente');
     }
 }; ?>
 

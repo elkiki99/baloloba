@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->json('basic_features');
             $table->json('extended_features');
+            $table->string('slug');
             $table->timestamps();
         });
     }

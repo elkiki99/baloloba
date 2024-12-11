@@ -312,24 +312,25 @@ new class extends Component {
             <!-- Maintaining button to right-->
             <div></div>
 
-            <div>
-                <x-primary-button wire:click.prevent='createPhotoShoot'>
-                    {{ __('Crear') }}
-                </x-primary-button>
-            </div>
+        <div>
+            <x-primary-button wire:click.prevent='createPhotoShoot'>
+                {{ __('Crear') }}
+            </x-primary-button>
         </div>
-    </form>
+</div>
+</form>
 </div>
 
 <!-- Photoshoot created toast -->
-<script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('photoshootCreatedToast', (event) => {
-            const slug = event[0].slug;
-            const link = `/photoshoot/${slug}`;
+@script
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('photoshootCreatedToast', (event) => {
+                const slug = event[0].slug;
+                const link = `/photoshoot/${slug}`;
 
-            toast('Creado', {
-                html: `
+                toast('Creado', {
+                    html: `
                                 <div class="p-4">
                                     <div class="flex items-center">
                                         <svg class="w-[18px] h-[18px] text-green-500 mr-1.5 -ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -346,7 +347,8 @@ new class extends Component {
                                     </div>
                                 </div>
                                 `
+                });
             });
         });
-    });
-</script>
+    </script>
+@endscript
