@@ -13,7 +13,7 @@ new class extends Component {
 }; ?>
 
 <!-- Fashion -->
-<div class="max-w-[500px] mx-auto min-h-[50vh] md:min-h-[75vh] flex flex-col my-10 p-6 text-center transition bg-gray-100 border rounded-lg shadow-lg md:w-1/3 md:hover:scale-[1.02]"
+<div class="max-w-[500px] mx-auto min-h-[50vh] flex flex-col my-10 p-6 text-center transition bg-gray-100 border rounded-lg shadow-lg md:w-1/3 md:hover:scale-[1.02]"
     x-data="{
         basicFeatures: {{ $fashionPackage->basic_features }},
         extendedFeatures: {{ $fashionPackage->extended_features }},
@@ -22,9 +22,9 @@ new class extends Component {
         beforeBasicPrice: '{{ number_format($fashionPackage->before_basic_price, 0, ',', '.') }}',
         beforeExtendedPrice: '{{ number_format($fashionPackage->before_extended_price, 0, ',', '.') }}'
     }">
-    <div class="justify-between pb-2 flex text-start">
+    <div class="flex justify-between pb-2 text-start">
         <div class="">
-            <h2 class="text-xl lg:text-2xl font-semibold">{{ $fashionPackage->name }}</h2>
+            <h2 class="text-xl font-semibold lg:text-2xl">{{ $fashionPackage->name }}</h2>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-16 lg:size-20">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -34,9 +34,9 @@ new class extends Component {
             </svg>
         </div>
         <div class="flex flex-col items-end gap-2">
-            <span class="text-3xl lg:text-4xl font-bold underline decoration-yellow-500"
+            <span class="text-3xl font-bold underline lg:text-4xl decoration-yellow-500"
                 x-text="isExtended ? extendedPrice : basicPrice"></span>
-            <span class="text-md text-gray-500 lg:text-xl font-bold line-through"
+            <span class="font-bold text-gray-500 line-through text-md lg:text-xl"
                 x-text="isExtended ? beforeExtendedPrice : beforeBasicPrice"></span>
         </div>
     </div>
@@ -44,7 +44,7 @@ new class extends Component {
     <!-- Features: Moda -->
     <ul class="flex-grow my-4">
         <template x-for="(feature, index) in (isExtended ? extendedFeatures : basicFeatures)" :key="index">
-            <li class="flex mb-2 text-start text-sm lg:text-base" x-text="'✔ ' + feature"></li>
+            <li class="flex mb-2 text-sm text-start lg:text-base" x-text="'✔ ' + feature"></li>
         </template>
     </ul>
 

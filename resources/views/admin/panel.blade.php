@@ -1,3 +1,3 @@
 <x-admin-panel-layout>
-    <livewire:admin.home-pages />
+    <livewire:admin.panel />
 </x-admin-panel-layout>

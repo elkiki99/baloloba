@@ -124,6 +124,10 @@ new class extends Component {
 
     public function updatePhotoShoot()
     {
+        if (!Gate::allows('modify-page')) {
+            abort(403);
+        }
+        
         $this->validate();
 
         $photoshootFolder = 'photoshoots/' . $this->slug;
@@ -433,7 +437,7 @@ new class extends Component {
 </div>
 
 <!-- Photoshoot updated toast -->
-@script
+{{-- @script --}}
     <script>
         document.addEventListener('livewire:initialized', () => {
             Livewire.on('photoshootUpdatedToast', () => {
@@ -445,4 +449,4 @@ new class extends Component {
             });
         });
     </script>
-@endscript
+{{-- @endscript --}}

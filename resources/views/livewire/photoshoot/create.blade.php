@@ -100,6 +100,10 @@ new class extends Component {
 
     public function createPhotoShoot()
     {
+        if (!Gate::allows('modify-page')) {
+            abort(403);
+        }
+        
         $this->validate();
 
         $this->generateSlug();

@@ -36,6 +36,10 @@ new class extends Component {
 
     public function updatePackage()
     {
+        if (!Gate::allows('modify-page')) {
+            abort(403);
+        }
+        
         $this->validate();
 
         $basic_features_array = array_map('trim', explode(',', $this->basic_features));
@@ -73,8 +77,9 @@ new class extends Component {
 </form>
 
 <!-- Package updated toast -->
-@script
-    <script>
+{{-- @script --}}
+<script>
+    document.addEventListener('livewire:initialized', () => {
         Livewire.on('packageUpdatedToast', () => {
             toast('Actualizado', {
                 type: 'success',
@@ -82,6 +87,6 @@ new class extends Component {
                 description: 'Paquete actualizado correctamente.'
             });
         });
-    </script>
-@endscript
-
+    });
+</script>
+{{-- @endscript --}}

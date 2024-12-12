@@ -1,13 +1,13 @@
 <x-admin-panel-layout>
     <section class="pb-[20vh] pt-[12vh] sm:px-6 lg:px-8 px-4">
         <div class="space-y-6 md:mx-auto max-w-7xl">
-            <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Editar paquetes</h1>
+            <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Editar categorías</h1>
 
             <!-- Breadcrumbs -->
             <nav class="flex justify-between px-3.5 py-1 rounded-md">
                 <ol
                     class="inline-flex items-center mb-3 space-x-1 text-xs text-neutral-500 [&_.active-breadcrumb]:text-neutral-600 [&_.active-breadcrumb]:font-medium sm:mb-0">
-                    <li class="flex items-center h-full"><a wire:navigate href="{{ route('panel') }}" class="py-1 hover:text-neutral-900"><svg
+                    <li class="flex items-center h-full"><a href="{{ route('panel') }}" class="py-1 hover:text-neutral-900"><svg
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
                                 <path
                                     d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -21,8 +21,8 @@
                                 stroke-linejoin="round"></path>
                         </g>
                     </svg>
-                    <li><a wire:navigate href="{{ route('packages.index') }}"
-                            class="inline-flex items-center py-1 font-normal hover:text-neutral-900 focus:outline-none">Paquetes</a>
+                    <li><a wire:navigate href="{{ route('categories.index') }}"
+                            class="inline-flex items-center py-1 font-normal hover:text-neutral-900 focus:outline-none">Categorias</a>
                     </li>
                     <svg class="w-5 h-5 text-gray-400/70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g fill="none" stroke="none">
@@ -44,15 +44,15 @@
                     to-gray-50 sm:rounded-md shadow-xl">
                 <header>
                     <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
-                        {{ __('Editar paquete') }}
+                        {{ __('Editar categorías') }}
                     </h2>
 
                     <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
-                        {{ __('Edita los datos del paquete.') }}
+                        {{ __('Edita los datos de las categorías.') }}
                     </p>
                 </header>
 
-                <livewire:packages.edit :id="$package->id" /> 
+                <livewire:categories.edit :id="$category->id" /> 
             </div>
         </div>
     </section>

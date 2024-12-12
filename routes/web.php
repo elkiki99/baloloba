@@ -20,23 +20,23 @@ Route::get('/terminos-y-conciones', [LegalPagesController::class, 'terms'])->nam
 
 Route::get('/portfolio', [PhotoShootController::class, 'portfolio'])->name('portfolio');
 
-Route::get('/photoshoots', [PhotoShootController::class, 'index'])->name('photoshoot.index');
-Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->name('photoshoot.create');
+Route::get('/photoshoots', [PhotoShootController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.index');
+Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.create');
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
-Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->name('photoshoot.edit');
+Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.edit');
 
-Route::get('/paquetes', [PackageController::class, 'index'])->name('packages.index');
-Route::get('/paquete/{package:slug}', [PackageController::class, 'show'])->name('packages.show');
-Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->name('packages.edit');
-
+Route::get('/categorias', [CategoryController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('categories.index');
 Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/categorias/editar/{category:slug}', [CategoryController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('categories.edit');
+
+Route::get('/paquetes', [PackageController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('packages.index');
+Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('packages.edit');
 
 Route::view('perfil', 'profile')
-    ->middleware(['auth'])
+    ->middleware(['auth'])  
     ->name('profile');
 
 Route::view('panel', 'admin.panel')
-    ->middleware(['auth'])
     ->middleware([EnsureUserIsAdmin::class])
     ->name('panel');
 

@@ -9,6 +9,10 @@ new class extends Component {
 
     public function deletePhotoShoot()
     {
+        if (!Gate::allows('modify-page')) {
+            abort(403);
+        }
+        
         $photoshoot = PhotoShoot::findOrFail($this->photoshootId);
 
         Storage::disk('s3')->deleteDirectory('photoshoots/' . $photoshoot->slug);
