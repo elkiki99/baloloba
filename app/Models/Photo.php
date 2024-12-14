@@ -13,6 +13,7 @@ class Photo extends Model
     protected $fillable = [
         'photo_shoot_id',
         'filename',
+        'position',
     ];
 
     public function photoshoot()

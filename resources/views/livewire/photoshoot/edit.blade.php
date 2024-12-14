@@ -116,6 +116,7 @@ new class extends Component {
         $this->slug = $this->photoshoot->slug;
 
         $this->existing_photos = Photo::where('photo_shoot_id', $this->photoshoot->id)
+            ->orderBy('position', 'asc')
             ->get()
             ->toArray();
 
@@ -177,7 +178,8 @@ new class extends Component {
     {
         $photoshootId = $this->photoshoot->id;
         $photoshootFolder = 'photoshoots/' . $this->photoshoot->slug;
-
+        $maxPosition = Photo::where('photo_shoot_id', $photoshootId)->max('position') ?? 0;
+        
         foreach ($this->new_photos as $new_photo) {
             $temporaryPath = $new_photo['path'];
             $extension = $new_photo['extension'];
@@ -192,6 +194,7 @@ new class extends Component {
             Photo::create([
                 'photo_shoot_id' => $photoshootId,
                 'filename' => $storedPath,
+                'position' => ++$maxPosition
             ]);
         }
 

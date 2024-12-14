@@ -8,7 +8,7 @@ class HomePages extends Controller
 {
     public function welcome()
     {
-        $photoshoots = PhotoShoot::take(6)->latest()->get();
+        $photoshoots = PhotoShoot::take(6)->where('status', 'published')->latest()->get();
 
         return view('homepages.welcome', [
             'photoshoots' => $photoshoots

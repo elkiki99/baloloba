@@ -103,7 +103,7 @@ new class extends Component {
         if (!Gate::allows('modify-page')) {
             abort(403);
         }
-        
+
         $this->validate();
 
         $this->generateSlug();
@@ -153,6 +153,7 @@ new class extends Component {
     {
         $photoshootId = $photoshoot->id;
         $photoshootFolder = 'photoshoots/' . $photoshoot->slug;
+        $position = 1;
 
         foreach ($this->photos as $photo) {
             $temporaryPath = $photo['path'];
@@ -168,7 +169,10 @@ new class extends Component {
             Photo::create([
                 'photo_shoot_id' => $photoshootId,
                 'filename' => $storedPath,
+                'position' => $position,
             ]);
+
+            $position++;
         }
 
         $this->reset('photos');
@@ -316,13 +320,13 @@ new class extends Component {
             <!-- Maintaining button to right-->
             <div></div>
 
-        <div>
-            <x-primary-button wire:click.prevent='createPhotoShoot'>
-                {{ __('Crear') }}
-            </x-primary-button>
+            <div>
+                <x-primary-button wire:click.prevent='createPhotoShoot'>
+                    {{ __('Crear') }}
+                </x-primary-button>
+            </div>
         </div>
-</div>
-</form>
+    </form>
 </div>
 
 <!-- Photoshoot created toast -->

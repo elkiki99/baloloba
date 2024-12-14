@@ -139,13 +139,21 @@
             </div>
         @endif
 
+        @if (isset($files) && count($files) > 0)
+            <p class="my-5 text-sm text-gray-500">Actualiza el photoshoot para ordenar las nuevas imágenes.</p>
+        @endif
+
         <!-- Check for Existing Photos in the Photoshoot -->
         @if (isset($existing_photos) && count($existing_photos) > 0)
-            <div class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-5">
+            <div wire:sortable="updateExistingPhotosOrder"
+                class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-5">
                 @foreach ($existing_photos as $photo)
-                    <div class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700"
+                    <div wire:sortable.item="{{ $photo['id'] }}"
+                        class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden dark:dz-border-gray-700 hover:scale-[102%] hover:shadow-md hover:transition-transform hover:duration-200 max-w-[38rem]"
                         wire:key='{{ $photo['id'] }}'>
-                        <div class="dz-flex dz-items-center dz-gap-3" wire:remove>
+
+                        <div wire:sortable.handle
+                            class="flex-1 dz-flex dz-items-center dz-gap-3 dz-w-full dz-h-full dz-p-2 hover:cursor-grab">
                             <div class="dz-flex-none dz-w-14 dz-h-14">
                                 <img src="{{ Storage::disk('s3')->url($photo['filename']) }}"
                                     class="dz-object-fill dz-w-full dz-h-full" alt="{{ $photo['filename'] }}">
@@ -157,6 +165,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="dz-flex dz-items-center dz-mr-3">
                             <button type="button" wire:click="removeExistingFile({{ $photo['id'] }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

@@ -41,7 +41,7 @@ new class extends Component {
                         <td class="px-4 py-4">
                             <span   
                                 class="px-2 py-1 text-sm rounded-full 
-                                {{ $photoshoot->status == 'published' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600' }}">
+                                {{ $photoshoot->status == 'published' ? 'bg-green-100/50 text-green-600/50' : 'bg-blue-100her/50 text-blue-600/50' }}">
                                 {{ $photoshoot->status == 'published' ? 'Publicado' : 'Borrador' }}
                             </span>
                         </td>
