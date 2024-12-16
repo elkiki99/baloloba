@@ -6,34 +6,11 @@
 
     <div class="flex flex-col space-y-32">
         @php
-            $headerImage = \App\Models\Header::where('id', 1)->first();
+            $header = \App\Models\Header::where('id', 1)->first();
         @endphp
-        <!-- Header -->
-        <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
-            style="background-image: url('{{ Storage::disk('s3')->url($headerImage->image) }}'); background-position: top;">
-            <div class="absolute inset-0 bg-black mt-[68px] sm:mt-5 h-screen bg-opacity-50"></div>
-
-            <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
-                <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">Balo<span class="super-thin">Loba</span>
-                </h1>
-                <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">Fotografía de autor en retratos,
-                    moda y eventos</p>
-
-                <!-- CTA -->
-                <div
-                    class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-300 rounded-full hover:blur-xs hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-white/10">
-                    <a href="{{ route('contact') }}" wire:navigate
-                        class="flex items-center text-white hover:text-gray-200">
-                        AGENDATE
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="ml-2 size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </section>
+        
+        <!-- Welcome header -->
+        <livewire:headers.show :header="$header" />
 
         <!-- Porfolio -->
         <section class="px-1 mt-12 space-y-6">
@@ -60,47 +37,11 @@
         </section>
 
         <!-- About me -->
-        <section class="mt-12 space-y-6">
-            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Sobre mi</h1>
-
-                <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
-                    <div class="lg:w-1/2">
-                        <img class="object-contain w-full h-auto rounded-3xl" src="{{ asset('home/cami_about.jpg') }}"
-                            alt="Camila Fernández">
-                    </div>
-
-                    <div
-                        class="lg:w-1/2 mt-6 space-y-6 lg:mt-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-500 via-white to-white">
-
-                        <h1 class="text-6xl font-bold lg:text-8xl">Camila Fernández</h1>
-
-                        <div class="">
-                            <p class="text-xl text-gray-800">Especializada en retratos, moda y eventos con un enfoque
-                                artístico
-                                único.
-                            </p>
-                            <p class="text-base text-gray-700">- Fundadora y alma creativa detrás de Balo Loba.
-                            </p>
-                        </div>
-
-                        <!-- Button -->
-                        <div
-                            class="items-center inline-block px-10 py-2 text-2xl font-medium text-center transition duration-300 ease-in-out bg-transparent border border-gray-900 rounded-full hover:blur-xs hover:cursor-pointer sm:w-auto backdrop-blur-md hover:backdrop-blur-lg hover:bg-yellow-100">
-                            <a href="{{ route('about') }}" wire:navigate
-                                class="flex items-center text-gray-800 hover:text-gray-900">
-                                SOBRE MI
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        @php
+            $section = \App\Models\Section::where('id', 1)->first();
+        @endphp
+        
+        <livewire:sections.show.about-me :section="$section" />
 
         <!-- Testimonials -->
         <section class="mt-12 space-y-6">

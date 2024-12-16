@@ -1,13 +1,13 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Header;
+use App\Models\Section;
 
 new class extends Component {
     public function with()
     {
         return [
-            'headers' => Header::all(),
+            'sections' => Section::all(),
         ];
     }
 }; ?>
@@ -25,15 +25,15 @@ new class extends Component {
                 </tr>
             </thead>
             <tbody>
-                @forelse ($headers as $header)
+                @forelse ($sections as $section)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-4">{{ $header->title }}</td>
-                        <td class="px-4 py-4">{{ Str::limit($header->sub_title, 30, '...') }}</td>
-                        <td class="px-4 py-4">{{ Str::limit($header->description, 30, '...') ?? $header->description ?? 'Sin descripción' }}</td>
+                        <td class="px-4 py-4">{{ $section->title }}</td>
+                        <td class="px-4 py-4">{{ Str::limit($section->sub_title, 30, '...') ?? 'Sin subtítulo' }}</td>
+                        <td class="px-4 py-4">{{ Str::limit($section->description, 30, '...') ?? $section->description ?? 'Sin descripción' }}</td>
                         <td class="h-full px-4 py-2">
                             <div class="flex items-center justify-end gap-2">
                                 <div class="flex items-center justify-center">
-                                    <a wire:navigate href="{{ route('headers.edit', $header->slug) }}"
+                                    <a wire:navigate href="{{ route('sections.edit', $section->slug) }}"
                                         class="text-gray-600 hover:text-gray-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -47,7 +47,7 @@ new class extends Component {
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-4 text-center text-gray-600">No hay headers</td>
+                        <td colspan="6" class="px-4 py-4 text-center text-gray-600">No hay secciones</td>
                     </tr>
                 @endforelse
             </tbody>

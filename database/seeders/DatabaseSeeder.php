@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Header;
 use App\Models\Package;
+use App\Models\Section;
 use App\Models\Category;
 use App\Models\PhotoShoot;
 use Illuminate\Support\Str;
@@ -13,6 +14,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Database\Factories\HeaderFactory;
 use Database\Factories\PackageFactory;
+use Database\Factories\SectionFactory;
 use Database\Factories\CategoryFactory;
 
 class DatabaseSeeder extends Seeder
@@ -37,7 +39,8 @@ class DatabaseSeeder extends Seeder
 
         // $categories = CategoryFactory::new()->defaultCategories();
         // $packages = PackageFactory::new()->defaultPackages();
-        $headers = HeaderFactory::new()->defaultHeaders();
+        // $headers = HeaderFactory::new()->defaultHeaders();
+        $sections = SectionFactory::new()->defaultSections();
 
         // foreach ($categories as $category) {
         //     Category::create($category);
@@ -47,8 +50,12 @@ class DatabaseSeeder extends Seeder
         //     Package::create($package);
         // }
 
-        foreach ($headers as $header) {
-            Header::create($header);
+        // foreach ($headers as $header) {
+        //     Header::create($header);
+        // }
+
+        foreach ($sections as $section) {
+            Section::create($section);
         }
 
         // PhotoShoot::factory(30)->create();

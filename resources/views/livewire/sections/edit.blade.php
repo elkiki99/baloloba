@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Header;
+use App\Models\Section;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
@@ -9,7 +9,7 @@ use Livewire\WithFileUploads;
 new class extends Component {
     use WithFileUploads;
 
-    public $header;
+    public $section;
     public $title;
     public $sub_title;
     public $description;
@@ -19,25 +19,25 @@ new class extends Component {
 
     public function mount($id)
     {
-        $this->header = Header::findOrFail($id);
+        $this->section = Section::findOrFail($id);
 
-        $this->title = $this->header->title;
-        $this->sub_title = $this->header->sub_title;
-        $this->description = $this->header->description;
-        $this->button_text = $this->header->button_text;
-        $this->button_link = $this->header->button_link;
+        $this->title = $this->section->title;
+        $this->sub_title = $this->section->sub_title;
+        $this->description = $this->section->description;
+        $this->button_text = $this->section->button_text;
+        $this->button_link = $this->section->button_link;
     }
 
     protected $rules = [
         'title' => 'required|string|max:255',
-        'sub_title' => 'required|string|max:255',
+        'sub_title' => 'nullable|string|max:255',
         'description' => 'nullable|string|max:500',
         'button_text' => 'nullable|string|max:255',
         'button_link' => 'nullable|string|max:255',
         'new_image' => 'nullable|image|max:10240',
     ];
 
-    public function updateHeader()
+    public function updateSection()
     {
         if (!Gate::allows('modify-page')) {
             abort(403);
@@ -45,19 +45,19 @@ new class extends Component {
 
         $this->validate();
 
-        $headerFolder = '/components/headers';
-        $headerImageName = 'header_' . Str::random($length = 10);
+        $sectionFolder = '/components/sections';
+        $sectionImageName = 'section_' . Str::random($length = 10);
 
         if ($this->new_image) {
-            if ($this->header->image) {
-                Storage::disk('s3')->delete($this->header->image);
+            if ($this->section->image) {
+                Storage::disk('s3')->delete($this->section->image);
             }
-            $imagePath = $this->new_image->storeAs($headerFolder, $headerImageName, 's3');
+            $imagePath = $this->new_image->storeAs($sectionFolder, $sectionImageName, 's3');
         } else {
-            $imagePath = $this->header->image;
+            $imagePath = $this->section->image;
         }
 
-        $this->header->update([
+        $this->section->update([
             'title' => $this->title,
             'sub_title' => $this->sub_title,
             'description' => $this->description,
@@ -67,7 +67,7 @@ new class extends Component {
         ]);
 
         // Dispatch toast notification
-        $this->dispatch('headerUpdatedToast');
+        $this->dispatch('sectionUpdatedToast');
     }
 }; ?>
 
@@ -86,27 +86,24 @@ new class extends Component {
 
         <!-- Subtítulo -->
         <div>
-            <div class="flex items-center gap-1">
-                <x-input-label for="sub_title" :value="__('Subtítulo')" />
-                <span class="text-yellow-600">*</span>
-            </div>
+            <x-input-label for="sub_title" :value="__('Subtítulo')" />
             <x-text-input placeholder="Subtítulo del encabezado" wire:model="sub_title" class="block w-full mt-1"
                 type="text" required autocomplete="sub_title" />
             <x-input-error :messages="$errors->get('sub_title')" class="mt-2" />
         </div>
 
-        <!-- Header Photo -->
+        <!-- Section Photo -->
         <div>
             <div class="flex items-center gap-1">
-                <x-input-label for="new_image" :value="__('Header')" />
+                <x-input-label for="new_image" :value="__('Imágen de la sección')" />
                 <span class="text-yellow-600">*</span>
             </div>
             <x-text-input wire:model="new_image" class="block w-full mt-1" type="file" accept="image/*" />
 
             @if (!$new_image)
-                <img src="{{ Storage::disk('s3')->url($header->image) }}" alt="Header Photo" class="mt-4">
+                <img src="{{ Storage::disk('s3')->url($section->image) }}" alt="Foto de la sección" class="mt-4">
             @elseif ($new_image)
-                <img src="{{ $new_image->temporaryUrl() }}" alt="New Header Photo" class="mt-4">
+                <img src="{{ $new_image->temporaryUrl() }}" alt="New section Photo" class="mt-4">
             @endif
 
             <x-input-error :messages="$errors->get('new_image')" class="mt-2" />
@@ -146,30 +143,30 @@ new class extends Component {
 
     <div class="flex items-center justify-between mt-4">
         <!-- Spinner -->
-        <div wire:loading wire:target="updateHeader" class="">
-            <x-spinner :text="__('Actualizando header...')" />
+        <div wire:loading wire:target="updateSection" class="">
+            <x-spinner :text="__('Actualizando sección...')" />
         </div>
 
         <!-- Maintaining button to right-->
         <div></div>
 
         <div>
-            <x-primary-button wire:click.prevent='updateHeader'>
+            <x-primary-button wire:click.prevent='updateSection'>
                 {{ __('Actualizar') }}
             </x-primary-button>
         </div>
     </div>
 </form>
 
-<!-- Header updated toast -->
+<!-- section updated toast -->
 {{-- @script --}}
 <script>
     document.addEventListener('livewire:initialized', () => {
-        Livewire.on('headerUpdatedToast', () => {
+        Livewire.on('sectionUpdatedToast', () => {
             toast('Actualizado', {
                 type: 'success',
                 position: 'bottom-right',
-                description: 'Header actualizado correctamente.'
+                description: 'Sección actualizada correctamente.'
             });
         });
     });

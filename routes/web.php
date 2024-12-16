@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeaderController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LegalPagesController;
 use App\Http\Controllers\PhotoShootController;
@@ -38,6 +39,9 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
     Route::get('/componentes', [HomePages::class, 'components'])->name('components.index');
     Route::get('/componentes/headers', [HeaderController::class, 'index'])->name('headers.index');
     Route::get('/componentes/header/editar/{header:slug}', [HeaderController::class, 'edit'])->name('headers.edit');
+
+    Route::get('/componentes/secciones', [SectionController::class, 'index'])->name('sections.index');
+    Route::get('/componentes/seccion/editar/{section:slug}', [SectionController::class, 'edit'])->name('sections.edit');
 });
 
 Route::view('perfil', 'profile')

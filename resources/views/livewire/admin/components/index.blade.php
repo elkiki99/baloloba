@@ -36,21 +36,20 @@ new class extends Component {
                         </div>
                     </td>
                 </tr>
-                
-                <!-- Acerca de mi -->
+
+                <!-- Secciones -->
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-4">Acerca de mi</td>
-                    <td class="px-4 py-4">Acerca de mi de la página principal</td>
-                    <td class="px-4 py-4">Página principal</td>
+                    <td class="px-4 py-4">Secciones</td>
+                    <td class="px-4 py-4">Edita las secciones</td>
+                    <td class="px-4 py-4">Secciones</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
                             <div class="flex items-center justify-center">
-                                <a wire:navigate href="#" class="text-gray-600 hover:text-gray-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                    </svg>
+                                <a wire:navigate href="{{ route('sections.index') }}" class="text-gray-600 hover:text-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                                      </svg>
+                                      
                                 </a>
                             </div>
                         </div>
@@ -77,51 +76,11 @@ new class extends Component {
                     </td>
                 </tr>
 
-                <!-- Header -->
-                {{-- <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-4">Header</td>
-                    <td class="px-4 py-4">Header de la página de portfolio</td>
-                    <td class="px-4 py-4">Página de portfolio</td>
-                    <td class="h-full px-4 py-2">
-                        <div class="flex items-center justify-end gap-2">
-                            <div class="flex items-center justify-center">
-                                <a wire:navigate href="{{ route('portfolio.header') }}" class="text-gray-600 hover:text-gray-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- Header -->
+                <!-- Contact -->
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-4">Header</td>
-                    <td class="px-4 py-4">Header de la página sobre mi</td>
-                    <td class="px-4 py-4">Página sobre mi</td>
-                    <td class="h-full px-4 py-2">
-                        <div class="flex items-center justify-end gap-2">
-                            <div class="flex items-center justify-center">
-                                <a wire:navigate href="{{ route('about.header') }}" class="text-gray-600 hover:text-gray-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </td>
-                </tr> --}}
-
-                <!-- Mi estudio -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-4">Mi estudio</td>
-                    <td class="px-4 py-4">Mi estudio de la página sobre mi</td>
-                    <td class="px-4 py-4">Sobre mi</td>
+                    <td class="px-4 py-4">Contacto</td>
+                    <td class="px-4 py-4">Texto de la página contacto</td>
+                    <td class="px-4 py-4">Contacto</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
                             <div class="flex items-center justify-center">
@@ -136,12 +95,12 @@ new class extends Component {
                         </div>
                     </td>
                 </tr>
-
-                <!-- Contact -->
+                
+                <!-- Footer -->
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-4">Contacto</td>
-                    <td class="px-4 py-4">Texto de la página contacto</td>
-                    <td class="px-4 py-4">Contacto</td>
+                    <td class="px-4 py-4">Footer</td>
+                    <td class="px-4 py-4">Texto de la página footer</td>
+                    <td class="px-4 py-4">Footer</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
                             <div class="flex items-center justify-center">
