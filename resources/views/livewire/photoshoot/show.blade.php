@@ -10,14 +10,18 @@ new class extends Component {
 
     public function mount()
     {
-        $this->photoshoot = Photoshoot::findOrFail($this->id);
+        $this->photoshoot = PhotoShoot::findOrFail($this->id);
 
-        $this->photos = $this->photoshoot->photos->map(function ($photo) {
-            return [
-                'photo' => Str::startsWith($photo->filename, ['http://', 'https://']) ? $photo->filename : Storage::disk('s3')->url($photo->filename),
-                'alt' => $photo->filename,
-            ];
-        });
+        $this->photos = $this->photoshoot
+            ->photos()
+            ->orderBy('position', 'asc')
+            ->get()
+            ->map(function ($photo) {
+                return [
+                    'photo' => Str::startsWith($photo->filename, ['http://', 'https://']) ? $photo->filename : Storage::disk('s3')->url($photo->filename),
+                    'alt' => $photo->filename,
+                ];
+            });
     }
 }; ?>
 

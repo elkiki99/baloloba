@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomePages;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeaderController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CategoryController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\LegalPagesController;
 use App\Http\Controllers\PhotoShootController;
 
 Route::get('/', [HomePages::class, 'welcome'])->name('welcome');
-Route::get('/acerca-de', [HomePages::class, 'about'])->name('about');
+Route::get('/sobre-mi', [HomePages::class, 'about'])->name('about');
 Route::get('/contacto', [HomePages::class, 'contact'])->name('contact');
 
 Route::get('/cookies', [LegalPagesController::class, 'cookies'])->name('cookies');
@@ -30,10 +31,17 @@ Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->
 Route::get('/categorias/editar/{category:slug}', [CategoryController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('categories.edit');
 
 Route::get('/paquetes', [PackageController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('packages.index');
-Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('packages.edit');
+Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('packages.edit');    
+
+// Panel
+Route::middleware([EnsureUserIsAdmin::class])->group(function () {
+    Route::get('/componentes', [HomePages::class, 'components'])->name('components.index');
+    Route::get('/componentes/headers', [HeaderController::class, 'index'])->name('headers.index');
+    Route::get('/componentes/header/editar/{header:slug}', [HeaderController::class, 'edit'])->name('headers.edit');
+});
 
 Route::view('perfil', 'profile')
-    ->middleware(['auth'])  
+    ->middleware(['auth'])
     ->name('profile');
 
 Route::view('panel', 'admin.panel')

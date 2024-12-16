@@ -52,8 +52,8 @@ new class extends Component {
         <p>Categorías</p>
     </a>
 
-    {{-- <!-- Legal -->
-    <div class="flex items-center gap-2 hover:blur-xs">
+    <!-- Legal -->
+    {{-- <div class="flex items-center gap-2 hover:blur-xs">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="opacity-50 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -61,10 +61,10 @@ new class extends Component {
         </svg>
 
         <p>Páginas legales</p>
-    </div>
+    </div> --}}
 
     <!-- Components -->
-    <div class="flex items-center gap-2 hover:blur-xs">
+    <a class="flex items-center gap-2 hover:blur-xs" href="{{ route('components.index') }}" wire:navigate>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="opacity-50 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -72,7 +72,7 @@ new class extends Component {
         </svg>
 
         <p>Componentes</p>
-    </div> --}}
+    </a>
 
     <!-- Profile -->
     <a wire:current.strict='text-yellow-600 font-black' wire:navigate href="{{ route('profile') }}" class="flex items-center gap-2 hover:blur-xs">

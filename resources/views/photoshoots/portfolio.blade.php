@@ -2,7 +2,7 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
-            style="background-image: url('{{ asset('home/vale_header.jpg') }}'); background-position: top;">
+            style="background-image: url('{{ Storage::disk('s3')->url('components/portfolio_header.jpg') }}'); background-position: top;">
             <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">

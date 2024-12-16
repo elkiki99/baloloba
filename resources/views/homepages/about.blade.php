@@ -2,13 +2,14 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
-            style="background-image: url('{{ asset('home/cami_header.jpg') }}'); background-position: top;">
+            style="background-image: url('{{ Storage::disk('s3')->url('components/about_header.jpg') }}'); background-position: top;">
             <div class="absolute inset-0 h-screen mt-12 bg-black bg-opacity-50 sm:mt-0"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
                 <h1 class="text-6xl font-bold text-white uppercase md:text-9xl">SOBRE <span class="super-thin">MI</span>
                 </h1>
 
+                
                 <p class="max-w-2xl text-lg leading-relaxed text-gray-200 md:text-xl">
                     Tengo más de 4 años de experiencia en fotografía profesional, especializándome en retratos y moda.
                     Capturo momentos únicos con un enfoque creativo y detallado.

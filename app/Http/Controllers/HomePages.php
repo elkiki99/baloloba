@@ -24,4 +24,9 @@ class HomePages extends Controller
     {
         return view('homepages.contact');
     }
+
+    public function components()
+    {
+        return view('admin.components.index');
+    }
 }

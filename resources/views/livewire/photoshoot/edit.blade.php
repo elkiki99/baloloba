@@ -98,6 +98,7 @@ new class extends Component {
 
     protected $listeners = [
         'existingFileRemoved' => 'removeExistingFile',
+        'photosUpdated' => 'syncPhotos',
     ];
 
     public function mount($id)
@@ -128,7 +129,7 @@ new class extends Component {
         if (!Gate::allows('modify-page')) {
             abort(403);
         }
-        
+
         $this->validate();
 
         $photoshootFolder = 'photoshoots/' . $this->slug;
@@ -179,7 +180,7 @@ new class extends Component {
         $photoshootId = $this->photoshoot->id;
         $photoshootFolder = 'photoshoots/' . $this->photoshoot->slug;
         $maxPosition = Photo::where('photo_shoot_id', $photoshootId)->max('position') ?? 0;
-        
+
         foreach ($this->new_photos as $new_photo) {
             $temporaryPath = $new_photo['path'];
             $extension = $new_photo['extension'];
@@ -194,7 +195,7 @@ new class extends Component {
             Photo::create([
                 'photo_shoot_id' => $photoshootId,
                 'filename' => $storedPath,
-                'position' => ++$maxPosition
+                'position' => ++$maxPosition,
             ]);
         }
 
@@ -205,11 +206,12 @@ new class extends Component {
     public function updatePhotosOnEditForm()
     {
         $this->existing_photos = Photo::where('photo_shoot_id', $this->photoshoot->id)
+            ->orderBy('position', 'asc')
             ->get()
             ->toArray();
 
         $this->dispatch('updateExistingPhotos', $this->existing_photos);
-    }
+    }   
 
     #[On('existingFileRemoved')]
     public function removeExistingFile($photoId)
@@ -232,6 +234,11 @@ new class extends Component {
             }
         }
         $this->existing_deleted_photos = [];
+    }
+
+    public function syncPhotos($updatedPhotos)
+    {
+        $this->existing_photos = $updatedPhotos;
     }
 }; ?>
 
@@ -441,15 +448,15 @@ new class extends Component {
 
 <!-- Photoshoot updated toast -->
 {{-- @script --}}
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('photoshootUpdatedToast', () => {
-                toast('Actualizado', {
-                    type: 'success',
-                    position: 'bottom-right',
-                    description: 'Photoshoot actualizado correctamente.'
-                });
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('photoshootUpdatedToast', () => {
+            toast('Actualizado', {
+                type: 'success',
+                position: 'bottom-right',
+                description: 'Photoshoot actualizado correctamente.'
             });
         });
-    </script>
+    });
+</script>
 {{-- @endscript --}}

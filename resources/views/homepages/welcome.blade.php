@@ -5,9 +5,12 @@
     </div>
 
     <div class="flex flex-col space-y-32">
+        @php
+            $headerImage = \App\Models\Header::where('id', 1)->first();
+        @endphp
         <!-- Header -->
         <section class="flex flex-col items-start justify-center w-full min-h-screen bg-center bg-cover"
-            style="background-image: url('{{ asset('home/header_pipi.jpg') }}'); background-position: top;">
+            style="background-image: url('{{ Storage::disk('s3')->url($headerImage->image) }}'); background-position: top;">
             <div class="absolute inset-0 bg-black mt-[68px] sm:mt-5 h-screen bg-opacity-50"></div>
 
             <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">

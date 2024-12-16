@@ -46,7 +46,7 @@ new class extends Component {
                     }
                 }
             }
-
+            
             // Convert to MB
             $totalSizeInMB = $totalSize / (1024 * 1024);
 
@@ -64,38 +64,45 @@ new class extends Component {
 
 <section class="pt-12 pb-[20vh] sm:px-6 lg:px-8 px-0">
     <div class="space-y-6 md:mx-auto sm:mt-10 max-w-7xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             <!-- Total Photoshoots -->
             <div
-                class="bg-gradient-to-tl from-white hover:via-yellow-100 via-yellow-100/50 to-white shadow-md rounded-lg p-4">
+                class="p-4 rounded-lg shadow-md bg-gradient-to-tl from-white hover:via-yellow-100 via-yellow-100/50 to-white">
                 <h3 class="text-lg font-semibold">Photoshoots totales</h3>
                 <p class="text-3xl font-bold">{{ $totalPhotoshoots }}</p>
             </div>
 
             <!-- Completed Photoshoots -->
             <div
-                class="bg-gradient-to-tl from-white hover:via-green-100 via-green-100/50 to-white shadow-md rounded-lg p-4">
+                class="p-4 rounded-lg shadow-md bg-gradient-to-tl from-white hover:via-green-100 via-green-100/50 to-white">
                 <h3 class="text-lg font-semibold">Completados</h3>
                 <p class="text-3xl font-bold">{{ $completedPhotoshoots }}</p>
             </div>
 
             <!-- Pending Photoshoots -->
             <div
-                class="bg-gradient-to-tl from-white hover:via-blue-100 via-blue-100/50 to-white shadow-md rounded-lg p-4">
+                class="p-4 rounded-lg shadow-md bg-gradient-to-tl from-white hover:via-blue-100 via-blue-100/50 to-white">
                 <h3 class="text-lg font-semibold">Pendientes</h3>
                 <p class="text-3xl font-bold">{{ $pendingPhotoshoots }}</p>
             </div>
 
             <!-- Storage -->
             <div
-                class="bg-gradient-to-tl from-white hover:via-pink-100 via-pink-100/50 to-white shadow-md rounded-lg p-4">
+                class="p-4 rounded-lg shadow-md bg-gradient-to-tl from-white hover:via-pink-100 via-pink-100/50 to-white">
                 <h3 class="text-lg font-semibold">Almacenamiento</h3>
-                <p class="text-3xl font-bold">{{ $result['totalSizeInMB'] }} MB</p>
+                {{-- <p class="text-3xl font-bold">{{ $result['totalSizeInMB'] }} MB</p> --}}
+                <p class="text-3xl font-bold">
+                    @if (is_array($result) && isset($result['totalSizeInMB']))
+                        {{ $result['totalSizeInMB'] }} MB
+                    @else
+                        Error.
+                    @endif
+                </p>
             </div>
         </div>
 
         <!-- Last Photoshoot -->
-        <div class="mt-6 bg-white shadow-md rounded-lg p-6">
+        <div class="p-6 mt-6 bg-white rounded-lg shadow-md">
             <h3 class="text-lg font-semibold">Último Photoshoot</h3>
             @if ($lastPhotoshoot)
                 <div class="my-2">

@@ -2,6 +2,8 @@
 
 use Livewire\Volt\Component;
 use App\Models\Category;
+use Illuminate\Support\Facades\Gate;
+
 
 new class extends Component {
     public $category;
@@ -25,7 +27,7 @@ new class extends Component {
 
     public function updateCategory()
     {
-        if (Gate::allows('modify-page')) {
+        if (!Gate::allows('modify-page')) {
             abort(403);
         }
 
