@@ -63,7 +63,7 @@
         </div>
 
         <div class="sticky bottom-0">
-            <x-footer />
+            <livewire:components.footer />
         </div>
     </div>
 

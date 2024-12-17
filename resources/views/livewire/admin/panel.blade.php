@@ -9,6 +9,7 @@ new class extends Component {
     public $totalPhotoshoots;
     public $lastPhotoshoot;
     public $pendingPhotoshoots;
+    public $clientPreviewPhotoshoots;
     public $completedPhotoshoots;
     public $result;
 
@@ -17,6 +18,7 @@ new class extends Component {
         $this->totalPhotoshoots = PhotoShoot::count();
         $this->lastPhotoshoot = PhotoShoot::latest()->first();
         $this->pendingPhotoshoots = PhotoShoot::where('status', 'draft')->count();
+        $this->clientPreviewPhotoshoots = PhotoShoot::where('status', 'client_preview')->count();
         $this->completedPhotoshoots = PhotoShoot::where('status', 'published')->count();
         $this->getBucketSize();
     }
@@ -46,7 +48,7 @@ new class extends Component {
                     }
                 }
             }
-            
+
             // Convert to MB
             $totalSizeInMB = $totalSize / (1024 * 1024);
 
@@ -86,11 +88,18 @@ new class extends Component {
                 <p class="text-3xl font-bold">{{ $pendingPhotoshoots }}</p>
             </div>
 
-            <!-- Storage -->
+            <!-- Client Preview Photoshoots -->
+            <div
+                class="p-4 rounded-lg shadow-md bg-gradient-to-tl from-white hover:via-pink-100 via-pink-100/50 to-white">
+                <h3 class="text-lg font-semibold">En revisión</h3>
+                <p class="text-3xl font-bold">{{ $clientPreviewPhotoshoots }}</p>
+            </div>
+
+            {{-- <!-- Storage -->
             <div
                 class="p-4 rounded-lg shadow-md bg-gradient-to-tl from-white hover:via-pink-100 via-pink-100/50 to-white">
                 <h3 class="text-lg font-semibold">Almacenamiento</h3>
-                {{-- <p class="text-3xl font-bold">{{ $result['totalSizeInMB'] }} MB</p> --}}
+                <p class="text-3xl font-bold">{{ $result['totalSizeInMB'] }} MB</p>
                 <p class="text-3xl font-bold">
                     @if (is_array($result) && isset($result['totalSizeInMB']))
                         {{ $result['totalSizeInMB'] }} MB
@@ -98,7 +107,7 @@ new class extends Component {
                         Error.
                     @endif
                 </p>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Last Photoshoot -->

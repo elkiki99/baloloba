@@ -55,7 +55,7 @@
         </main>
 
         <div class="sticky bottom-0 z-10">
-            <x-footer />
+            <livewire:components.footer />
         </div>
     </div>
 

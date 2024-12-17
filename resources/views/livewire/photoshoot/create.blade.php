@@ -35,7 +35,7 @@ new class extends Component {
             'cover_photo' => 'required|image|max:10240',
             'header_photo' => 'required|image|max:10240',
             'date' => 'required|date',
-            'status' => 'required|string|in:published,draft',
+            'status' => 'required|string|in:published,draft,client_preview',
             'category_id' => 'required|exists:categories,id',
             'location' => 'required|string|max:255',
             'price' => 'nullable|numeric|min:0',
@@ -60,7 +60,7 @@ new class extends Component {
         'date.required' => 'La fecha es obligatoria.',
         'date.date' => 'La fecha debe ser válida.',
         'status.required' => 'El estado es obligatorio.',
-        'status.in' => 'El estado debe ser "Publicado" o "Borrador".',
+        'status.in' => 'El estado debe ser "Publicado", "Borrador" o "En revisión".',
         'category_id.required' => 'La categoría es obligatoria.',
         'category_id.exists' => 'La categoría seleccionada no es válida.',
         'price.required' => 'El precio es obligatorio.',
@@ -292,6 +292,7 @@ new class extends Component {
             <select wire:model="status" class="block w-full mt-1">
                 <option value="published">{{ __('Publicado') }}</option>
                 <option value="draft">{{ __('Borrador') }}</option>
+                <option value="client_preview">{{ __('En revisión') }}</option>
             </select>
             <x-input-error :messages="$errors->get('status')" class="mt-2" />
         </div>

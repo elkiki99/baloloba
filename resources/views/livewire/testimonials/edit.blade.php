@@ -109,9 +109,9 @@ new class extends Component {
             <x-text-input wire:model="new_profile_image" class="block w-full mt-1" type="file" accept="image/*" />
 
             @if (!$new_profile_image)
-                <img src="{{ Storage::disk('s3')->url($testimonial->profile_image) }}" alt="Foto del testimonio" class="mt-4">
+                <img src="{{ Storage::disk('s3')->url($testimonial->profile_image) }}" alt="Foto del testimonio" class="mt-4 rounded-full ">
             @elseif ($new_profile_image)
-                <img src="{{ $new_profile_image->temporaryUrl() }}" alt="Nueva foto del testimonio" class="mt-4">
+                <img src="{{ $new_profile_image->temporaryUrl() }}" alt="Nueva foto del testimonio" class="mt-4 rounded-full ">
             @endif
 
             <x-input-error :messages="$errors->get('new_profile_image')" class="mt-2" />
@@ -125,7 +125,7 @@ new class extends Component {
             </div>
             <textarea placeholder="Cita breve del testimonio" wire:model="quote"
                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-                rows="4" autocomplete="quote"></textarea>
+                rows="3" autocomplete="quote"></textarea>
             <x-input-error :messages="$errors->get('quote')" class="mt-2" />
         </div>
 
@@ -148,7 +148,7 @@ new class extends Component {
             </div>
             <textarea placeholder="Biografía breve del testimonio" wire:model="bio"
                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-                rows="4" autocomplete="bio"></textarea>
+                rows="2" autocomplete="bio"></textarea>
             <x-input-error :messages="$errors->get('bio')" class="mt-2" />
         </div>
 

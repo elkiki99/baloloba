@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomePages;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\PackageController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LegalPagesController;
 use App\Http\Controllers\PhotoShootController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Middleware\CheckPhotoShootAccess;
 
 Route::get('/', [HomePages::class, 'welcome'])->name('welcome');
 Route::get('/sobre-mi', [HomePages::class, 'about'])->name('about');
@@ -25,8 +27,9 @@ Route::get('/portfolio', [PhotoShootController::class, 'portfolio'])->name('port
 
 Route::get('/photoshoots', [PhotoShootController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.index');
 Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.create');
-Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->name('photoshoot.show');
+Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->middleware([CheckPhotoShootAccess::class])->name('photoshoot.show');
 Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.edit');
+
 
 Route::get('/categorias', [CategoryController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('categories.index');
 Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
@@ -46,6 +49,8 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
 
     Route::get('/componentes/testimonios', [TestimonialController::class, 'index'])->name('testimonials.index');
     Route::get('/componentes/testimonio/editar/{testimonial:slug}', [TestimonialController::class, 'edit'])->name('testimonials.edit');
+
+    Route::get('componentes/editar/footer', [FooterController::class, 'edit'])->name('footer.edit');
 });
 
 Route::view('perfil', 'profile')

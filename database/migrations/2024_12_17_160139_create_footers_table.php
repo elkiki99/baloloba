@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('photos', function (Blueprint $table) {
-            $table->unsignedInteger('position')->default(0);
+        Schema::create('footers', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');	
+            $table->text('description');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('photos', function (Blueprint $table) {
-            $table->dropIfExists('position');
-        });
+        Schema::dropIfExists('footers');
     }
 };

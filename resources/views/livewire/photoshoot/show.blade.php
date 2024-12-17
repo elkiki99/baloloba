@@ -5,12 +5,14 @@ use App\Models\PhotoShoot;
 
 new class extends Component {
     public $id;
+    public $photo;
     public $photos;
+    public $liked = false;
     public $photoshoot;
 
-    public function mount()
+    public function mount($id)
     {
-        $this->photoshoot = PhotoShoot::findOrFail($this->id);
+        $this->photoshoot = PhotoShoot::findOrFail($id);
 
         $this->photos = $this->photoshoot
             ->photos()
@@ -18,10 +20,29 @@ new class extends Component {
             ->get()
             ->map(function ($photo) {
                 return [
-                    'photo' => Str::startsWith($photo->filename, ['http://', 'https://']) ? $photo->filename : Storage::disk('s3')->url($photo->filename),
+                    'id' => $photo->id,
+                    'photo' => Storage::disk('s3')->url($photo->filename),
                     'alt' => $photo->filename,
                 ];
             });
+    }
+
+    public function toggleLike($photoId)
+    {
+        dd($photoId);
+        // $liked = ClientPhotoQuantity::where('client_photo_shoot_id', $this->photoshoot->id)->where('photo_id', $photoId);
+
+        // if ($liked->exists()) {
+        //     $liked->delete();
+        // } else {
+        //     ClientPhotoQuantity::create([
+        //         'client_photo_shoot_id' => $this->photoshoot->id,
+        //         'photo_id' => $photoId,
+        //         'quantity' => 1,
+        //     ]);
+        // }
+
+        // $this->dispatch('$refresh');
     }
 }; ?>
 
@@ -30,6 +51,7 @@ new class extends Component {
     imageGalleryActiveUrl: null,
     imageGalleryImageIndex: null,
     imageGallery: {{ $photos }},
+    likedImages: @entangle('liked'),
     imageGalleryOpen(event) {
         this.imageGalleryImageIndex = event.target.dataset.index;
         this.imageGalleryActiveUrl = event.target.src;
@@ -88,6 +110,20 @@ new class extends Component {
                     x-transition:leave-end="opacity-0 transform scale-50"
                     class="object-contain max-w-full max-h-full select-none cursor-zoom-out"
                     :src="imageGalleryActiveUrl" alt="">
+
+                <!-- Like button for photoshoot client -->
+                <div class="absolute z-10 top-4 right-4">
+                    @can('like-photoshoot-photos', $photoshoot)
+                        <button x-on:click="$wire.toggleLike(imageGalleryImageIndex)" class="flex items-center justify-center">
+                            <svg :class="{ 'fill-red-500': likedImages.includes(image.id) }"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="text-white size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                            </svg>
+                        </button>
+                    @endcan
+                </div>
 
                 <!-- Botón para imagen siguiente -->
                 <div @click="$event.stopPropagation(); imageGalleryNext();"

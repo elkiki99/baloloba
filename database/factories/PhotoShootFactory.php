@@ -23,7 +23,7 @@ class PhotoShootFactory extends Factory
             'cover_photo' => $this->faker->imageUrl(),
             'header_photo' => $this->faker->imageUrl(),
             'date' => $this->faker->date(),
-            'status' => $this->faker->randomElement(['published', 'draft']),
+            'status' => $this->faker->randomElement(['published', 'draft', 'client_preview']),
             'category_id' => $this->faker->randomElement([1, 2, 3]),
             'price' => $this->faker->randomFloat(2, 0, 1000),
             'location' => $this->faker->city(),

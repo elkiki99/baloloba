@@ -32,5 +32,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('modify-page', function (User $user) {
             return $user->isAdmin();
         });
+
+        Gate::define('like-photoshoot-photos', function (User $user, Photoshoot $photoshoot) {
+            return !$user->isAdmin() && $photoshoot->status === 'client_preview' && $photoshoot->clients->contains($user->id);
+        });
     }
 }

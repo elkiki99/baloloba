@@ -39,10 +39,18 @@ new class extends Component {
                         <td class="px-4 py-4">${{ number_format($photoshoot->price, 2) }}</td>
                         <td class="px-4 py-4">{{ $photoshoot->location }}</td>
                         <td class="px-4 py-4">
-                            <span   
+                            <span
                                 class="px-2 py-1 text-sm rounded-full 
-                                {{ $photoshoot->status == 'published' ? 'bg-green-100/50 text-green-600/50' : 'bg-blue-100her/50 text-blue-600/50' }}">
-                                {{ $photoshoot->status == 'published' ? 'Publicado' : 'Borrador' }}
+    {{ $photoshoot->status == 'published'
+        ? 'bg-green-100/50 text-green-600/50'
+        : ($photoshoot->status == 'client_preview'
+            ? 'bg-pink-100/50 text-pink-600/50'
+            : 'bg-blue-100/50 text-blue-600/50') }}">
+                                {{ $photoshoot->status == 'published'
+                                    ? 'Publicado'
+                                    : ($photoshoot->status == 'client_preview'
+                                        ? 'En revisión'
+                                        : 'Borrador') }}
                             </span>
                         </td>
                         <td class="h-full px-4 py-2">

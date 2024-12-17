@@ -10,7 +10,7 @@ new class extends Component {
     public function mount($id)
     {
         $this->categoryId = $id;
-        $this->photoshoots = PhotoShoot::where('category_id', $this->categoryId)->latest()->get();
+        $this->photoshoots = PhotoShoot::where('category_id', $this->categoryId)->where('status', 'published')->latest()->get();
     }
 }; ?>
 
