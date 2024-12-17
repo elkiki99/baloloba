@@ -46,12 +46,13 @@ new class extends Component {
         $this->validate();
 
         $headerFolder = '/components/headers';
-        $headerImageName = 'header_' . Str::random($length = 10);
+        $headerImageName = 'header_' . now()->timestamp . '.' . $this->new_image->extension();
 
         if ($this->new_image) {
-            if ($this->header->image) {
+            if ($this->header->image && Storage::disk('s3')->exists($this->header->image)) {
                 Storage::disk('s3')->delete($this->header->image);
             }
+
             $imagePath = $this->new_image->storeAs($headerFolder, $headerImageName, 's3');
         } else {
             $imagePath = $this->header->image;

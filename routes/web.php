@@ -9,6 +9,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LegalPagesController;
 use App\Http\Controllers\PhotoShootController;
+use App\Http\Controllers\TestimonialController;
 
 Route::get('/', [HomePages::class, 'welcome'])->name('welcome');
 Route::get('/sobre-mi', [HomePages::class, 'about'])->name('about');
@@ -42,6 +43,9 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
 
     Route::get('/componentes/secciones', [SectionController::class, 'index'])->name('sections.index');
     Route::get('/componentes/seccion/editar/{section:slug}', [SectionController::class, 'edit'])->name('sections.edit');
+
+    Route::get('/componentes/testimonios', [TestimonialController::class, 'index'])->name('testimonials.index');
+    Route::get('/componentes/testimonio/editar/{testimonial:slug}', [TestimonialController::class, 'edit'])->name('testimonials.edit');
 });
 
 Route::view('perfil', 'profile')
