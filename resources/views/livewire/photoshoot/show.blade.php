@@ -51,7 +51,7 @@ new class extends Component {
     imageGalleryActiveUrl: null,
     imageGalleryImageIndex: null,
     imageGallery: {{ $photos }},
-    likedImages: @entangle('liked'),
+    {{-- likedImages: @entangle('liked'), --}}
     imageGalleryOpen(event) {
         this.imageGalleryImageIndex = event.target.dataset.index;
         this.imageGalleryActiveUrl = event.target.src;
@@ -76,9 +76,9 @@ new class extends Component {
     <div class="duration-1000 delay-300 opacity-0 select-none ease animate-fade-in-view"
         style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate(0px, 0px);">
         <ul x-ref="gallery" id="gallery" class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-            <template x-for="(image, index) in imageGallery">
+            <template x-for="(image, index) in imageGallery" :key="image.id">
                 <li><img x-on:click="imageGalleryOpen" :src="image.photo" :alt="image.alt"
-                        :data-index="index + 1"
+                        :data-index="index"
                         class="object-cover select-none w-full h-auto bg-gray-200 rounded cursor-zoom-in aspect-[5/6] lg:aspect-[2/3] xl:aspect-[3/4]">
                 </li>
             </template>
@@ -114,7 +114,8 @@ new class extends Component {
                 <!-- Like button for photoshoot client -->
                 <div class="absolute z-10 top-4 right-4">
                     @can('like-photoshoot-photos', $photoshoot)
-                        <button x-on:click="$wire.toggleLike(imageGalleryImageIndex)" class="flex items-center justify-center">
+                        <button x-on:click="$wire.toggleLike(imageGallery[imageGalleryImageIndex].id)"
+                            class="flex items-center justify-center">
                             <svg :class="{ 'fill-red-500': likedImages.includes(image.id) }"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="text-white size-6">
