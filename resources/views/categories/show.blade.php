@@ -2,11 +2,10 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         <section class="flex flex-col items-start justify-end w-full min-h-screen py-12 bg-center bg-cover"
-            style="background-image: url( {{ // Str::startsWith($randomPhotoshoot->header_photo, ['http://', 'https://']) ? $randomPhotoshoot->header_photo :
-                Storage::disk('s3')->url($randomPhotoshoot->header_photo) }}); background-position: top;">
+            style="background-image: url( {{ Storage::disk('s3')->url($randomPhotoshoot->header_photo) }}); background-position: top;">
             <div class="absolute inset-0 h-screen mt-12 bg-black sm:mt-0 bg-opacity-30"></div>
 
-            <div class="relative z-10 w-full px-6 mx-auto space-y-6 max-w-7xl text-start">
+            <div class="relative z-10 w-full px-4 mx-auto space-y-6 lg:px-8 sm:px-6 max-w-7xl text-start">
                 @php
                     // Divide el título en palabras
                     $words = explode(' ', $randomPhotoshoot->name);
