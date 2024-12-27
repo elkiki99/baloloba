@@ -31,7 +31,7 @@ class SectionFactory extends Factory
                 'sub_title' => 'Especializada en retratos, moda y eventos con un enfoque artístico único.',
                 'description' => '- Fundadora y alma creativa detrás de Balo Loba.',
                 'button_text' => 'Sobre mi',
-                'button_link' => 'about',
+                'button_link' => 'sobre-mi',
             ],
             [
                 'title' => 'Situado en el corazón de Palermo',
@@ -40,7 +40,7 @@ class SectionFactory extends Factory
                 'sub_title' => null,
                 'description' => null,
                 'button_text' => 'Agendate',
-                'button_link' => 'contact',
+                'button_link' => 'contacto',
             ],
         ];
     }

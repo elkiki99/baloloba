@@ -32,7 +32,7 @@ class HeaderFactory extends Factory
                 'sub_title' => 'Fotografía de autor en retratos, moda y eventos',
                 'description' => null,
                 'button_text' => 'Agendate',
-                'button_link' => 'contact',
+                'button_link' => 'contacto',
             ],
             [
                 'title' => 'Portfolio',
@@ -41,7 +41,7 @@ class HeaderFactory extends Factory
                 'sub_title' => 'Explora mi catálogo, conocé mi trabajo',
                 'description' => null,
                 'button_text' => 'Agendate',
-                'button_link' => 'contact',
+                'button_link' => 'contacto',
             ],
             [
                 'title' => 'Sobre mi',

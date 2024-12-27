@@ -23,7 +23,6 @@ new class extends Component {
 }; ?>
 
 <div>
-    <!-- Botón para eliminar -->
     <x-danger-button class="px-4 py-2 ms-3" wire:click.prevent="deletePhotoShoot">
         {{ __('Si, eliminar photoshoot') }}
     </x-danger-button>

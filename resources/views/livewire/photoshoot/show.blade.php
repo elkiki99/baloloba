@@ -3,16 +3,19 @@
 use Livewire\Volt\Component;
 use App\Models\PhotoShoot;
 use App\Models\ClientPhotoQuantity;
+use App\Models\ClientPhotoShoot;
 
 new class extends Component {
     public $photoshoot;
     public $photos = [];
     public $photo;
     public $likedImages = [];
+    public $clientPhotoShootId;
 
     public function mount($id)
     {
         $this->photoshoot = PhotoShoot::findOrFail($id);
+        $this->clientPhotoShootId = ClientPhotoShoot::where('photo_shoot_id', $this->photoshoot->id)->first();
 
         $this->photos = $this->photoshoot
             ->photos()
@@ -26,9 +29,11 @@ new class extends Component {
                 ];
             });
 
-        $this->likedImages = ClientPhotoQuantity::where('client_photo_shoot_id', $this->photoshoot->id)
-            ->pluck('photo_id')
-            ->toArray();
+        if (isset($this->clientPhotoShootId)) {
+            $this->likedImages = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
+                ->pluck('photo_id')
+                ->toArray();
+        }
     }
 
     public function toggleLike($photoId)
@@ -38,33 +43,35 @@ new class extends Component {
         }
 
         if (in_array($photoId, $this->likedImages)) {
-            ClientPhotoQuantity::where('client_photo_shoot_id', $this->photoshoot->id)
+            ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
                 ->where('photo_id', $photoId)
                 ->delete();
         } else {
             ClientPhotoQuantity::create([
-                'client_photo_shoot_id' => $this->photoshoot->id,
+                'client_photo_shoot_id' => $this->clientPhotoShootId->id,
                 'photo_id' => $photoId,
             ]);
         }
 
-        $this->likedImages = ClientPhotoQuantity::where('client_photo_shoot_id', $this->photoshoot->id)
+        $this->likedImages = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
             ->pluck('photo_id')
             ->toArray();
     }
 }; ?>
 
 <div class="space-y-6">
-    <div class="flex items-center gap-2 px-4 mx-auto text-3xl underline max-w-7xl sm:px-6 lg:px-8">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
-        </svg>
-        <h2 class="underline decoration-yellow-500">Photoshoot en
-            revisión...</h2>
-    </div>
+    @if ($photoshoot->status === 'client_preview')
+        <div class="flex items-center gap-2 px-4 mx-auto text-3xl underline max-w-7xl sm:px-6 lg:px-8">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
+            </svg>
+            <h2 class="underline decoration-yellow-500">Photoshoot en
+                revisión...</h2>
+        </div>
+    @endif
 
     <div x-data="{
         imageGalleryOpened: false,
@@ -165,19 +172,32 @@ new class extends Component {
         </template>
     </div>
 
-    <!-- Liked photoshoot photos -->
-    @can('like-photoshoot-photos', $photoshoot)
+    @if ($photoshoot->status === 'client_preview')
+        <!-- Liked photoshoot photos -->
         <div class="px-4 pt-12 mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
             <div class="">
-                <div class="flex items-center gap-2 text-3xl underline ">
+                <div class="flex items-center gap-2 text-3xl ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                     </svg>
 
-                    <h2 class="underline decoration-yellow-500">Tus me gusta</h2>
+                    @can('like-photoshoot-photos', $photoshoot)
+                        <div class="flex flex-col">
+                            <h2 class="underline decoration-yellow-500">Tus me gusta</h2>
+                        </div>
+                    @endcan
+
+                    @can('modify-page')
+                        <h2 class="underline decoration-yellow-500">Me gustas del cliente</h2>
+                    @endcan
                 </div>
+
+                @can('like-photoshoot-photos', $photoshoot)
+                    <p class="mt-2 text-sm text-gray-700">Aquí puedes ver tus fotografías favoritas. ¿Tu
+                        paquete cuenta con fotos impresas? Elige también la cantidad.</p>
+                @endcan
 
                 <div x-data="{
                     likedImages: @entangle('likedImages'),
@@ -188,22 +208,25 @@ new class extends Component {
                             <img :src="imageGallery.find(photo => photo.id === image)?.photo"
                                 :alt="imageGallery.find(photo => photo.id === image)?.alt"
                                 class="object-cover w-full h-full" />
-                            <button @click="$wire.call('toggleLike', image)"
-                                class="absolute p-1 text-white bg-transparent rounded-full top-2 right-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                </svg>
-                            </button>
+                            @can('like-photoshoot-photos', $photoshoot)
+                                <button @click="$wire.call('toggleLike', image)"
+                                    class="absolute p-1 text-white bg-transparent rounded-full top-2 right-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            @endcan
                         </div>
                     </template>
 
-                    <!-- Texto para cuando no hay fotos liked -->
-                    <p class="absolute text-sm text-gray-600" x-show="!likedImages.length">
-                        Comienza dándole me gusta a tus fotografías
-                    </p>
+                    @can('modify-page')
+                        <p class="absolute text-sm text-gray-600" x-show="!likedImages.length">
+                            El cliente no ha marcado ninguna foto como me gusta
+                        </p>
+                    @endcan
                 </div>
             </div>
-        @endcan
-    </div>
+        </div>
+    @endif
 </div>

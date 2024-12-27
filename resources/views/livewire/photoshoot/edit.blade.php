@@ -123,6 +123,13 @@ new class extends Component {
 
         $this->categories = Category::all();
     }
+    
+    public function updated($property, $value)
+    {
+        if ($property === 'status') {
+            $this->photoshoot->update(['status' => $value]);
+        }
+    }
 
     public function updatePhotoShoot()
     {
@@ -211,7 +218,7 @@ new class extends Component {
             ->toArray();
 
         $this->dispatch('updateExistingPhotos', $this->existing_photos);
-    }   
+    }
 
     #[On('existingFileRemoved')]
     public function removeExistingFile($photoId)
@@ -308,36 +315,6 @@ new class extends Component {
 
             <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
 
-            {{-- <div class="flex flex-wrap justify-start w-full mt-5 gap-x-10 gap-y-2">
-                @foreach ($existing_photos as $photo)
-                    <div class="flex items-center justify-between w-full h-auto gap-2 overflow-hidden border border-gray-200 rounded dark:border-gray-700"
-                        wire:key='{{ $photo['id'] }}'>
-                        <div class="flex items-center gap-3" wire:remove>
-                            <div class="flex-none w-14 h-14">
-                                <img src="{{ Storage::disk('s3')->url($photo['filename']) }}"
-                                    class="object-fill w-full h-full" alt="{{ $photo['filename'] }}">
-                            </div>
-                            <div class="flex flex-col items-start gap-1">
-                                <div class="text-sm font-medium text-center text-slate-900 dark:text-slate-100">
-                                    {{ basename($photo['filename']) }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center mr-3">
-                            <button type="button" wire:click="removeExistingFile({{ $photo['id'] }})">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="w-6 h-6 text-black dark:text-white">
-                                    <path fill-rule="evenodd"
-                                        d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                @endforeach
-            </div> --}}
-
-            <!-- Check for Existing Photos in the Photoshoot -->
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
         </div>
@@ -388,13 +365,18 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <select wire:model="status" class="block w-full mt-1">
+            <select wire:model.live="status" class="block w-full mt-1">
                 <option value="published">{{ __('Publicado') }}</option>
                 <option value="draft">{{ __('Borrador') }}</option>
                 <option value="client_preview">{{ __('En revisión') }}</option>
             </select>
             <x-input-error :messages="$errors->get('status')" class="mt-2" />
         </div>
+
+        @if ($photoshoot->status == 'client_preview')
+            <!-- User Search -->
+            <livewire:components.search-client :id="$photoshoot->id" />
+        @endif
 
         <!-- Category -->
         <div>
