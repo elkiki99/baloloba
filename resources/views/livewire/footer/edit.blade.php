@@ -8,17 +8,32 @@ new class extends Component {
     public $footer;
     public $title;
     public $description;
+    public $address;
+    public $linkedin;
+    public $instagram;
+    public $phone;
+    public $email;
 
     public function mount()
     {
         $this->footer = Footer::findOrFail(1);
         $this->title = $this->footer->title;
         $this->description = $this->footer->description;
+        $this->address = $this->footer->address;
+        $this->linkedin = $this->footer->linkedin;
+        $this->instagram = $this->footer->instagram;
+        $this->phone = $this->footer->phone;
+        $this->email = $this->footer->email;
     }
 
     protected $rules = [
         'title' => 'required|string|max:255',
         'description' => 'required|string|max:500',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|max:20',
+        'email' => 'required|email|max:255',
+        'linkedin' => 'required|url|max:255',
+        'instagram' => 'required|url|max:255',
     ];
 
     public function updateFooter()
@@ -32,6 +47,11 @@ new class extends Component {
         $this->footer->update([
             'title' => $this->title,
             'description' => $this->description,
+            'address' => $this->address,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'linkedin' => $this->linkedin,
+            'instagram' => $this->instagram
         ]);
 
         // Footer updated toast
@@ -63,6 +83,61 @@ new class extends Component {
                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
                 rows="4" autocomplete="description"></textarea>
             <x-input-error class="mt-2" :messages="$errors->get('description')" />
+        </div>
+        
+        <!-- Address -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="address" :value="__('Dirección')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Dirección del estudio fotográfico" wire:model="address" class="block w-full mt-1" type="text"
+                required autofocus autocomplete="address" />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+        
+        <!-- Phone -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="phone" :value="__('Número de teléfono')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Número de teléfono" wire:model="phone" class="block w-full mt-1" type="text"
+                required autofocus autocomplete="phone" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+        
+        <!-- Email -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="email" :value="__('Email')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Tu correo electrónico" wire:model="email" class="block w-full mt-1" type="email"
+                required autofocus autocomplete="email" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+        
+        <!-- Linkedin -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="linkedin" :value="__('Linkedin')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Tu dirección de linkedin" wire:model="linkedin" class="block w-full mt-1" type="url"
+                required autofocus autocomplete="linkedin" />
+            <x-input-error :messages="$errors->get('linkedin')" class="mt-2" />
+        </div>
+        
+        <!-- Instagram -->
+        <div>
+            <div class="flex items-center gap-1">
+                <x-input-label for="instagram" :value="__('Instagram')" />
+                <span class="text-yellow-600">*</span>
+            </div>
+            <x-text-input placeholder="Tu dirección de instagram" wire:model="instagram" class="block w-full mt-1" type="url"
+                required autofocus autocomplete="instagram" />
+            <x-input-error :messages="$errors->get('instagram')" class="mt-2" />
         </div>
     </div>
 

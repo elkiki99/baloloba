@@ -38,7 +38,7 @@ new class extends Component {
 
                         <!-- Location -->
                         <div class="">
-                            <a href="https://www.google.com/maps/place/Balo+Loba+Fotograf%C3%ADa/@-34.9108155,-56.1835782,17z/data=!3m1!4b1!4m6!3m5!1s0x959f81b09abd9171:0xcc8f13d506d17e44!8m2!3d-34.9108199!4d-56.1810033!16s%2Fg%2F11tn84rl3g?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
+                            <a href="{{ $footer->address }}"
                                 rel="noopener noreferrer" target="blank"
                                 class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ new class extends Component {
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
                             </svg>
-                            <p class="text-sm text-gray-400 md:text-md">(+598) 92 299 682</p>
+                            <p class="text-sm text-gray-400 md:text-md">{{ $footer->phone }}</p>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@ new class extends Component {
 
                             <!-- Mail -->
                             <li class="">
-                                <a href="mailto:baloloba.uy@gmail.com"
+                                <a href="mailto:{{ $footer->email }}"
                                     class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 size-5" fill="none"
                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -97,7 +97,7 @@ new class extends Component {
 
                             <!-- Instagram -->
                             <li class="p-0.5">
-                                <a href="https://www.instagram.com/balo_loba" rel="noopener noreferrer" target="blank"
+                                <a href="{{ $footer->instagram }}" rel="noopener noreferrer" target="blank"
                                     class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 size-4"
                                         preserveAspectRatio="xMidYMid" viewBox="0 0 256 256">

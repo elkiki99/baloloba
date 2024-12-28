@@ -13,5 +13,10 @@ class Footer extends Model
     protected $fillable = [
         'title',
         'description',
+        'address',
+        'phone',
+        'email',
+        'linkedin',
+        'instagram',
     ];
 }

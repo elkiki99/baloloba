@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');	
             $table->text('description');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('linkedin');
+            $table->string('instagram');
             $table->timestamps();
         });
     }
