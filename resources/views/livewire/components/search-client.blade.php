@@ -19,6 +19,7 @@ new class extends Component {
     {
         if (!empty($this->search)) {
             $this->users = User::where('name', 'like', '%' . $this->search . '%')
+                ->where('isAdmin', false)
                 ->take(5)
                 ->get();
         } else {
@@ -71,7 +72,7 @@ new class extends Component {
 
     @forelse($photoshoot->clients as $client)
         <div class="mt-4">
-            <div class="flex items-center">
+            <div class="flex items-center justify-between">
                 <span class="text-gray-600">{{ $client->name }}, {{ $client->email }}</span>
                 <button x-on:click.prevent="$dispatch('open-modal', 'confirm-client-photoshoot-deletion-{{ $client->id }}')" class="ml-2 text-red-600">
                     Eliminar
@@ -86,7 +87,7 @@ new class extends Component {
                 </h3>
     
                 <p class="mt-1 text-sm text-gray-600">
-                    {{ __('El cliente perderá el acceso a su photoshoot y sus fotos favoritas se eliminarán automáticamente.') }}
+                    {{ __('El cliente perderá el acceso a su photoshoot y sus fotos favoritas se eliminarán automáticamente. Si quieres puedes actualizar el estado del photoshoot a borrador y no alterar el estado de las fotos del cliente.') }}
                 </p>
     
                 <div class="flex justify-end mt-6">
@@ -100,7 +101,7 @@ new class extends Component {
         </x-modal>
     @empty
         <div class="mt-4">
-            <p class="text-gray-600">No hay clientes asignados.</p>
+            <p class="text-gray-600">No hay clientes asignados a este photoshoot.</p>
         </div>
     @endforelse
 </div>

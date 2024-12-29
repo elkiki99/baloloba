@@ -140,7 +140,11 @@
         @endif
 
         @if (isset($files) && count($files) > 0)
-            <p class="my-5 text-sm text-gray-500">Actualiza el photoshoot para ordenar las nuevas imágenes.</p>
+            @if ($routeName === 'create-photoshoot')
+                <p class="mt-5 text-sm text-gray-500">Crea el photoshoot para ordenar las nuevas imágenes.</p>
+            @elseif ($routeName === 'edit-photoshoot')
+                <p class="mt-5 text-sm text-gray-500">Actualiza el photoshoot para ordenar las nuevas imágenes.</p>
+            @endif
         @endif
 
         <!-- Check for Existing Photos in the Photoshoot -->

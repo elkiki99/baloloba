@@ -66,6 +66,7 @@ new class extends Component {
         'price.required' => 'El precio es obligatorio.',
         'price.numeric' => 'El precio debe ser un número.',
         'price.min' => 'El precio debe ser mayor o igual a 0.',
+        'location.required' => 'La ubicación es obligatoria.',
         'location.string' => 'La ubicación debe ser una cadena de texto.',
         'location.max' => 'La ubicación no puede superar los 255 caracteres.',
         'duration.integer' => 'La duración debe ser un número entero.',
@@ -239,7 +240,7 @@ new class extends Component {
                 <x-input-label for="photos" :value="__('Fotos')" />
                 <span class="text-yellow-600">*</span>
             </div>
-            <livewire:dropzone :key="'create-photoshoot'" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+            <livewire:dropzone :routeName="'create-photoshoot'" :key="'create-photoshoot'" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
             <x-input-error :messages="$errors->get('photos')" class="mt-2" />
         </div>
 
@@ -282,22 +283,28 @@ new class extends Component {
             <x-input-error :messages="$errors->get('location')" class="mt-2" />
         </div>
 
-        <!-- Status -->
-        <div>
-            <div class="flex items-center gap-1">
-                <x-input-label for="status" :value="__('Estado')" />
-                <span class="text-yellow-600">*</span>
+        <div x-data="{ status: '' }">
+            <!-- Status -->
+            <div>
+                <div class="flex items-center gap-1">
+                    <x-input-label for="status" :value="__('Estado')" />
+                    <span class="text-yellow-600">*</span>
+                </div>
+        
+                <select x-model="status" wire:model="status" class="block w-full mt-1">
+                    <option value="published">{{ __('Publicado') }}</option>
+                    <option value="draft">{{ __('Borrador') }}</option>
+                    <option value="client_preview">{{ __('En revisión') }}</option>
+                </select>
+                <x-input-error :messages="$errors->get('status')" class="mt-2" />
             </div>
-
-            <select wire:model="status" class="block w-full mt-1">
-                <option value="published">{{ __('Publicado') }}</option>
-                <option value="draft">{{ __('Borrador') }}</option>
-                <option value="client_preview">{{ __('En revisión') }}</option>
-            </select>
-            <x-input-error :messages="$errors->get('status')" class="mt-2" />
+        
+            <!-- Mensaje dinámico -->
+            <template x-if="status === 'client_preview'">
+                <p class="my-2 text-sm text-gray-500">Crea el photoshoot para poder asignarle un cliente.</p>
+            </template>
         </div>
 
-        <!-- Category -->
         <div>
             <div class="flex items-center gap-1">
                 <x-input-label for="category_id" :value="__('Categoría')" />

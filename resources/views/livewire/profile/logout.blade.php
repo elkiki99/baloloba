@@ -23,10 +23,6 @@ new class extends Component {
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __('Cerrar sesión') }}
         </h2>
-
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Cerrar tu sesión en esta aplicación.') }}
-        </p>
     </header>
 
     <x-primary-button wire:click.prevent="logout">{{ __('Cerrar sesión') }}</x-primary-button>

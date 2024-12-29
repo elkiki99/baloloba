@@ -1,4 +1,4 @@
-@props(['width' => '30px', 'height' => '25px', 'color' => 'text-gray-800', 'class' => ''])
+@props(['width' => '', 'height' => '', 'color' => 'text-gray-800', 'class' => ''])
 
 <div style="width: {{ $width }}; height: {{ $height }}; display: inline-block;" class="{{ $color }} {{ $class }} hover:blur-xs">
     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

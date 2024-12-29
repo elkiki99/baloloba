@@ -123,13 +123,13 @@ new class extends Component {
 
         $this->categories = Category::all();
     }
-    
-    public function updated($property, $value)
-    {
-        if ($property === 'status') {
-            $this->photoshoot->update(['status' => $value]);
-        }
-    }
+
+    // public function updated($property, $value)
+    // {
+    //     if ($property === 'status') {
+    //         $this->photoshoot->update(['status' => $value]);
+    //     }
+    // }
 
     public function updatePhotoShoot()
     {
@@ -313,7 +313,8 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+            <livewire:dropzone :routeName="'edit-photoshoot'" :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
+                :multiple="true" />
 
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
@@ -359,24 +360,28 @@ new class extends Component {
         </div>
 
         <!-- Status -->
-        <div>
+        <div 
+            x-data="{ status: @entangle('status') }"
+            >
             <div class="flex items-center gap-1">
                 <x-input-label for="status" :value="__('Estado')" />
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <select wire:model.live="status" class="block w-full mt-1">
+            <select 
+                x-model="status"
+                 class="block w-full mt-1">
                 <option value="published">{{ __('Publicado') }}</option>
                 <option value="draft">{{ __('Borrador') }}</option>
                 <option value="client_preview">{{ __('En revisión') }}</option>
             </select>
             <x-input-error :messages="$errors->get('status')" class="mt-2" />
-        </div>
 
-        @if ($photoshoot->status == 'client_preview')
-            <!-- User Search -->
-            <livewire:components.search-client :id="$photoshoot->id" />
-        @endif
+            <!-- Client search for client preview -->
+            <div x-show="status === 'client_preview'" x-cloak>
+                <livewire:components.search-client :id="$photoshoot->id" />
+            </div>
+        </div>
 
         <!-- Category -->
         <div>
