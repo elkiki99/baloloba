@@ -10,6 +10,8 @@ new class extends Component {
     public $photos = [];
     public $photo;
     public $likedImages = [];
+    public $quantities = [];
+
     public $clientPhotoShootId;
 
     public function mount($id)
@@ -30,9 +32,10 @@ new class extends Component {
             });
 
         if (isset($this->clientPhotoShootId)) {
-            $this->likedImages = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
-                ->pluck('photo_id')
-                ->toArray();
+            $clientPhotoQuantities = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)->get();
+
+            $this->likedImages = $clientPhotoQuantities->pluck('photo_id')->toArray();
+            $this->quantities = $clientPhotoQuantities->pluck('quantity', 'photo_id')->toArray();
         }
     }
 
@@ -56,6 +59,36 @@ new class extends Component {
         $this->likedImages = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
             ->pluck('photo_id')
             ->toArray();
+    }
+
+    public function addPhotoQuantity($photoId)
+    {
+        $clientPhotoQuantity = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
+            ->where('photo_id', $photoId)
+            ->first();
+
+        if ($clientPhotoQuantity) {
+            $clientPhotoQuantity->update(['quantity' => $clientPhotoQuantity->quantity + 1]);
+        } else {
+            ClientPhotoQuantity::create([
+                'client_photo_shoot_id' => $this->clientPhotoShootId->id,
+                'photo_id' => $photoId,
+                'quantity' => 1,
+            ]);
+        }
+    }
+
+    public function removePhotoQuantity($photoId)
+    {
+        $clientPhotoQuantity = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
+            ->where('photo_id', $photoId)
+            ->first();
+
+        if ($clientPhotoQuantity) {
+            if ($clientPhotoQuantity->quantity > 1) {
+                $clientPhotoQuantity->update(['quantity' => $clientPhotoQuantity->quantity - 1]);
+            }
+        }
     }
 }; ?>
 
@@ -98,7 +131,14 @@ new class extends Component {
         },
         toggleLikedImage(imageId) {
             @this.call('toggleLike', imageId);
+        },
+        addPhotoQuantity(imageId) {
+            @this.call('addPhotoQuantity', imageId);
+        },
+        removePhotoQuantity(imageId) {
+            @this.call('removePhotoQuantity', imageId);
         }
+    
     }" @image-gallery-next.window="imageGalleryNext()"
         @image-gallery-prev.window="imageGalleryPrev()" @keyup.right.window="imageGalleryNext();"
         @keyup.left.window="imageGalleryPrev();" @like-toggled.window="toggleLikedImage($event.detail)"
@@ -201,8 +241,9 @@ new class extends Component {
 
                 <div x-data="{
                     likedImages: @entangle('likedImages'),
-                    imageGallery: @js($photos)
-                }" class="grid grid-cols-4 gap-1 space-y-6 sm:grid-cols-6 md:grid-cols-8">
+                    imageGallery: @js($photos),
+                    quantities: @entangle('quantities')
+                }" class="grid grid-cols-4 gap-1 space-y-6 md:grid-cols-6">
                     <template x-for="image in likedImages" :key="image">
                         <div class="relative">
                             <img :src="imageGallery.find(photo => photo.id === image)?.photo"
@@ -216,6 +257,33 @@ new class extends Component {
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                     </svg>
                                 </button>
+
+                                <div class="absolute bottom-0 left-0 flex items-center justify-center w-full p-2 space-x-4 bg-black bg-opacity-50">
+                                    <!-- Remove photo quantity -->
+                                    <button
+                                        @click="$wire.call('removePhotoQuantity', image); if (quantities[image] > 1) { quantities[image] -= 1 }"
+                                        class="text-white ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                        </svg>
+                                    </button>
+                                
+                                    <!-- Show photo quantity -->
+                                    <div class="w-6 text-lg font-bold text-center text-white">
+                                        <span class="text-sm" x-text="quantities[image]"></span>
+                                    </div>
+                                
+                                    <!-- Add photo quantity -->
+                                    <button
+                                        @click="$wire.call('addPhotoQuantity', image); quantities[image] = (quantities[image]) + 1"
+                                        class="text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                    </button>
+                                </div>
                             @endcan
                         </div>
                     </template>
