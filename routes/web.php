@@ -53,6 +53,8 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
     Route::get('componentes/editar/footer', [FooterController::class, 'edit'])->name('footer.edit');
 });
 
+Route::get('/mis-photoshoots', [PhotoShootController::class, 'clientPhotoshoots'])->middleware(['auth'])->name('client.photoshoots');
+
 Route::view('perfil', 'profile')
     ->middleware(['auth'])
     ->name('profile');

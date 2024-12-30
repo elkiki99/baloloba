@@ -52,10 +52,16 @@
 
         <div class="relative z-30 bg-white">
             <div class="flex min-h-screen px-4 mx-auto bg-white max-w-7xl sm:px-6 lg:px-8">
-                <div class="w-1/4">
-                    <livewire:admin.sidebar />
-                </div>
-
+                @if (Auth::user() && Auth::user()->isAdmin())
+                    <div class="w-1/4">
+                        <livewire:admin.sidebar />
+                    </div>
+                @elseif(Auth::user())
+                    <div class="w-1/4">
+                        <livewire:client.sidebar />
+                    </div>
+                @endif
+                
                 <main class="relative z-40 flex-grow w-full bg-white">
                     {{ $slot }}
                 </main>

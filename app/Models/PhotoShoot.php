@@ -46,5 +46,15 @@ class PhotoShoot extends Model
         return $this->belongsToMany(User::class, 'client_photo_shoots', 'photo_shoot_id', 'client_id');
     }
 
+    public function clientPhotoShoots()
+    {
+        return $this->hasMany(ClientPhotoShoot::class, 'photo_shoot_id');
+    }
+
+    public function clientPhotoQuantities()
+    {
+        return $this->hasMany(ClientPhotoQuantity::class, 'photo_shoot_id');
+    }
+
     protected $table = 'photo_shoots';
 }

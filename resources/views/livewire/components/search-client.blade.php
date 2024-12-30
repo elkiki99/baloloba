@@ -17,9 +17,12 @@ new class extends Component {
 
     public function updatedSearch()
     {
+        $existingClientIds = $this->photoshoot->clients()->select('users.id')->pluck('id');
+
         if (!empty($this->search)) {
             $this->users = User::where('name', 'like', '%' . $this->search . '%')
                 ->where('isAdmin', false)
+                ->whereNotIn('id', $existingClientIds)
                 ->take(5)
                 ->get();
         } else {
@@ -74,7 +77,9 @@ new class extends Component {
         <div class="mt-4">
             <div class="flex items-center justify-between">
                 <span class="text-gray-600">{{ $client->name }}, {{ $client->email }}</span>
-                <button x-on:click.prevent="$dispatch('open-modal', 'confirm-client-photoshoot-deletion-{{ $client->id }}')" class="ml-2 text-red-600">
+                <button x-data=""
+                    x-on:click.prevent="$dispatch('open-modal', 'confirm-client-photoshoot-deletion-{{ $client->id }}')"
+                    class="ml-2 text-red-600">
                     Eliminar
                 </button>
             </div>
@@ -85,17 +90,18 @@ new class extends Component {
                 <h3 class="text-lg font-medium text-gray-900">
                     {{ __('¿Segura que queres eliminar este cliente del photoshoot?') }}
                 </h3>
-    
+
                 <p class="mt-1 text-sm text-gray-600">
-                    {{ __('El cliente perderá el acceso a su photoshoot y sus fotos favoritas se eliminarán automáticamente. Si quieres puedes actualizar el estado del photoshoot a borrador y no alterar el estado de las fotos del cliente.') }}
+                    {{ __('El cliente perderá el acceso a su photoshoot y sus fotos favoritas se eliminarán automáticamente. Si quieres puedes actualizar el estado del photoshoot a borrador, el cliente no podrá ver el photoshoot y no alterarás el estado de sus favoritos.') }}
                 </p>
-    
+
                 <div class="flex justify-end mt-6">
                     <x-secondary-button class="px-4 py-2" x-on:click="$dispatch('close')">
                         {{ __('Cancelar') }}
                     </x-secondary-button>
-    
-                    <x-danger-button class="px-4 py-2 ms-3" wire:click.prevent="removeClientFromPhotoshoot({{ $client->id }})">Eliminar</x-danger-button>
+
+                    <x-danger-button x-on:click="$dispatch('close')" class="px-4 py-2 ms-3"
+                        wire:click.prevent="removeClientFromPhotoshoot({{ $client->id }})">Eliminar</x-danger-button>
                 </div>
             </div>
         </x-modal>

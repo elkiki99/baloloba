@@ -52,8 +52,8 @@ class User extends Authenticatable
         return $this->isAdmin;
     }
 
-    // public function photoshoots()
-    // {
-    //     return $this->hasMany(PhotoShoot::class);
-    // }
+    public function clientPhotoShoots()
+    {
+        return $this->hasMany(ClientPhotoShoot::class, 'client_id');
+    }
 }

@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ClientPhotoQuantity;
+use App\Models\PhotoShoot;
+use App\Models\User;
 
 class ClientPhotoShoot extends Model
 {

@@ -35,7 +35,12 @@ new class extends Component {
                 <x-nav-link wire:navigate :href="route('panel')" :active="request()->routeIs('panel')">
                     {{ __('Panel') }}
                 </x-nav-link>
+            @elseif(Auth::user())
+                <x-nav-link wire:navigate :href="route('profile')" :active="request()->routeIs('profile')">
+                    {{ __('Perfil') }}
+                </x-nav-link>
             @endif
+
         </div>
     </div>
 </nav>

@@ -50,4 +50,9 @@ class PhotoShootController extends Controller
             'photoshoot' => $photoshoot
         ]);
     }
+
+    public function clientPhotoshoots()
+    {
+        return view('client.photoshoots.index');
+    }
 }
