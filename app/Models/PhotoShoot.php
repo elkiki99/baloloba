@@ -53,7 +53,7 @@ class PhotoShoot extends Model
 
     public function clientPhotoQuantities()
     {
-        return $this->hasMany(ClientPhotoQuantity::class, 'photo_shoot_id');
+        return $this->hasManyThrough(ClientPhotoQuantity::class, ClientPhotoShoot::class, 'photo_shoot_id', 'client_photo_shoot_id');
     }
 
     protected $table = 'photo_shoots';

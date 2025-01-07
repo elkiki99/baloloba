@@ -20,7 +20,7 @@ new class extends Component {
 
         <!-- Navigation Links -->
         <div class="flex sm:items-center sm:space-x-8 sm:ml-10">
-            <x-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio')">
+            <x-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio') || request()->is('photoshoot/*') || request()->is('categorias/*')">
                 {{ __('Portfolio') }}
             </x-nav-link>
             <x-nav-link wire:navigate :href="route('about')" :active="request()->routeIs('about')">

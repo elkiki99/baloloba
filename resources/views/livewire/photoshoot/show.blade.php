@@ -4,6 +4,11 @@ use Livewire\Volt\Component;
 use App\Models\PhotoShoot;
 use App\Models\ClientPhotoQuantity;
 use App\Models\ClientPhotoShoot;
+use App\Notifications\AdminNotifiedOfReviewApproval;
+use App\Notifications\UserApprovedReview;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 new class extends Component {
     public $photoshoot;
@@ -89,6 +94,21 @@ new class extends Component {
                 $clientPhotoQuantity->update(['quantity' => $clientPhotoQuantity->quantity - 1]);
             }
         }
+    }
+
+    public function userApprovedReview()
+    {
+        $this->photoshoot->status = 'draft';
+        $this->photoshoot->save();
+
+        Notification::sendNow(Auth::user(), new UserApprovedReview($this->photoshoot));
+
+        $admin = User::where('isAdmin', true)->first();
+        if ($admin) {
+            Notification::sendNow($admin, new AdminNotifiedOfReviewApproval($this->photoshoot, Auth::user()));
+        }
+
+        return redirect()->route('client.photoshoots')->with('photoshoot-approved', 'Photoshoot aprobado exitosamente');
     }
 }; ?>
 
@@ -258,7 +278,8 @@ new class extends Component {
                                     </svg>
                                 </button>
 
-                                <div class="absolute bottom-0 left-0 flex items-center justify-center w-full p-2 space-x-4 bg-black bg-opacity-50">
+                                <div
+                                    class="absolute bottom-0 left-0 flex items-center justify-center w-full p-2 space-x-4 bg-black bg-opacity-50">
                                     <!-- Remove photo quantity -->
                                     <button
                                         @click="$wire.call('removePhotoQuantity', image); if (quantities[image] > 1) { quantities[image] -= 1 }"
@@ -268,21 +289,30 @@ new class extends Component {
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                         </svg>
                                     </button>
-                                
+
                                     <!-- Show photo quantity -->
                                     <div class="w-6 text-lg font-bold text-center text-white">
-                                        <span class="text-sm" x-text="quantities[image]"></span>
+                                        <span class="text-sm" x-text="quantities[image] ?? 1"></span>
                                     </div>
-                                
+
                                     <!-- Add photo quantity -->
                                     <button
-                                        @click="$wire.call('addPhotoQuantity', image); quantities[image] = (quantities[image]) + 1"
+                                        @click="$wire.call('addPhotoQuantity', image); quantities[image] = (quantities[image] ?? 1) + 1"
                                         class="text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 4.5v15m7.5-7.5h-15" />
                                         </svg>
                                     </button>
+                                </div>
+                            @endcan
+
+                            @can('modify-page', $photoshoot)
+                                <div class="absolute p-1 text-white bg-transparent rounded-full top-2 right-2">
+                                    <div class="w-6 text-lg font-bold text-center text-white">
+                                        <span class="text-sm" x-text="quantities[image] ?? 1"></span>
+                                    </div>
                                 </div>
                             @endcan
                         </div>
@@ -294,7 +324,50 @@ new class extends Component {
                         </p>
                     @endcan
                 </div>
+
+                @can('like-photoshoot-photos', $photoshoot)
+                    <x-primary-button class="mt-6"
+                        x-on:click.prevent="$dispatch('open-modal', 'approve-photoshoot-review')">Aprobar
+                        revisión</x-primary-button>
+                @endcan
+
+                <x-modal name="approve-photoshoot-review">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900">
+                            {{ __('¿Aprobar esta revisión?') }}
+                        </h3>
+
+                        <p class="mt-1 text-sm text-gray-600">
+                            {{ __('Una vez aprobada esta revisión, no podrás modificar más este photoshoot y se notificará al administrador para que lo apruebe.') }}
+                        </p>
+
+                        <div class="flex justify-end gap-2 mt-6">
+                            <x-secondary-button class="px-4 py-2" x-on:click="$dispatch('close')">
+                                {{ __('Cancelar') }}
+                            </x-secondary-button>
+
+                            <x-primary-button wire:click='userApprovedReview'>Aprobar</x-primary-button>
+                        </div>
+                    </div>
+                </x-modal>
             </div>
         </div>
+    @endif
+
+    @if ($photoshoot->draft)
+        @can('modify-page', $photoshoot)
+            <template x-for="image in likedImages" :key="image">
+                <div class="relative">
+                    <img :src="imageGallery.find(photo => photo.id === image)?.photo"
+                        :alt="imageGallery.find(photo => photo.id === image)?.alt" class="object-cover w-full h-full" />
+
+                    <div class="absolute p-1 text-white bg-transparent rounded-full top-2 right-2">
+                        <div class="w-6 text-lg font-bold text-center text-white">
+                            <span class="text-sm" x-text="quantities[image] ?? 1"></span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        @endcan
     @endif
 </div>
