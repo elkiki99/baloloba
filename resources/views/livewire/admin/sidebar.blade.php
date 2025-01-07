@@ -19,7 +19,7 @@ new class extends Component {
     </a>
 
     <!-- Porfolio -->
-    <a wire:current.strict='text-yellow-600 font-black' wire:navigate href="{{ route('photoshoot.index') }}" class="flex items-center gap-2 hover:blur-xs">
+    <a wire:navigate href="{{ route('photoshoot.index') }}" class="flex items-center gap-2 hover:blur-xs {{ request()->is('photoshoots') || request()->is('photoshoot/*') ? 'text-yellow-600 font-black' : '' }}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="opacity-50 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -30,7 +30,7 @@ new class extends Component {
     </a>
 
     <!-- Packages -->
-    <a wire:current.strict='text-yellow-600 font-black' wire:navigate href="{{ route('packages.index') }}" class="flex items-center gap-2 hover:blur-xs hover:cursor-pointer">
+    <a wire:navigate href="{{ route('packages.index') }}" class="flex items-center gap-2 hover:blur-xs hover:cursor-pointer {{ request()->is('paquetes') || request()->is('paquete/*') ? 'text-yellow-600 font-black' : '' }}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="opacity-50 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,7 +41,7 @@ new class extends Component {
     </a>
 
     <!-- Categories -->
-    <a wire:current.strict='text-yellow-600 font-black' wire:navigate href="{{ route('categories.index') }}" class="flex items-center gap-2 hover:blur-xs">
+    <a wire:navigate href="{{ route('categories.index') }}" class="flex items-center gap-2 hover:blur-xs {{ request()->is('categorias') || request()->is('categoria/*') ? 'text-yellow-600 font-black' : '' }}">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="opacity-50 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -64,7 +64,7 @@ new class extends Component {
     </div> --}}
 
     <!-- Components -->
-    <a class="flex items-center gap-2 hover:blur-xs" href="{{ route('components.index') }}" wire:navigate>
+    <a class="flex items-center gap-2 hover:blur-xs {{ request()->is('componentes/*') || request()->is('componentes') || request()->is('componente/*') ? 'text-yellow-600 font-black' : '' }}" href="{{ route('components.index') }}" wire:navigate>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="opacity-50 size-6">
             <path stroke-linecap="round" stroke-linejoin="round"

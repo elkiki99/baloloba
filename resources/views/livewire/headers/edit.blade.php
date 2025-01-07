@@ -45,10 +45,12 @@ new class extends Component {
 
         $this->validate();
 
-        $headerFolder = '/components/headers';
-        $headerImageName = 'header_' . now()->timestamp . '.' . $this->new_image->extension();
-
+        // if ($this->new_image) {
         if ($this->new_image) {
+            $headerFolder = '/components/headers';
+            $headerImageName = 'header_' . now()->timestamp . '.' . $this->new_image->extension();
+            // }
+
             if ($this->header->image && Storage::disk('s3')->exists($this->header->image)) {
                 Storage::disk('s3')->delete($this->header->image);
             }

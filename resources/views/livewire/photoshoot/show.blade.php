@@ -352,22 +352,45 @@ new class extends Component {
                 </x-modal>
             </div>
         </div>
-    @endif
-
-    @if ($photoshoot->draft)
+    @elseif($photoshoot->status === 'draft')
         @can('modify-page', $photoshoot)
-            <template x-for="image in likedImages" :key="image">
-                <div class="relative">
-                    <img :src="imageGallery.find(photo => photo.id === image)?.photo"
-                        :alt="imageGallery.find(photo => photo.id === image)?.alt" class="object-cover w-full h-full" />
+            <div class="px-4 mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8 {{ !$likedImages ? 'hidden pt-0' : 'pt-12 ' }}">
+                <div class="">
+                    <div class="flex items-center gap-2 text-3xl ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
 
-                    <div class="absolute p-1 text-white bg-transparent rounded-full top-2 right-2">
-                        <div class="w-6 text-lg font-bold text-center text-white">
-                            <span class="text-sm" x-text="quantities[image] ?? 1"></span>
-                        </div>
+                        <h2 class="underline decoration-yellow-500">Me gustas del cliente</h2>
+                    </div>
+
+                    <div x-data="{
+                        likedImages: @entangle('likedImages'),
+                        imageGallery: @js($photos),
+                        quantities: @entangle('quantities')
+                    }" class="grid grid-cols-4 gap-1 space-y-6 md:grid-cols-6">
+                        <template x-for="image in likedImages" :key="image">
+                            <div class="relative">
+                                <img :src="imageGallery.find(photo => photo.id === image)?.photo"
+                                    :alt="imageGallery.find(photo => photo.id === image)?.alt"
+                                    class="object-cover w-full h-full" />
+
+                                <div class="absolute p-1 text-white bg-transparent rounded-full top-2 right-2">
+                                    <div class="w-6 text-lg font-bold text-center text-white">
+                                        <span class="text-sm" x-text="quantities[image] ?? 1"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        
+                        <p class="absolute text-sm text-gray-600" x-show="!likedImages.length">
+                            El cliente no ha marcado ninguna foto como me gusta
+                        </p>
                     </div>
                 </div>
-            </template>
+            </div>
         @endcan
     @endif
 </div>

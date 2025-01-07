@@ -30,10 +30,9 @@ Route::get('/photoshoots/crear', [PhotoShootController::class, 'create'])->middl
 Route::get('/photoshoot/{photoshoot:slug}', [PhotoShootController::class, 'show'])->middleware([CheckPhotoShootAccess::class])->name('photoshoot.show');
 Route::get('/photoshoot/editar/{photoshoot:slug}', [PhotoShootController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('photoshoot.edit');
 
-
 Route::get('/categorias', [CategoryController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('categories.index');
-Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
-Route::get('/categorias/editar/{category:slug}', [CategoryController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('categories.edit');
+Route::get('/categoria/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/categoria/editar/{category:slug}', [CategoryController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('categories.edit');
 
 Route::get('/paquetes', [PackageController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('packages.index');
 Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('packages.edit');    
