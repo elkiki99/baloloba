@@ -4,12 +4,6 @@ use Livewire\Volt\Component;
 use App\Models\Package;
 
 new class extends Component {
-    // public function with()
-    // {
-    //     return [
-    //         'packages' => Package::all(),
-    //     ];
-    // }
 
     public $packages;
 
