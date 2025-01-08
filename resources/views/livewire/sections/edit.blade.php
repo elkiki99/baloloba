@@ -114,7 +114,7 @@ new class extends Component {
             <x-input-label for="description" :value="__('Descripción')" />
             <textarea placeholder="Descripción breve del encabezado" wire:model="description"
                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-                rows="4" autocomplete="description"></textarea>
+                rows="2" autocomplete="description"></textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
         </div>
 

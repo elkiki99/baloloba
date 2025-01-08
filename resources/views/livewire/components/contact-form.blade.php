@@ -41,7 +41,7 @@ new class extends Component {
 
         Mail::to($this->email)->send(new ThanksForContacting($this->name));
 
-        Session::flash('status', 'message-sent');
+        $this->dispatch('messageSentToast');
 
         $this->reset(['name', 'email', 'phone', 'message']);
     }
@@ -50,21 +50,21 @@ new class extends Component {
 <form wire:submit="sendMessage" class="mt-6 space-y-6">
     <div>
         <x-input-label for="name" :value="__('Nombre')" />
-        <x-text-input wire:model="name" id="name" name="name" type="text" class="block w-full mt-1" required
+        <x-text-input wire:model="name" id="name" name="name" type="text" class="block w-full mt-1"
             autocomplete="name" />
         <x-input-error class="mt-2" :messages="$errors->get('name')" />
     </div>
 
     <div>
         <x-input-label for="email" :value="__('Email')" />
-        <x-text-input wire:model="email" id="email" name="email" type="email" class="block w-full mt-1" required
+        <x-text-input wire:model="email" id="email" name="email" type="email" class="block w-full mt-1"
             autocomplete="username" />
         <x-input-error class="mt-2" :messages="$errors->get('email')" />
     </div>
 
     <div>
         <x-input-label for="phone" :value="__('Teléfono')" />
-        <x-text-input wire:model="phone" id="phone" name="phone" type="tel" class="block w-full mt-1" required
+        <x-text-input wire:model="phone" id="phone" name="phone" type="tel" class="block w-full mt-1"
             autocomplete="phone" />
         <x-input-error class="mt-2" :messages="$errors->get('phone')" />
     </div>
@@ -73,17 +73,35 @@ new class extends Component {
         <x-input-label for="message" :value="__('Tu consulta')" />
         <textarea wire:model="message" id="message" name="message"
             class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
-            rows="4" required autocomplete="message"></textarea>
+            rows="4" autocomplete="message"></textarea>
         <x-input-error class="mt-2" :messages="$errors->get('message')" />
     </div>
 
-    <div class="flex items-center gap-4">
-        <x-primary-button>{{ __('Enviar') }}</x-primary-button>
-    </div>
+    <div class="flex items-center justify-between mt-4">
+        <!-- Spinner -->
+        <div wire:loading wire:target="sendMessage" class="">
+            <x-spinner :text="__('Enviando mensaje...')" />
+        </div>
 
-    @if (session('status') === 'message-sent')
-        <p class="mt-5 text-sm font-medium text-green-600 dark:text-green-400">
-            {{ __('¡Mensaje enviado exitosamente!') }}
-        </p>
-    @endif
+        <!-- Maintaining button to right-->
+        <div></div>
+
+        <div>
+            <div class="flex items-center gap-4">
+                <x-primary-button>{{ __('Enviar') }}</x-primary-button>
+            </div>
+        </div>
+    </div>
 </form>
+
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('messageSentToast', () => {
+                toast('Enviado', {
+                    type: 'success',
+                    position: 'bottom-right',
+                    description: 'Mensaje enviado correctamente.'
+                });
+            });
+        });
+    </script>

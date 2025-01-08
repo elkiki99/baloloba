@@ -16,7 +16,7 @@ new class extends Component {
                 d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
 
-        <p>Inicio</p>
+        <p class="hidden sm:block">Inicio</p>
     </a>
 
     <!-- Client Photoshoots -->
@@ -28,7 +28,7 @@ new class extends Component {
           </svg>
           
 
-        <p>Mis photoshoots</p>
+        <p class="hidden sm:block">Mis photoshoots</p>
     </a>
 
     <!-- Profile -->
@@ -40,6 +40,6 @@ new class extends Component {
                 d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
         </svg>
 
-        <p>Perfil</p>
+        <p class="hidden sm:block">Perfil</p>
     </a>
 </aside>

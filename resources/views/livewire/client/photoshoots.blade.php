@@ -17,6 +17,11 @@ new class extends Component {
 }; ?>
 
 <div>
+    <!-- Photoshoot approved toast -->
+    @if (session('photoshoot-approved'))
+        <div x-init="$nextTick(() => { photoshootApprovedToast() })"></div>
+    @endif
+
     <!-- Contenedor de la tabla -->
     <div class="overflow-hidden bg-white rounded-lg shadow-md">
         <table class="min-w-full table-auto">
@@ -74,11 +79,6 @@ new class extends Component {
             </tbody>
         </table>
     </div>
-
-    <!-- Photoshoot approved toast -->
-    @if (session('photoshoot-approved'))
-        <div x-init="$nextTick(() => { photoshootApprovedToast() })"></div>
-    @endif
 </div>
 
 <script>

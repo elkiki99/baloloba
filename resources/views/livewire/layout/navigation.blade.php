@@ -20,7 +20,7 @@ new class extends Component {
 
         <!-- Navigation Links -->
         <div class="flex sm:items-center sm:space-x-8 sm:ml-10">
-            <x-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio') || request()->is('categoria/*') || request()->is('photoshoot/*')">
+            <x-nav-link wire:navigate :href="route('portfolio')" :active="request()->routeIs('portfolio') || (request()->is('categoria/*') && !request()->is('categoria/editar/*')) || (request()->is('photoshoot/*') && !request()->is('photoshoot/editar/*'))">
                 {{ __('Portfolio') }}
             </x-nav-link>
             <x-nav-link wire:navigate :href="route('about')" :active="request()->routeIs('about')">
@@ -32,7 +32,7 @@ new class extends Component {
             </x-nav-link>
 
             @if (Auth::user() && Auth::user()->isAdmin())
-                <x-nav-link wire:navigate :href="route('panel')" :active="request()->routeIs('panel') || request()->is('paquetes') || request()->is('paquete/*') || request()->is('componentes') || request()->is('componentes/*') || request()->is('perfil') || request()->is('photoshoots') || request()->is('categorias')">
+                <x-nav-link wire:navigate :href="route('panel')" :active="request()->routeIs('panel') || request()->is('paquetes') || request()->is('paquete/*') || request()->is('componentes') || request()->is('componentes/*') || request()->is('perfil') || request()->is('photoshoots') || request()->is('photoshoots/crear') || request()->is('photoshoot/editar/*') || request()->is('categoria/editar/*') || request()->is('categorias')">
                     {{ __('Panel') }}
                 </x-nav-link>
             @elseif(Auth::user())
@@ -40,7 +40,6 @@ new class extends Component {
                     {{ __('Perfil') }}
                 </x-nav-link>
             @endif
-
         </div>
     </div>
 </nav>

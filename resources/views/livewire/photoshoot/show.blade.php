@@ -4,11 +4,10 @@ use Livewire\Volt\Component;
 use App\Models\PhotoShoot;
 use App\Models\ClientPhotoQuantity;
 use App\Models\ClientPhotoShoot;
-use App\Notifications\AdminNotifiedOfReviewApproval;
-use App\Notifications\UserApprovedReview;
-use Illuminate\Support\Facades\Notification;
+use App\Mail\ClientApprovedPhotoshootPreview;
+use App\Mail\AdminNotifiedOfPhotoshootPreviewApproval;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 new class extends Component {
     public $photoshoot;
@@ -68,6 +67,10 @@ new class extends Component {
 
     public function addPhotoQuantity($photoId)
     {
+        if (!Gate::allows('like-photoshoot-photos', $this->photoshoot)) {
+            abort(403);
+        }
+
         $clientPhotoQuantity = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
             ->where('photo_id', $photoId)
             ->first();
@@ -85,6 +88,10 @@ new class extends Component {
 
     public function removePhotoQuantity($photoId)
     {
+        if (!Gate::allows('like-photoshoot-photos', $this->photoshoot)) {
+            abort(403);
+        }
+
         $clientPhotoQuantity = ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)
             ->where('photo_id', $photoId)
             ->first();
@@ -98,17 +105,25 @@ new class extends Component {
 
     public function userApprovedReview()
     {
+        if (!Gate::allows('like-photoshoot-photos', $this->photoshoot)) {
+            abort(403);
+        }
+
         $this->photoshoot->status = 'draft';
         $this->photoshoot->save();
 
-        Notification::sendNow(Auth::user(), new UserApprovedReview($this->photoshoot));
-
-        $admin = User::where('isAdmin', true)->first();
-        if ($admin) {
-            Notification::sendNow($admin, new AdminNotifiedOfReviewApproval($this->photoshoot, Auth::user()));
-        }
+        Mail::to(Auth::user()->email)->send(new ClientApprovedPhotoshootPreview($this->photoshoot));
+        Mail::to(config('mail.from.address'))->send(new AdminNotifiedOfPhotoshootPreviewApproval($this->photoshoot, Auth::user()));
 
         return redirect()->route('client.photoshoots')->with('photoshoot-approved', 'Photoshoot aprobado exitosamente');
+    }
+
+    public function deleteLikedPhotos()
+    {
+        ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)->delete();
+        $this->likedImages = [];
+        $this->dispatch('deletedUserLikedPhotos');
+        $this->dispatch('removeLikedImagesFromFrontend');
     }
 }; ?>
 
@@ -262,7 +277,12 @@ new class extends Component {
                 <div x-data="{
                     likedImages: @entangle('likedImages'),
                     imageGallery: @js($photos),
-                    quantities: @entangle('quantities')
+                    quantities: @entangle('quantities'),
+                    init() {
+                        Livewire.on('removeLikedImagesFromFrontend', () => {
+                            this.likedImages = [];
+                        });
+                    },
                 }" class="grid grid-cols-4 gap-1 space-y-6 md:grid-cols-6">
                     <template x-for="image in likedImages" :key="image">
                         <div class="relative">
@@ -384,9 +404,35 @@ new class extends Component {
                                 </div>
                             </div>
                         </template>
-                        
-                        <p class="absolute text-sm text-gray-600" x-show="!likedImages.length">
-                            El cliente no ha marcado ninguna foto como me gusta
+
+                        <x-danger-button class="absolute text-sm text-gray-600 bottom-20" x-show="likedImages.length"
+                            x-on:click.prevent="$dispatch('open-modal', 'delete-liked-photos')">
+                            Eliminar me gustas del cliente
+                        </x-danger-button>
+
+                        <x-modal name="delete-liked-photos">
+                            <div class="p-6">
+                                <h3 class="text-lg font-medium text-gray-900">
+                                    {{ __('¿Eliminar los me gusta del cliente?') }}
+                                </h3>
+
+                                <p class="mt-1 text-sm text-gray-600">
+                                    {{ __('Esta acción es recomendable cuando el cliente haya recibido las fotografías exitosamente y estes lista para publicar el photoshoot en la página web.') }}
+                                </p>
+
+                                <div class="flex justify-end gap-2 mt-6">
+                                    <x-secondary-button class="px-4 py-2" x-on:click="$dispatch('close')">
+                                        {{ __('Cancelar') }}
+                                    </x-secondary-button>
+
+                                    <x-danger-button x-on:click="$dispatch('close')"
+                                        wire:click='deleteLikedPhotos'>Eliminar me gustas del cliente</x-danger-button>
+                                </div>
+                            </div>
+                        </x-modal>
+
+                        <p class="absolute text-sm text-gray-600 bottom-20" x-show="!likedImages.length">
+                            El cliente no ha marcado ninguna foto como me gusta todavía.
                         </p>
                     </div>
                 </div>
@@ -394,3 +440,15 @@ new class extends Component {
         @endcan
     @endif
 </div>
+
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('deletedUserLikedPhotos', () => {
+            toast('Eliminadas', {
+                type: 'success',
+                position: 'bottom-right',
+                description: 'Me gustas del cliente eliminados correctamente.'
+            });
+        });
+    });
+</script>

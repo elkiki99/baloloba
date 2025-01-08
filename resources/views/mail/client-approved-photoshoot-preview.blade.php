@@ -1,11 +1,9 @@
 <x-mail::message>
     <x-mail::panel>
-        # ¡Hola {{ $userName }}!
+        # 🎉 Has aprobado el photoshoot {{ $photoshoot->name }} 
     </x-mail::panel>
 
-    Gracias por contactarte con nosotros. He recibido tu mensaje y te responderé a la brevedad.
-
-    Si tenes más consultas, no dudes en contactarme nuevamente.
+    Le notificaremos al administrador.
 
     {{-- {{ now()->translatedFormat('j \d\e F \d\e Y \a \l\a\s g:i A') }} --}}
 
