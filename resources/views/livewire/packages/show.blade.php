@@ -220,7 +220,7 @@ new class extends Component {
 
         console.log('Datos del pedido:', orderData);
 
-        fetch('/mercadopago_test', {
+        fetch('/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ new class extends Component {
 
         console.log('Datos del pedido:', orderData);
 
-        fetch('/mercadopago_test', {
+        fetch('/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -322,7 +322,7 @@ new class extends Component {
 
         console.log('Datos del pedido:', orderData);
 
-        fetch('/mercadopago_test', {
+        fetch('/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

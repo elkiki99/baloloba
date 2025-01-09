@@ -35,13 +35,6 @@
             </label>
         </div>
 
-        {{-- <div class="md:space-x-6 md:flex lg:space-x-8">
-            <livewire:packages.show.events />
-
-            <livewire:packages.show.polaroids />
-
-            <livewire:packages.show.fashion />
-        </div> --}}
         <livewire:packages.show />
 
         <p class="py-10 text-sm text-center text-gray-700 border-b border-gray-300">

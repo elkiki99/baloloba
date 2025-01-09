@@ -14,11 +14,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Middleware\CheckPhotoShootAccess;
 use App\Http\Controllers\PaymentController;
 
-Route::get('/mercadopago_test', function() {
-    return view('mercadopago_test');
-});
-
-Route::post('/mercadopago_test', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.create_preference');
+Route::post('/checkout', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.checkout');
 Route::post('/success', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.success');
 Route::post('/failed', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.failed');
 

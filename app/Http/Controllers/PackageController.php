@@ -28,13 +28,13 @@ class PackageController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Package $package)
-    {
-        return view('packages.show');
-    }
+    // /**
+    //  * Display the specified resource.
+    //  */
+    // public function show(Package $package)
+    // {
+    //     return view('packages.show');
+    // }
 
     /**
      * Show the form for editing the specified resource.
