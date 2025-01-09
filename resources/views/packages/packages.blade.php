@@ -1,5 +1,5 @@
 <div class="bg-gradient-to-b from-white via-yellow-400 to-white">
-    <section class="mx-auto  md:px-4 max-w-7xl" x-data="{ isExtended: $el.querySelector('#checkbox').checked }">
+    <section class="mx-auto md:px-4 max-w-7xl" x-data="{ isExtended: $el.querySelector('#checkbox').checked }">
         <h2 class="px-4 text-5xl font-bold underline md:text-7xl decoration-yellow-500 sm:px-6 lg:px-8">Paquetes</h2>
         <!-- Toggle switch -->
         <div class="flex flex-col items-center justify-center gap-4 py-5 sm:flex-row sm:gap-6">
@@ -35,13 +35,14 @@
             </label>
         </div>
 
-        <div class="md:space-x-6 md:flex lg:space-x-8">
+        {{-- <div class="md:space-x-6 md:flex lg:space-x-8">
             <livewire:packages.show.events />
 
             <livewire:packages.show.polaroids />
 
             <livewire:packages.show.fashion />
-        </div>
+        </div> --}}
+        <livewire:packages.show />
 
         <p class="py-10 text-sm text-center text-gray-700 border-b border-gray-300">
             Los precios que se muestran son en pesos uruguayos y no hay cargos extra.

@@ -4,7 +4,6 @@ use Livewire\Volt\Component;
 use App\Models\Package;
 
 new class extends Component {
-
     public $packages;
 
     public function mount()

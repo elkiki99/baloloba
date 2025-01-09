@@ -42,6 +42,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 
 <body class="font-sans antialiased ">
