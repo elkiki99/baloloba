@@ -23,11 +23,7 @@ class PaymentController extends Controller
         $product = $request->input('product'); // Asumiendo que envías un campo 'product' con los datos del producto
         
         // Paso 2: Información del comprador (esto puedes obtenerlo desde el usuario autenticado) 
-        $payer = [
-            "name" => $request->input('name', 'John'), // Puedes obtener el nombre del request o usar un valor predeterminado
-            "surname" => $request->input('surname', 'Doe'),
-            "email" => $request->input('email', 'user@example.com'),
-        ];
+        $payer = $request->input('payer');
 
         // Paso 3: Crear la solicitud de preferencia 
         $requestData = $this->createPreferenceRequest($product, $payer);

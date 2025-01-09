@@ -214,8 +214,10 @@ new class extends Component {
                     features: document.getElementById('event_features').value,
                 }
             }],
-            name: "{{ Auth::user()->name ?? '' }}",
-            email: "{{ Auth::user()->email ?? '' }}",
+            payer: {
+                name: "{{ Auth::user()->name ?? '' }}",
+                email: "{{ Auth::user()->email ?? '' }}",
+            }
         };
 
         console.log('Datos del pedido:', orderData);
@@ -265,8 +267,10 @@ new class extends Component {
                     features: document.getElementById('polaroids_features').value,
                 }
             }],
-            name: "{{ Auth::user()->name ?? '' }}",
-            email: "{{ Auth::user()->email ?? '' }}",
+            payer: {
+                name: "{{ Auth::user()->name ?? '' }}",
+                email: "{{ Auth::user()->email ?? '' }}",
+            }
         };
 
         console.log('Datos del pedido:', orderData);
@@ -316,8 +320,10 @@ new class extends Component {
                     features: document.getElementById('fashion_features').value,
                 }
             }],
-            name: "{{ Auth::user()->name ?? '' }}",
-            email: "{{ Auth::user()->email ?? '' }}",
+            payer: {
+                name: "{{ Auth::user()->name ?? '' }}",
+                email: "{{ Auth::user()->email ?? '' }}",
+            }
         };
 
         console.log('Datos del pedido:', orderData);
