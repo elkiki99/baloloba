@@ -59,11 +59,11 @@
                     via-gray-100
                     to-gray-50 sm:rounded-md shadow-xl">
                 <section>
-                    <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
+                    <h2 class="text-lg font-medium text-gray-800">
                         {{ __('Editar secciones') }}
                     </h2>
 
-                    <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                    <p class="mt-1 text-sm text-gray-700">
                         {{ __('Edita los datos de la sección.') }}
                     </p>
                 </section>

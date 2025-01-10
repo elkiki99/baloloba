@@ -267,7 +267,7 @@ new class extends Component {
             <x-input-label class="" for="description" :value="__('Descripción')" />
             <textarea placeholder="Capturando momentos únicos en escenarios naturales con un toque artístico"
                 wire:model="description"
-                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 rows="4" autocomplete="description"></textarea>
             <x-input-error class="mt-2" :messages="$errors->get('description')" />
         </div>

@@ -51,11 +51,11 @@
                         <div class="flex justify-between">
                             <div>
 
-                                <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
+                                <h2 class="text-lg font-medium text-gray-800">
                                     {{ __('Modificar photoshoot') }}
                                 </h2>
 
-                                <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                                <p class="mt-1 text-sm text-gray-700">
                                     {{ __('Actualiza esta sesión fotográfica.') }}
                                 </p>
                             </div>

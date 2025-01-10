@@ -37,7 +37,7 @@ new #[Layout('layouts.guest')] class extends Component
 }; ?>
 
 <div>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+    <div class="mb-4 text-sm text-gray-600">
         {{ __('¿Olvidaste tu contraseña? No hay problema. Solamente ingresa tu mail y te enviaremos un link para restablecer tu contraseña.') }}
     </div>
 
@@ -54,13 +54,13 @@ new #[Layout('layouts.guest')] class extends Component
 
         <div class="flex items-center justify-between mt-4">
             <!-- Login -->
-            <a class="text-xs text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+            <a class="text-xs text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     href="{{ route('login') }}" wire:navigate>
                     {{ __('¿Ya estás registrado?') }}
                 </a>
 
             <!-- Register -->
-            <a class="text-xs text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+            <a class="text-xs text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 href="{{ route('register') }}" wire:navigate>
                 {{ __('¿No tienes una cuenta?') }}
             </a>

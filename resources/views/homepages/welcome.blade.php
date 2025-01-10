@@ -63,11 +63,11 @@
                             via-gray-100
                             to-gray-50 sm:rounded-md shadow-xl">
                     <header>
-                        <h2 class="text-lg font-medium text-gray-800 dark:text-gray-100">
+                        <h2 class="text-lg font-medium text-gray-800">
                             {{ __('¿Necesitas un presupuesto?') }}
                         </h2>
 
-                        <p class="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-gray-700">
                             {{ __('Escribime en caso de necesitar más información sobre nuestros paquetes.') }}
                         </p>
                     </header>

@@ -14,7 +14,7 @@
     <div>
         <x-input-label class="" for="description" :value="__('Descripción')" />
         <textarea placeholder="Este paquete es ideal para..." wire:model="description"
-            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
             rows="2" autocomplete="description"></textarea>
         <x-input-error class="mt-2" :messages="$errors->get('description')" />
     </div>
@@ -50,7 +50,7 @@
             <span class="text-yellow-600">*</span>
         </div>
         <textarea placeholder="15 fotografías digitales" wire:model="basic_features"
-            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500 "
             rows="3" autocomplete="basic_features"></textarea>
         <x-input-error :messages="$errors->get('basic_features')" class="mt-2" />
     </div>
@@ -62,7 +62,7 @@
             <span class="text-yellow-600">*</span>
         </div>
         <textarea placeholder="30 fotografías digitales" wire:model="extended_features"
-            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500 "
             rows="3" autocomplete="extended_features"></textarea>
         <x-input-error :messages="$errors->get('extended_features')" class="mt-2" />
     </div>

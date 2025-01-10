@@ -124,7 +124,7 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
             <textarea placeholder="Cita breve del testimonio" wire:model="quote"
-                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 rows="3" autocomplete="quote"></textarea>
             <x-input-error :messages="$errors->get('quote')" class="mt-2" />
         </div>
@@ -147,7 +147,7 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
             <textarea placeholder="Biografía breve del testimonio" wire:model="bio"
-                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-yellow-500 dark:focus:border-yellow-500 focus:ring-yellow-500 dark:focus:ring-yellow-500"
+                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 rows="2" autocomplete="bio"></textarea>
             <x-input-error :messages="$errors->get('bio')" class="mt-2" />
         </div>
