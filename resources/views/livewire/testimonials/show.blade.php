@@ -56,7 +56,7 @@ new class extends Component {
                                     @mouseleave="hoverCardLeave()">
                                     <div
                                         class="text-2xl font-semibold text-gray-800 hover:underline hover:cursor-pointer">
-                                        Valentina Camejo</div>
+                                        {{ $testimonial->name }}</div>
                                     <div x-show="hoverCardHovered"
                                         class="absolute top-0 w-[365px] max-w-lg mt-5 z-30 -translate-x-1/2 translate-y-3 left-1/2"
                                         x-cloak>

@@ -20,47 +20,47 @@ new class extends Component {
         $this->pendingPhotoshoots = PhotoShoot::where('status', 'draft')->count();
         $this->clientPreviewPhotoshoots = PhotoShoot::where('status', 'client_preview')->count();
         $this->completedPhotoshoots = PhotoShoot::where('status', 'published')->count();
-        $this->getBucketSize();
+        // $this->getBucketSize();
     }
 
-    public function getBucketSize()
-    {
-        $bucket = env('AWS_BUCKET');
-        $totalSize = 0;
+    // public function getBucketSize()
+    // {
+    //     $bucket = env('AWS_BUCKET');
+    //     $totalSize = 0;
 
-        try {
-            $s3Client = new S3Client([
-                'version' => 'latest',
-                'region' => env('AWS_DEFAULT_REGION'),
-                'endpoint' => env('AWS_ENDPOINT'),
-                'credentials' => [
-                    'key' => env('AWS_ACCESS_KEY_ID'),
-                    'secret' => env('AWS_SECRET_ACCESS_KEY'),
-                ],
-            ]);
+    //     try {
+    //         $s3Client = new S3Client([
+    //             'version' => 'latest',
+    //             'region' => env('AWS_DEFAULT_REGION'),
+    //             'endpoint' => env('AWS_ENDPOINT'),
+    //             'credentials' => [
+    //                 'key' => env('AWS_ACCESS_KEY_ID'),
+    //                 'secret' => env('AWS_SECRET_ACCESS_KEY'),
+    //             ],
+    //         ]);
 
-            $result = $s3Client->listObjectsV2(['Bucket' => $bucket]);
+    //         $result = $s3Client->listObjectsV2(['Bucket' => $bucket]);
 
-            if (isset($result['Contents'])) {
-                foreach ($result['Contents'] as $object) {
-                    if (isset($object['Size'])) {
-                        $totalSize += $object['Size'];
-                    }
-                }
-            }
+    //         if (isset($result['Contents'])) {
+    //             foreach ($result['Contents'] as $object) {
+    //                 if (isset($object['Size'])) {
+    //                     $totalSize += $object['Size'];
+    //                 }
+    //             }
+    //         }
 
-            // Convert to MB
-            $totalSizeInMB = $totalSize / (1024 * 1024);
+    //         // Convert to MB
+    //         $totalSizeInMB = $totalSize / (1024 * 1024);
 
-            $this->result = [
-                'totalSizeInBytes' => $totalSize,
-                'totalSizeInMB' => round($totalSizeInMB, 2),
-            ];
-        } catch (\Exception $e) {
-            $this->result = 'Error al obtener el tamaño del bucket: ' . $e->getMessage();
-        }
-        // dd($this->result);
-    }
+    //         $this->result = [
+    //             'totalSizeInBytes' => $totalSize,
+    //             'totalSizeInMB' => round($totalSizeInMB, 2),
+    //         ];
+    //     } catch (\Exception $e) {
+    //         $this->result = 'Error al obtener el tamaño del bucket: ' . $e->getMessage();
+    //     }
+    //     // dd($this->result);
+    // }
 };
 ?>
 
