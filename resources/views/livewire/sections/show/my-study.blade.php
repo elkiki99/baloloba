@@ -20,7 +20,7 @@ new class extends Component {
 
     <div class="px-0 sm:px-6 md:px-8">
         <div class="relative flex items-center justify-center w-full min-h-screen bg-center bg-cover rounded-3xl"
-            style="background-image: url('{{ asset('home/study.jpg') }}');">
+            style="background-image: url('{{ Storage::disk('s3')->url($section->image) }}');" alt="{{ $section->title }}">
 
             <div class="flex flex-col items-start space-y-6">
                 @php

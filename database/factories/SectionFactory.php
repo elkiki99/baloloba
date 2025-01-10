@@ -36,7 +36,7 @@ class SectionFactory extends Factory
             [
                 'title' => 'Situado en el corazón de Palermo',
                 'slug' => 'mi-estudio',
-                'image' => 'components/sections/mi_estudio.jpg',
+                'image' => 'components/sections/study.jpg',
                 'sub_title' => null,
                 'description' => null,
                 'button_text' => 'Agendate',

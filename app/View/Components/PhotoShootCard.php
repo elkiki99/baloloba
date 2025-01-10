@@ -7,7 +7,7 @@ use App\Models\PhotoShoot;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
-class PhotoshootCard extends Component
+class PhotoShootCard extends Component
 {
     /**
      * Create a new component instance.

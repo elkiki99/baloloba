@@ -115,7 +115,7 @@ new class extends Component {
             <h3 class="text-lg font-semibold">Último Photoshoot</h3>
             @if ($lastPhotoshoot)
                 <div class="my-2">
-                    <x-photoshoot-card :photoshoot="$lastPhotoshoot" />
+                    <x-photo-shoot-card :photoshoot="$lastPhotoshoot" />
                 </div>
             @else
                 <p class="text-sm">No hay photoshoots registrados.</p>
