@@ -5,8 +5,7 @@
 })" @dragenter.prevent.document="onDragenter($event)"
     @dragleave.prevent="onDragleave($event)" @dragover.prevent="onDragover($event)" @drop.prevent="onDrop"
     class="dz-block dz-antialiased">
-    <div
-        class="dz-flex dz-flex-col dz-items-start dz-h-full dz-w-full dz-justify-center dz-bg-transparent">
+    <div class="dz-flex dz-flex-col dz-items-start dz-h-full dz-w-full dz-justify-center dz-bg-transparent">
 
         <!-- Error Message -->
         @if (!is_null($error))
@@ -80,8 +79,7 @@
                 @endif
             </div>
             <div x-show="isLoading" role="status">
-                <svg aria-hidden="true"
-                    class="dz-w-5 dz-h-5 dz-text-gray-200 dz-animate-spin dz-fill-blue-600"
+                <svg aria-hidden="true" class="dz-w-5 dz-h-5 dz-text-gray-200 dz-animate-spin dz-fill-blue-600"
                     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -107,8 +105,7 @@
                                         alt="{{ $file['name'] }}">
                                 </div>
                             @else
-                                <div
-                                    class="dz-flex dz-justify-center dz-items-center dz-w-14 dz-h-14 dz-bg-gray-100">
+                                <div class="dz-flex dz-justify-center dz-items-center dz-w-14 dz-h-14 dz-bg-gray-100">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1" stroke="currentColor" class="dz-w-8 dz-h-8 dz-text-gray-500">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -117,8 +114,7 @@
                                 </div>
                             @endif
                             <div class="dz-flex dz-flex-col dz-items-start dz-gap-1">
-                                <div
-                                    class="dz-text-center dz-text-slate-900 dz-text-sm dz-font-medium">
+                                <div class="dz-text-center dz-text-slate-900 dz-text-sm dz-font-medium">
                                     {{ $file['name'] }}</div>
                                 <div class="dz-text-center dz-text-gray-500 dz-text-sm dz-font-medium">
                                     {{ \Illuminate\Support\Number::fileSize($file['size']) }}</div>
@@ -140,11 +136,7 @@
         @endif
 
         @if (isset($files) && count($files) > 0)
-            @if ($routeName === 'create-photoshoot')
-                <p class="mt-5 text-sm text-gray-500">Crea el photoshoot para ordenar las nuevas imágenes.</p>
-            @elseif ($routeName === 'edit-photoshoot')
-                <p class="mt-5 text-sm text-gray-500">Actualiza el photoshoot para ordenar las nuevas imágenes.</p>
-            @endif
+            <p class="mt-5 text-sm text-gray-500">Guarda el photoshoot para ordenar las nuevas imágenes.</p>
         @endif
 
         <!-- Check for Existing Photos in the Photoshoot -->
@@ -163,8 +155,7 @@
                                     class="dz-object-fill dz-w-full dz-h-full" alt="{{ $photo['filename'] }}">
                             </div>
                             <div class="dz-flex dz-flex-col dz-items-start dz-gap-1">
-                                <div
-                                    class="dz-text-center dz-text-slate-900 dz-text-sm dz-font-medium">
+                                <div class="dz-text-center dz-text-slate-900 dz-text-sm dz-font-medium">
                                     {{ basename($photo['filename']) }}
                                 </div>
                             </div>

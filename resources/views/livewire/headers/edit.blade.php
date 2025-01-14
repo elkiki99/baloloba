@@ -45,11 +45,9 @@ new class extends Component {
 
         $this->validate();
 
-        // if ($this->new_image) {
         if ($this->new_image) {
             $headerFolder = '/components/headers';
             $headerImageName = 'header_' . now()->timestamp . '.' . $this->new_image->extension();
-            // }
 
             if ($this->header->image && Storage::disk('s3')->exists($this->header->image)) {
                 Storage::disk('s3')->delete($this->header->image);
@@ -93,8 +91,8 @@ new class extends Component {
                 <x-input-label for="sub_title" :value="__('Subtítulo')" />
                 <span class="text-yellow-600">*</span>
             </div>
-            <x-text-input rows="2" placeholder="Subtítulo del encabezado" wire:model="sub_title" class="block w-full mt-1"
-                type="text" autocomplete="sub_title" />
+            <x-text-input rows="2" placeholder="Subtítulo del encabezado" wire:model="sub_title"
+                class="block w-full mt-1" type="text" autocomplete="sub_title" />
             <x-input-error :messages="$errors->get('sub_title')" class="mt-2" />
         </div>
 
@@ -120,7 +118,7 @@ new class extends Component {
             <x-input-label for="description" :value="__('Descripción')" />
             <textarea placeholder="Descripción breve del encabezado" wire:model="description"
                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                rows="2" autocomplete="description"></textarea>
+                rows="4" autocomplete="description"></textarea>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
         </div>
 

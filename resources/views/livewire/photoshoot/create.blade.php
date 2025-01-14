@@ -124,8 +124,8 @@ new class extends Component {
         ]);
 
         $photoshootFolder = 'photoshoots/' . $this->slug;
-        $uniqueCoverFileName = uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
-        $uniqueHeaderFileName = uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
+        $uniqueCoverFileName = 'cover_' . uniqid() . '.' . $this->cover_photo->getClientOriginalExtension();
+        $uniqueHeaderFileName = 'header_' . uniqid() . '.' . $this->header_photo->getClientOriginalExtension();
 
         // Store on public (local storage)
         // $coverPhotoPath = $this->cover_photo->storeAs($photoshootFolder, $uniqueFileName, 'public');

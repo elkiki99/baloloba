@@ -50,10 +50,11 @@ new class extends Component {
         $testimonialImageName = 'testimonial_' . now()->timestamp . '_' . Str::random(10);
 
         if ($this->new_profile_image) {
-            if ($this->testimonial->profile_image && Storage::disk('s3')->exists($this->testimonial->profile_image)) {
+            // Elimina la imagen anterior si existe
+            if ($this->testimonial->profile_image) {
                 Storage::disk('s3')->delete($this->testimonial->profile_image);
             }
-
+            // Sube la nueva imagen y guarda la ruta
             $imagePath = $this->new_profile_image->storeAs($testimonialFolder, $testimonialImageName, 's3');
         } else {
             $imagePath = $this->testimonial->profile_image;
@@ -64,7 +65,7 @@ new class extends Component {
         $this->testimonial->update([
             'name' => $this->name,
             'slug' => $slug,
-            'new_profile_image' => $imagePath,
+            'profile_image' => $imagePath,
             'headline' => $this->headline,
             'quote' => $this->quote,
             'username' => $this->username,
@@ -109,9 +110,11 @@ new class extends Component {
             <x-text-input wire:model="new_profile_image" class="block w-full mt-1" type="file" accept="image/*" />
 
             @if (!$new_profile_image)
-                <img src="{{ Storage::disk('s3')->url($testimonial->profile_image) }}" alt="Foto del testimonio" class="mt-4 rounded-full ">
+                <img src="{{ Storage::disk('s3')->url($testimonial->profile_image) }}" alt="Foto del testimonio"
+                    class="mt-4 rounded-full ">
             @elseif ($new_profile_image)
-                <img src="{{ $new_profile_image->temporaryUrl() }}" alt="Nueva foto del testimonio" class="mt-4 rounded-full ">
+                <img src="{{ $new_profile_image->temporaryUrl() }}" alt="Nueva foto del testimonio"
+                    class="mt-4 rounded-full ">
             @endif
 
             <x-input-error :messages="$errors->get('new_profile_image')" class="mt-2" />
@@ -148,7 +151,7 @@ new class extends Component {
             </div>
             <textarea placeholder="Biografía breve del testimonio" wire:model="bio"
                 class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                rows="2" autocomplete="bio"></textarea>
+                rows="3" autocomplete="bio"></textarea>
             <x-input-error :messages="$errors->get('bio')" class="mt-2" />
         </div>
 

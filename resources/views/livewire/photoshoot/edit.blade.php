@@ -124,13 +124,6 @@ new class extends Component {
         $this->categories = Category::all();
     }
 
-    // public function updated($property, $value)
-    // {
-    //     if ($property === 'status') {
-    //         $this->photoshoot->update(['status' => $value]);
-    //     }
-    // }
-
     public function updatePhotoShoot()
     {
         if (!Gate::allows('modify-page')) {
@@ -145,7 +138,7 @@ new class extends Component {
             if ($this->photoshoot->cover_photo) {
                 Storage::disk('s3')->delete($this->photoshoot->cover_photo);
             }
-            $uniqueCoverFileName = uniqid() . '.' . $this->new_cover_photo->getClientOriginalExtension();
+            $uniqueCoverFileName = 'cover_' . uniqid() . '.' . $this->new_cover_photo->getClientOriginalExtension();
             $coverPhotoUrl = $this->new_cover_photo->storeAs($photoshootFolder, $uniqueCoverFileName, 's3');
         } else {
             $coverPhotoUrl = $this->photoshoot->cover_photo;
@@ -155,7 +148,7 @@ new class extends Component {
             if ($this->photoshoot->header_photo) {
                 Storage::disk('s3')->delete($this->photoshoot->header_photo);
             }
-            $uniqueHeaderFileName = uniqid() . '.' . $this->new_header_photo->getClientOriginalExtension();
+            $uniqueHeaderFileName = 'header_' . uniqid() . '.' . $this->new_header_photo->getClientOriginalExtension();
             $headerPhotoUrl = $this->new_header_photo->storeAs($photoshootFolder, $uniqueHeaderFileName, 's3');
         } else {
             $headerPhotoUrl = $this->photoshoot->header_photo;
@@ -313,8 +306,10 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <livewire:dropzone :routeName="'edit-photoshoot'" :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
-                :multiple="true" />
+            <livewire:dropzone 
+                :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
+                {{-- :multiple="true"  --}}
+                />
 
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />

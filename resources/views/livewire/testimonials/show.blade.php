@@ -18,7 +18,7 @@ new class extends Component {
             Testimonios</h1>
 
         <div class="grid-cols-2 gap-6 px-0 mt-6 space-y-4 md:space-y-0 md:grid sm:px-6 lg:px-8">
-            <!-- Testimonial 1 -->
+            <!-- Testimonials -->
             @forelse ($testimonials as $testimonial)
                 <blockquote
                     class="relative w-full max-w-3xl p-4 pb-6 mx-auto border-b border-gray-200 rounded shadow md:p-8">
