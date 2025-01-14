@@ -8,7 +8,7 @@ new class extends Component {
 
     public function mount()
     {
-        $this->photoshoots = Photoshoot::latest()->where('status', 'published')->get();
+        $this->photoshoots = PhotoShoot::latest()->where('status', 'published')->get();
     }
 }; ?>
 
