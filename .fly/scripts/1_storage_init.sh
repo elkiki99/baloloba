@@ -12,3 +12,6 @@ if [ ! -d "$DB_FOLDER" ]; then
     mkdir -p /var/www/html/storage/database
     touch /var/www/html/storage/database/database.sqlite
 fi
+
+# php /var/www/html/artisan migrate --force
+# php /var/www/html/artisan db:seed --force

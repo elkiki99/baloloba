@@ -9,10 +9,10 @@ use App\Models\Header;
 use App\Models\Package;
 use App\Models\Section;
 use App\Models\Category;
-use App\Models\PhotoShoot;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Database\Factories\UserFactory;
 use Illuminate\Support\Facades\Hash;
 use Database\Factories\FooterFactory;
 use Database\Factories\HeaderFactory;
@@ -28,19 +28,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Camila',
-            'email' => 'baloloba.uy@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('Neron101'),
-            'isAdmin' => true,
-            'remember_token' => Str::random(10),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
+        $user = UserFactory::new()->definition();
         $categories = CategoryFactory::new()->defaultCategories();
         $packages = PackageFactory::new()->defaultPackages();
         $headers = HeaderFactory::new()->defaultHeaders();
@@ -49,7 +37,8 @@ class DatabaseSeeder extends Seeder
         $footer = FooterFactory::new()->defaultFooter();
 
         Footer::create($footer);
-
+        User::create($user);
+        
         foreach ($categories as $category) {
             Category::create($category);
         }
@@ -69,7 +58,5 @@ class DatabaseSeeder extends Seeder
         foreach ($testimonials as $testimonial) {
             Testimonial::create($testimonial);
         }
-
-        PhotoShoot::factory(30)->create();
     }
 }

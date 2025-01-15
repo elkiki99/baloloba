@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('client_photo_quantities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_photo_shoot_id')->constrained('client_photo_shoots')->onDelete('cascade'); // Relación principal
-            $table->foreignId('photo_id')->constrained('photos')->onDelete('cascade'); // Foto seleccionada
-            $table->integer('quantity')->default(1); // Cantidad de la foto seleccionada
+            $table->foreignId('client_photo_shoot_id')->constrained('client_photo_shoots')->onDelete('cascade');
+            $table->foreignId('photo_id')->constrained('photos')->onDelete('cascade');
+            $table->integer('quantity')->default(1);
             $table->timestamps();
         });
     }

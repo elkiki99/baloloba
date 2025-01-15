@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Photo extends Model
 {
-    use HasFactory;
+    // use HasFactory;
 
     protected $fillable = [
         'photo_shoot_id',
