@@ -72,8 +72,8 @@ new class extends Component {
     <div>
         <x-input-label for="message" :value="__('Tu consulta')" />
         <textarea wire:model="message" id="message" name="message"
-            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500"
-            rows="4" autocomplete="message"></textarea>
+            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-yellow-500" rows="4"
+            autocomplete="message"></textarea>
         <x-input-error class="mt-2" :messages="$errors->get('message')" />
     </div>
 
@@ -94,14 +94,14 @@ new class extends Component {
     </div>
 </form>
 
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('messageSentToast', () => {
-                toast('Enviado', {
-                    type: 'success',
-                    position: 'bottom-right',
-                    description: 'Mensaje enviado correctamente.'
-                });
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('messageSentToast', () => {
+            toast('Enviado', {
+                type: 'success',
+                position: 'bottom-right',
+                description: 'Mensaje enviado correctamente.'
             });
         });
-    </script>
+    });
+</script>

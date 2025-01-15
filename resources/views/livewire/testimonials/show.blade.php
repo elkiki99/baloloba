@@ -83,7 +83,7 @@ new class extends Component {
                     </div>
                 </blockquote>
             @empty
-                <p>No hay testimonios disponibles</p>
+                <p class="px-4 sm:mx-auto sm:px-0 lg:px-0 sm:max-w-7xl md:w-full">No hay testimonios disponibles</p>
             @endforelse
         </div>
     </div>

@@ -10,9 +10,9 @@ new class extends Component {
 
     public function mount()
     {
-        $this->polaroidsPackage = Package::where('id', 1)->first();
-        $this->fashionPackage = Package::where('id', 2)->first();
-        $this->eventsPackage = Package::where('id', 3)->first();
+        $this->polaroidsPackage = Package::where('id', 1)->first() ?? null;
+        $this->fashionPackage = Package::where('id', 2)->first() ?? null;
+        $this->eventsPackage = Package::where('id', 3)->first() ?? null;
     }
 }; ?>
 
@@ -22,18 +22,18 @@ new class extends Component {
         x-data="{
             event_basicProductId: 3,
             event_extendedProductId: 6,
-            event_productName: '{{ $eventsPackage->name }}',
-            event_productDescription: '{{ $eventsPackage->description }}',
-            event_basicPrice: '{{ number_format($eventsPackage->basic_price, 0, ',', '.') }}',
-            event_extendedPrice: '{{ number_format($eventsPackage->extended_price, 0, ',', '.') }}',
-            event_beforeBasicPrice: '{{ number_format($eventsPackage->before_basic_price, 0, ',', '.') }}',
-            event_beforeExtendedPrice: '{{ number_format($eventsPackage->before_extended_price, 0, ',', '.') }}',
-            event_basicFeatures: {{ $eventsPackage->basic_features }},
-            event_extendedFeatures: {{ $eventsPackage->extended_features }},
+            event_productName: '{{ $eventsPackage->name ?? null }}',
+            event_productDescription: '{{ $eventsPackage->description ?? null }}',
+            event_basicPrice: '{{ number_format($eventsPackage->basic_price ?? null, 0, ',', '.') }}',
+            event_extendedPrice: '{{ number_format($eventsPackage->extended_price ?? null, 0, ',', '.') }}',
+            event_beforeBasicPrice: '{{ number_format($eventsPackage->before_basic_price ?? null, 0, ',', '.') }}',
+            event_beforeExtendedPrice: '{{ number_format($eventsPackage->before_extended_price ?? null, 0, ',', '.') }}',
+            event_basicFeatures: {{ $eventsPackage->basic_features ?? null}},
+            event_extendedFeatures: {{ $eventsPackage->extended_features ?? null }},
         }">
         <div class="flex justify-between pb-2 text-start">
             <div>
-                <h2 class="text-xl font-semibold lg:text-2xl">{{ $eventsPackage->name }}</h2>
+                <h2 class="text-xl font-semibold lg:text-2xl">{{ $eventsPackage->name ?? null }}</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-16 lg:size-20">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -80,18 +80,18 @@ new class extends Component {
         x-data="{
             polaroids_basicProductId: 1,
             polaroids_extendedProductId: 4,
-            polaroids_productName: '{{ $polaroidsPackage->name }}',
-            polaroids_productDescription: '{{ $polaroidsPackage->description }}',
-            polaroids_basicPrice: '{{ number_format($polaroidsPackage->basic_price, 0, ',', '.') }}',
-            polaroids_extendedPrice: '{{ number_format($polaroidsPackage->extended_price, 0, ',', '.') }}',
-            polaroids_beforeBasicPrice: '{{ number_format($polaroidsPackage->before_basic_price, 0, ',', '.') }}',
-            polaroids_beforeExtendedPrice: '{{ number_format($polaroidsPackage->before_extended_price, 0, ',', '.') }}',
-            polaroids_basicFeatures: {{ $polaroidsPackage->basic_features }},
-            polaroids_extendedFeatures: {{ $polaroidsPackage->extended_features }},
+            polaroids_productName: '{{ $polaroidsPackage->name ?? null }}',
+            polaroids_productDescription: '{{ $polaroidsPackage->description ?? null }}',
+            polaroids_basicPrice: '{{ number_format($polaroidsPackage->basic_price ?? null, 0, ',', '.') }}',
+            polaroids_extendedPrice: '{{ number_format($polaroidsPackage->extended_price ?? null, 0, ',', '.') }}',
+            polaroids_beforeBasicPrice: '{{ number_format($polaroidsPackage->before_basic_price ?? null, 0, ',', '.') }}',
+            polaroids_beforeExtendedPrice: '{{ number_format($polaroidsPackage->before_extended_price ?? null, 0, ',', '.') }}',
+            polaroids_basicFeatures: {{ $polaroidsPackage->basic_features ?? null}},
+            polaroids_extendedFeatures: {{ $polaroidsPackage->extended_features ?? null }},
         }">
         <div class="flex justify-between pb-2 text-start">
             <div class="">
-                <h2 class="text-xl font-semibold text-white lg:text-2xl">{{ $polaroidsPackage->name }}</h2>
+                <h2 class="text-xl font-semibold text-white lg:text-2xl">{{ $polaroidsPackage->name ?? null }}</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="text-white size-16 lg:size-20">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -140,18 +140,18 @@ new class extends Component {
         x-data="{
             fashion_basicProductId: 2,
             fashion_extendedProductId: 5,
-            fashion_productName: '{{ $fashionPackage->name }}',
-            fashion_productDescription: '{{ $fashionPackage->description }}',
-            fashion_basicPrice: '{{ number_format($fashionPackage->basic_price, 0, ',', '.') }}',
-            fashion_extendedPrice: '{{ number_format($fashionPackage->extended_price, 0, ',', '.') }}',
-            fashion_beforeBasicPrice: '{{ number_format($fashionPackage->before_basic_price, 0, ',', '.') }}',
-            fashion_beforeExtendedPrice: '{{ number_format($fashionPackage->before_extended_price, 0, ',', '.') }}',
-            fashion_basicFeatures: {{ $fashionPackage->basic_features }},
-            fashion_extendedFeatures: {{ $fashionPackage->extended_features }},
+            fashion_productName: '{{ $fashionPackage->name ?? null }}',
+            fashion_productDescription: '{{ $fashionPackage->description ?? null }}',
+            fashion_basicPrice: '{{ number_format($fashionPackage->basic_price ?? null, 0, ',', '.') }}',
+            fashion_extendedPrice: '{{ number_format($fashionPackage->extended_price ?? null, 0, ',', '.') }}',
+            fashion_beforeBasicPrice: '{{ number_format($fashionPackage->before_basic_price ?? null, 0, ',', '.') }}',
+            fashion_beforeExtendedPrice: '{{ number_format($fashionPackage->before_extended_price ?? null, 0, ',', '.') }}',
+            fashion_basicFeatures: {{ $fashionPackage->basic_features ?? null }},
+            fashion_extendedFeatures: {{ $fashionPackage->extended_features ?? null }},
         }">
         <div class="flex justify-between pb-2 text-start">
             <div class="">
-                <h2 class="text-xl font-semibold lg:text-2xl">{{ $fashionPackage->name }}</h2>
+                <h2 class="text-xl font-semibold lg:text-2xl">{{ $fashionPackage->name ?? null}}</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-16 lg:size-20">
                     <path stroke-linecap="round" stroke-linejoin="round"

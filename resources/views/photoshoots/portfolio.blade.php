@@ -2,10 +2,12 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         @php
-            $header = \App\Models\Header::where('id', 2)->first();
+            $header = \App\Models\Header::where('id', 2)->first() ?? null;
         @endphp
 
-        <livewire:headers.show :header="$header" />
+        @if ($header)
+            <livewire:headers.show :header="$header" />
+        @endif
 
         <!-- Photoshoots -->
         <livewire:photoshoot.portfolio />

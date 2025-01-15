@@ -2,18 +2,24 @@
     <div class="flex flex-col pt-12 space-y-32 sm:pt-0">
         <!-- Header -->
         @php
-            $header = \App\Models\Header::where('id', 3)->first();
+            $header = \App\Models\Header::where('id', 3)->first() ?? null;
         @endphp
 
-        <livewire:headers.show :header="$header" />
+        @if ($header)
+            <livewire:headers.show :header="$header" />
+        @else
+            <div class="min-h-[20vh] bg-white"></div>
+        @endif
 
         <!-- Studio -->
         @php
             $section = \App\Models\Section::where('id', 2)->first();
         @endphp
 
-        <livewire:sections.show.my-study :section="$section" />
-
+        @if ($section)
+            <livewire:sections.show.my-study :section="$section" />
+        @endif
+        
         <style>
             @keyframes typing {
                 0% {

@@ -6,11 +6,13 @@
 
     <div class="flex flex-col space-y-32">
         @php
-            $header = \App\Models\Header::where('id', 1)->first();
+            $header = \App\Models\Header::where('id', 1)->first() ?? null;
         @endphp
-        
+
         <!-- Welcome header -->
-        <livewire:headers.show :header="$header" />
+        @if ($header)
+            <livewire:headers.show :header="$header" />
+        @endif
 
         <!-- Porfolio -->
         <section class="px-1 mt-12 space-y-6">
@@ -19,9 +21,11 @@
                     Portfolio</h1>
             </div>
             <div class="grid gap-1 sm:grid-cols-2 md:grid-cols-3">
-                @foreach ($photoshoots as $photoshoot)
+                @forelse ($photoshoots as $photoshoot)
                     <x-photo-shoot-card :photoshoot="$photoshoot" />
-                @endforeach
+                @empty
+                    <p class="px-4 max-w-7xl sm:px-6 lg:px-16">No hay photoshoots disponibles</p>
+                @endforelse
             </div>
 
             <div class="flex">
@@ -38,17 +42,19 @@
 
         <!-- About me -->
         @php
-            $section = \App\Models\Section::where('id', 1)->first();
+            $section = \App\Models\Section::where('id', 1)->first() ?? null;
         @endphp
-        
-        <livewire:sections.show.about-me :section="$section" />
+
+        @if ($section)
+            <livewire:sections.show.about-me :section="$section" />
+        @endif
 
         <!-- Testimonials -->
         <livewire:testimonials.show />
 
         <!-- Paquetes -->
         @include('packages.packages')
-        
+
         <!-- Contacto -->
         <section class="space-y-6 pb-[20vh]">
             <h1
