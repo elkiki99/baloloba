@@ -14,7 +14,19 @@ new class extends Component {
 
 <section class="mt-12 space-y-6">
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Sobre mi</h1>
+        <div class="flex items-center gap-12">
+            <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Sobre mi</h1>
+
+            @can('modify-page')
+                <a href="{{ route('sections.edit', $section) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="text-gray-700 size-8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                </a>
+            @endcan
+        </div>
 
         <div class="items-center justify-between gap-10 mx-auto mt-6 lg:flex lg:flex-row-reverse max-w-7xl">
             <div class="lg:w-1/2">
@@ -40,8 +52,8 @@ new class extends Component {
                     <a href="{{ $section->button_link }}" wire:navigate
                         class="flex items-center text-gray-800 hover:text-gray-900">
                         {{ $section->button_text }}
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="ml-2 size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>

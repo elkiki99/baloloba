@@ -14,13 +14,26 @@ new class extends Component {
 
 <section class="mt-12 pb-[20vh] space-y-6">
     <div class="mx-auto max-w-7xl">
-        <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">Mi
-            estudio</h1>
+        <div class="flex items-center gap">
+            <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 md:px-8 decoration-yellow-500">Mi
+                estudio</h1>
+
+            @can('modify-page')
+                <a href="{{ route('sections.edit', $section->slug) }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="text-gray-700 size-8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                </a>
+            @endcan
+        </div>
     </div>
 
     <div class="px-0 sm:px-6 md:px-8">
         <div class="relative flex items-center justify-center w-full min-h-screen bg-center bg-cover rounded-3xl"
-            style="background-image: url('{{ Storage::disk('s3')->url($section->image) }}');" alt="{{ $section->title }}">
+            style="background-image: url('{{ Storage::disk('s3')->url($section->image) }}');"
+            alt="{{ $section->title }}">
 
             <div class="flex flex-col items-start space-y-6">
                 @php
@@ -33,7 +46,8 @@ new class extends Component {
                 @endphp
 
                 <h2 class="inline-block text-xl font-bold text-gray-900 sm:text-3xl md:text-5xl typing-effect">
-                    {{ $remainingWords }} <span class="font-black underline decoration-yellow-500">{{ $lastWord }}</span>
+                    {{ $remainingWords }} <span
+                        class="font-black underline decoration-yellow-500">{{ $lastWord }}</span>
                 </h2>
 
                 <!-- CTA -->

@@ -306,10 +306,7 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <livewire:dropzone 
-                :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
-                {{-- :multiple="true"  --}}
-                />
+            <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" {{-- :multiple="true"  --}} />
 
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
@@ -355,17 +352,13 @@ new class extends Component {
         </div>
 
         <!-- Status -->
-        <div 
-            x-data="{ status: @entangle('status') }"
-            >
+        <div x-data="{ status: @entangle('status') }">
             <div class="flex items-center gap-1">
                 <x-input-label for="status" :value="__('Estado')" />
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <select 
-                x-model="status"
-                 class="block w-full mt-1">
+            <select x-model="status" class="block w-full mt-1">
                 <option value="published">{{ __('Publicado') }}</option>
                 <option value="draft">{{ __('Borrador') }}</option>
                 <option value="client_preview">{{ __('En revisión') }}</option>
@@ -430,7 +423,6 @@ new class extends Component {
 </div>
 
 <!-- Photoshoot updated toast -->
-{{-- @script --}}
 <script>
     document.addEventListener('livewire:initialized', () => {
         Livewire.on('photoshootUpdatedToast', () => {
@@ -442,4 +434,3 @@ new class extends Component {
         });
     });
 </script>
-{{-- @endscript --}}

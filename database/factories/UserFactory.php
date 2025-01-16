@@ -34,23 +34,4 @@ class UserFactory extends Factory
             'updated_at' => now(),
         ];
     }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    // public function defaultAdmin()
-    // {
-    //     return [
-    //         [
-    //             'name' => 'Camila',
-    //             'email' => 'baloloba.uy@gmail.com',
-    //             'email_verified_at' => now(),
-    //             'password' => Hash::make('Neron101'),
-    //             'isAdmin' => true,
-    //             'remember_token' => Str::random(10),
-    //             'created_at' => now(),
-    //             'updated_at' => now(),
-    //         ],
-    //     ];
-    // }
 }

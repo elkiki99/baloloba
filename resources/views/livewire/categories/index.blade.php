@@ -43,7 +43,7 @@ new class extends Component {
                                     </a>
                                 </div>
                                 <div class="flex items-center justify-center">
-                                    <a wire:navigate href="{{ route('categories.edit', $category->slug) }}"
+                                    <a href="{{ route('categories.edit', $category->slug) }}"
                                         class="text-gray-600 hover:text-gray-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

@@ -14,8 +14,20 @@ new class extends Component {
 
 <section class="mt-12 space-y-6">
     <div class="mx-auto max-w-7xl">
-        <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 lg:px-8 decoration-yellow-500">
-            Testimonios</h1>
+        <div class="flex items-center gap-4">
+            <h1 class="px-4 text-5xl font-bold underline md:text-7xl sm:px-6 lg:px-8 decoration-yellow-500">
+                Testimonios</h1>
+
+            @can('modify-page')
+                <a href="{{ route('testimonials.index') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="text-gray-700 size-8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                    </svg>
+                </a>
+            @endcan
+        </div>
 
         <div class="grid-cols-2 gap-6 px-0 mt-6 space-y-4 md:space-y-0 md:grid sm:px-6 lg:px-8">
             <!-- Testimonials -->
@@ -63,8 +75,8 @@ new class extends Component {
                                         <div x-show="hoverCardHovered"
                                             class="w-[full] h-auto bg-white space-x-3 p-5 flex items-start rounded-md shadow-sm border border-neutral-200/70"
                                             x-transition>
-                                            <img src="{{ Storage::disk('s3')->url($testimonial->profile_image) }}" alt="{{ $testimonial->name }}"
-                                                class="rounded-full w-14 h-14" />
+                                            <img src="{{ Storage::disk('s3')->url($testimonial->profile_image) }}"
+                                                alt="{{ $testimonial->name }}" class="rounded-full w-14 h-14" />
                                             <div class="relative">
                                                 <p class="mb-1 font-bold">{{ $testimonial->username }}</p>
                                                 <p class="mb-1 text-sm text-gray-600">{{ $testimonial->bio }}</p>

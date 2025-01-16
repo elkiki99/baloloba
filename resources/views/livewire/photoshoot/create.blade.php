@@ -240,7 +240,8 @@ new class extends Component {
                 <x-input-label for="photos" :value="__('Fotos')" />
                 <span class="text-yellow-600">*</span>
             </div>
-            <livewire:dropzone :routeName="'create-photoshoot'" :key="'create-photoshoot'" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+            <livewire:dropzone :routeName="'create-photoshoot'" :key="'create-photoshoot'" wire:model="photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']"
+                :multiple="true" />
             <x-input-error :messages="$errors->get('photos')" class="mt-2" />
         </div>
 
@@ -290,7 +291,7 @@ new class extends Component {
                     <x-input-label for="status" :value="__('Estado')" />
                     <span class="text-yellow-600">*</span>
                 </div>
-        
+
                 <select x-model="status" wire:model="status" class="block w-full mt-1">
                     <option value="published">{{ __('Publicado') }}</option>
                     <option value="draft">{{ __('Borrador') }}</option>
@@ -298,7 +299,7 @@ new class extends Component {
                 </select>
                 <x-input-error :messages="$errors->get('status')" class="mt-2" />
             </div>
-        
+
             <!-- Mensaje dinámico -->
             <template x-if="status === 'client_preview'">
                 <p class="my-2 text-sm text-gray-500">Crea el photoshoot para poder asignarle un cliente.</p>
@@ -340,13 +341,13 @@ new class extends Component {
 <!-- Photoshoot created toast -->
 @script
     <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('photoshootCreatedToast', (event) => {
-                const slug = event[0].slug;
-                const link = `/photoshoot/${slug}`;
+        $wire.on('photoshootCreatedToast', (event) => {
 
-                toast('Creado', {
-                    html: `
+            const slug = event[0].slug;
+            const link = `/photoshoot/${slug}`;
+
+            toast('Creado', {
+                html: `
                                 <div class="p-4">
                                     <div class="flex items-center">
                                         <svg class="w-[18px] h-[18px] text-green-500 mr-1.5 -ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -363,7 +364,6 @@ new class extends Component {
                                     </div>
                                 </div>
                                 `
-                });
             });
         });
     </script>

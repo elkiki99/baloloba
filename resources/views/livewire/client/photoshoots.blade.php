@@ -90,9 +90,7 @@ new class extends Component {
         });
     }
 
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('photoshootApprovedToast', () => {
-            photoshootApprovedToast();
-        });
+    $wire.on('photoshootApprovedToast', () => {
+        photoshootApprovedToast();
     });
 </script>

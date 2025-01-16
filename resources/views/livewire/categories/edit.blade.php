@@ -4,7 +4,6 @@ use Livewire\Volt\Component;
 use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 
-
 new class extends Component {
     public $category;
     public $name;
@@ -57,16 +56,16 @@ new class extends Component {
 </form>
 
 <!-- Category updated toast -->
-{{-- @script --}}
-<script>
-    document.addEventListener('livewire:initialized', () => {
-        Livewire.on('categoryUpdatedToast', () => {
-            toast('Actualizado', {
-                type: 'success',
-                position: 'bottom-right',
-                description: 'Categoria actualizado correctamente.'
+@script
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('categoryUpdatedToast', () => {
+                toast('Actualizado', {
+                    type: 'success',
+                    position: 'bottom-right',
+                    description: 'Categoria actualizado correctamente.'
+                });
             });
         });
-    });
-</script>
-{{-- @endscript --}}
+    </script>
+@endscript
