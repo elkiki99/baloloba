@@ -408,7 +408,7 @@ new class extends Component {
             </h3>
 
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('No se puede revertir') }}
+                {{ __('Una vez eliminado, este photoshoot no podrá ser recuperado.') }}
             </p>
 
             <div class="flex justify-end mt-6">

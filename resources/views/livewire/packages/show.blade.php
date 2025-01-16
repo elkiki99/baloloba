@@ -28,7 +28,7 @@ new class extends Component {
             event_extendedPrice: '{{ number_format($eventsPackage->extended_price ?? null, 0, ',', '.') }}',
             event_beforeBasicPrice: '{{ number_format($eventsPackage->before_basic_price ?? null, 0, ',', '.') }}',
             event_beforeExtendedPrice: '{{ number_format($eventsPackage->before_extended_price ?? null, 0, ',', '.') }}',
-            event_basicFeatures: {{ $eventsPackage->basic_features ?? null}},
+            event_basicFeatures: {{ $eventsPackage->basic_features ?? null }},
             event_extendedFeatures: {{ $eventsPackage->extended_features ?? null }},
         }">
         <div class="flex justify-between pb-2 text-start">
@@ -62,9 +62,9 @@ new class extends Component {
             <input type="hidden" id="event_product_id"
                 x-bind:value="isExtended ? event_extendedProductId : event_basicProductId" />
             <input type="hidden" id="event_product_name" x-bind:value="event_productName" />
-            <input type="hidden" id="event_product_price" x-bind:value="isExtended ? 5799 : 4499" />
+            <input type="hidden" id="event_product_price" x-bind:value="isExtended ? event_extendedPrice * 1000 : event_basicPrice * 1000" />
             <input type="hidden" id="event_product_description" x-bind:value="event_productDescription" />
-            <input type="hidden" id="event_before_price" x-bind:value="isExtended ? 6822 : 5293" />
+            <input type="hidden" id="event_before_price" x-bind:value="isExtended ? event_beforeExtendedPrice : event_beforeBasicPrice" />
             <input type="hidden" id="event_features"
                 x-bind:value="isExtended ? event_extendedFeatures : event_basicFeatures" />
 
@@ -86,7 +86,7 @@ new class extends Component {
             polaroids_extendedPrice: '{{ number_format($polaroidsPackage->extended_price ?? null, 0, ',', '.') }}',
             polaroids_beforeBasicPrice: '{{ number_format($polaroidsPackage->before_basic_price ?? null, 0, ',', '.') }}',
             polaroids_beforeExtendedPrice: '{{ number_format($polaroidsPackage->before_extended_price ?? null, 0, ',', '.') }}',
-            polaroids_basicFeatures: {{ $polaroidsPackage->basic_features ?? null}},
+            polaroids_basicFeatures: {{ $polaroidsPackage->basic_features ?? null }},
             polaroids_extendedFeatures: {{ $polaroidsPackage->extended_features ?? null }},
         }">
         <div class="flex justify-between pb-2 text-start">
@@ -122,9 +122,9 @@ new class extends Component {
             <input type="hidden" id="polaroids_product_id"
                 x-bind:value="isExtended ? polaroids_extendedProductId : polaroids_basicProductId" />
             <input type="hidden" id="polaroids_product_name" x-bind:value="polaroids_productName" />
-            <input type="hidden" id="polaroids_product_price" x-bind:value="isExtended ? 3199 : 2499" />
+            <input type="hidden" id="polaroids_product_price" x-bind:value="isExtended ? polaroids_extendedPrice * 1000 : polaroids_basicPrice * 1000" />
             <input type="hidden" id="polaroids_product_description" x-bind:value="polaroids_productDescription" />
-            <input type="hidden" id="polaroids_before_price" x-bind:value="isExtended ? 3764 : 2940" />
+            <input type="hidden" id="polaroids_before_price" x-bind:value="isExtended ? polaroids_extendedBeforePrice : polaroids_basicBeforePrice" />
             <input type="hidden" id="polaroids_features"
                 x-bind:value="isExtended ? polaroids_extendedFeatures : polaroids_basicFeatures" />
 
@@ -151,7 +151,7 @@ new class extends Component {
         }">
         <div class="flex justify-between pb-2 text-start">
             <div class="">
-                <h2 class="text-xl font-semibold lg:text-2xl">{{ $fashionPackage->name ?? null}}</h2>
+                <h2 class="text-xl font-semibold lg:text-2xl">{{ $fashionPackage->name ?? null }}</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-16 lg:size-20">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -182,9 +182,9 @@ new class extends Component {
             <input type="hidden" id="fashion_product_id"
                 x-bind:value="isExtended ? fashion_extendedProductId : fashion_basicProductId" />
             <input type="hidden" id="fashion_product_name" x-bind:value="fashion_productName" />
-            <input type="hidden" id="fashion_product_price" x-bind:value="isExtended ? 4499 : 3199" />
+            <input type="hidden" id="fashion_product_price" x-bind:value="isExtended ? fashion_extendedPrice * 1000 : fashion_basicPrice * 1000" />
             <input type="hidden" id="fashion_product_description" x-bind:value="fashion_productDescription" />
-            <input type="hidden" id="fashion_before_price" x-bind:value="isExtended ? 5293 : 3764" />
+            <input type="hidden" id="fashion_before_price" x-bind:value="isExtended ? fashion_extendedBeforePrice : fashion_basicBeforePrice" />
             <input type="hidden" id="fashion_features"
                 x-bind:value="isExtended ? fashion_extendedFeatures : fashion_basicFeatures" />
 
@@ -196,164 +196,166 @@ new class extends Component {
     </div>
 </div>
 
-<script>
-    const mp = new MercadoPago("{{ env('MERCADO_PAGO_PUBLIC_KEY') }}");
+@script
+    <script>
+        const mp = new MercadoPago("{{ env('MERCADO_PAGO_PUBLIC_KEY') }}");
 
-    document.getElementById('event_checkout-btn').addEventListener('click', function() {
+        document.getElementById('event_checkout-btn').addEventListener('click', function() {
 
-        const orderData = {
-            product: [{
-                id: document.getElementById('event_product_id').value,
-                title: document.getElementById('event_product_name').value,
-                description: document.getElementById('event_product_description').value,
-                currency_id: "UYU",
-                quantity: 1,
-                unit_price: parseFloat(document.getElementById('event_product_price').value),
-                additional_info: {
-                    before_price: document.getElementById('event_before_price').value,
-                    features: document.getElementById('event_features').value,
+            const orderData = {
+                product: [{
+                    id: document.getElementById('event_product_id').value,
+                    title: document.getElementById('event_product_name').value,
+                    description: document.getElementById('event_product_description').value,
+                    currency_id: "UYU",
+                    quantity: 1,
+                    unit_price: parseFloat(document.getElementById('event_product_price').value),
+                    additional_info: {
+                        before_price: document.getElementById('event_before_price').value,
+                        features: document.getElementById('event_features').value,
+                    }
+                }],
+                payer: {
+                    name: "{{ Auth::user()->name ?? '' }}",
+                    email: "{{ Auth::user()->email ?? '' }}",
                 }
-            }],
-            payer: {
-                name: "{{ Auth::user()->name ?? '' }}",
-                email: "{{ Auth::user()->email ?? '' }}",
-            }
-        };
+            };
 
-        console.log('Datos del pedido:', orderData);
+            console.log('Datos del pedido:', orderData);
 
-        fetch('/checkout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(preference => {
-                if (preference.error) {
-                    throw new Error(preference.error);
-                }
-                mp.checkout({
-                    preference: {
-                        id: preference.id // Asegúrate de que esta línea sea correcta
+            fetch('/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
                     },
-                    autoOpen: true
-                });
-                console.log('Respuesta de la preferencia:', preference);
-            })
-            .catch(error => console.error('Error al crear la preferencia:', error));
-    });
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(preference => {
+                    if (preference.error) {
+                        throw new Error(preference.error);
+                    }
+                    mp.checkout({
+                        preference: {
+                            id: preference.id // Asegúrate de que esta línea sea correcta
+                        },
+                        autoOpen: true
+                    });
+                    console.log('Respuesta de la preferencia:', preference);
+                })
+                .catch(error => console.error('Error al crear la preferencia:', error));
+        });
 
 
-    document.getElementById('polaroids_checkout-btn').addEventListener('click', function() {
+        document.getElementById('polaroids_checkout-btn').addEventListener('click', function() {
 
-        const orderData = {
-            product: [{
-                id: document.getElementById('polaroids_product_id').value,
-                title: document.getElementById('polaroids_product_name').value,
-                description: document.getElementById('polaroids_product_description').value,
-                currency_id: "UYU",
-                quantity: 1,
-                unit_price: parseFloat(document.getElementById('polaroids_product_price').value),
-                additional_info: {
-                    before_price: document.getElementById('polaroids_before_price').value,
-                    features: document.getElementById('polaroids_features').value,
+            const orderData = {
+                product: [{
+                    id: document.getElementById('polaroids_product_id').value,
+                    title: document.getElementById('polaroids_product_name').value,
+                    description: document.getElementById('polaroids_product_description').value,
+                    currency_id: "UYU",
+                    quantity: 1,
+                    unit_price: parseFloat(document.getElementById('polaroids_product_price').value),
+                    additional_info: {
+                        before_price: document.getElementById('polaroids_before_price').value,
+                        features: document.getElementById('polaroids_features').value,
+                    }
+                }],
+                payer: {
+                    name: "{{ Auth::user()->name ?? '' }}",
+                    email: "{{ Auth::user()->email ?? '' }}",
                 }
-            }],
-            payer: {
-                name: "{{ Auth::user()->name ?? '' }}",
-                email: "{{ Auth::user()->email ?? '' }}",
-            }
-        };
+            };
 
-        console.log('Datos del pedido:', orderData);
+            console.log('Datos del pedido:', orderData);
 
-        fetch('/checkout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(preference => {
-                if (preference.error) {
-                    throw new Error(preference.error);
-                }
-                mp.checkout({
-                    preference: {
-                        id: preference.id
+            fetch('/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
                     },
-                    autoOpen: true
-                });
-                console.log('Respuesta de la preferencia:', preference);
-            })
-            .catch(error => console.error('Error al crear la preferencia:', error));
-    });
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(preference => {
+                    if (preference.error) {
+                        throw new Error(preference.error);
+                    }
+                    mp.checkout({
+                        preference: {
+                            id: preference.id
+                        },
+                        autoOpen: true
+                    });
+                    console.log('Respuesta de la preferencia:', preference);
+                })
+                .catch(error => console.error('Error al crear la preferencia:', error));
+        });
 
 
-    document.getElementById('fashion_checkout-btn').addEventListener('click', function() {
+        document.getElementById('fashion_checkout-btn').addEventListener('click', function() {
 
-        const orderData = {
-            product: [{
-                id: document.getElementById('fashion_product_id').value,
-                title: document.getElementById('fashion_product_name').value,
-                description: document.getElementById('fashion_product_description').value,
-                currency_id: "UYU",
-                quantity: 1,
-                unit_price: parseFloat(document.getElementById('fashion_product_price').value),
-                additional_info: {
-                    before_price: document.getElementById('fashion_before_price').value,
-                    features: document.getElementById('fashion_features').value,
+            const orderData = {
+                product: [{
+                    id: document.getElementById('fashion_product_id').value,
+                    title: document.getElementById('fashion_product_name').value,
+                    description: document.getElementById('fashion_product_description').value,
+                    currency_id: "UYU",
+                    quantity: 1,
+                    unit_price: parseFloat(document.getElementById('fashion_product_price').value),
+                    additional_info: {
+                        before_price: document.getElementById('fashion_before_price').value,
+                        features: document.getElementById('fashion_features').value,
+                    }
+                }],
+                payer: {
+                    name: "{{ Auth::user()->name ?? '' }}",
+                    email: "{{ Auth::user()->email ?? '' }}",
                 }
-            }],
-            payer: {
-                name: "{{ Auth::user()->name ?? '' }}",
-                email: "{{ Auth::user()->email ?? '' }}",
-            }
-        };
+            };
 
-        console.log('Datos del pedido:', orderData);
+            console.log('Datos del pedido:', orderData);
 
-        fetch('/checkout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(preference => {
-                if (preference.error) {
-                    throw new Error(preference.error);
-                }
-                mp.checkout({
-                    preference: {
-                        id: preference.id // Asegúrate de que esta línea sea correcta
+            fetch('/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
                     },
-                    autoOpen: true
-                });
-                console.log('Respuesta de la preferencia:', preference);
-            })
-            .catch(error => console.error('Error al crear la preferencia:', error));
-    });
-</script>
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(preference => {
+                    if (preference.error) {
+                        throw new Error(preference.error);
+                    }
+                    mp.checkout({
+                        preference: {
+                            id: preference.id // Asegúrate de que esta línea sea correcta
+                        },
+                        autoOpen: true
+                    });
+                    console.log('Respuesta de la preferencia:', preference);
+                })
+                .catch(error => console.error('Error al crear la preferencia:', error));
+        });
+    </script>
+@endscript
