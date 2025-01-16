@@ -122,8 +122,8 @@ new class extends Component {
     {
         ClientPhotoQuantity::where('client_photo_shoot_id', $this->clientPhotoShootId->id)->delete();
         $this->likedImages = [];
-        $this->dispatch('deletedUserLikedPhotos');
         $this->dispatch('removeLikedImagesFromFrontend');
+        $this->dispatch('removedLikesToast');
     }
 }; ?>
 
@@ -441,14 +441,14 @@ new class extends Component {
     @endif
 </div>
 
-<script>
-    document.addEventListener('livewire:initialized', () => {
-        Livewire.on('deletedUserLikedPhotos', () => {
+@script
+    <script>
+        $wire.on('removedLikesToast', () => {
             toast('Eliminadas', {
                 type: 'success',
                 position: 'bottom-right',
                 description: 'Me gustas del cliente eliminados correctamente.'
             });
         });
-    });
-</script>
+    </script>
+@endscript

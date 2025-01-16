@@ -140,7 +140,7 @@
         @endif
 
         <!-- Check for Existing Photos in the Photoshoot -->
-        @if (isset($existing_photos) && count($existing_photos) > 0)
+        {{-- @if (isset($existing_photos) && count($existing_photos) > 0)
             <div wire:sortable="updateExistingPhotosOrder"
                 class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-5">
                 @foreach ($existing_photos as $photo)
@@ -174,7 +174,7 @@
                     </div>
                 @endforeach
             </div>
-        @endif
+        @endif --}}
     </div>
 
     @script

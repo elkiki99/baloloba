@@ -292,7 +292,7 @@ new class extends Component {
                     <span class="text-yellow-600">*</span>
                 </div>
 
-                <select x-model="status" wire:model="status" class="block w-full mt-1">
+                <select x-model="status" wire:model="status" class="block w-full mt-1 border-2 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500">
                     <option value="published">{{ __('Publicado') }}</option>
                     <option value="draft">{{ __('Borrador') }}</option>
                     <option value="client_preview">{{ __('En revisión') }}</option>
@@ -311,7 +311,7 @@ new class extends Component {
                 <x-input-label for="category_id" :value="__('Categoría')" />
                 <span class="text-yellow-600">*</span>
             </div>
-            <select wire:model="category_id" class="block w-full mt-1">
+            <select wire:model="category_id" class="block w-full mt-1 border-2 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500">
                 <!-- Populate options dynamically -->
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>

@@ -14,6 +14,15 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Middleware\CheckPhotoShootAccess;
 use App\Http\Controllers\PaymentController;
 
+
+Route::get('/success', function () {
+    return redirect('/contacto');
+});
+
+Route::get('/failed', function () {
+    return redirect('/contacto');
+});
+
 Route::post('/checkout', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.checkout');
 Route::post('/success', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.success');
 Route::post('/failed', [PaymentController::class, 'createPaymentPreference'])->name('mercadopago.failed');
@@ -26,7 +35,7 @@ Route::get('/cookies', [LegalPagesController::class, 'cookies'])->name('cookies'
 Route::get('/aviso-legal', [LegalPagesController::class, 'disclaimer'])->name('disclaimer');
 Route::get('/politica-de-privacidad', [LegalPagesController::class, 'privacy'])->name('privacy');
 Route::get('/devoluciones', [LegalPagesController::class, 'refund'])->name('refund');
-Route::get('/terminos-y-conciones', [LegalPagesController::class, 'terms'])->name('terms');
+Route::get('/terminos-y-condiciones', [LegalPagesController::class, 'terms'])->name('terms');
 
 Route::get('/portfolio', [PhotoShootController::class, 'portfolio'])->name('portfolio');
 
@@ -40,7 +49,7 @@ Route::get('/categoria/{category:slug}', [CategoryController::class, 'show'])->n
 Route::get('/categoria/editar/{category:slug}', [CategoryController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('categories.edit');
 
 Route::get('/paquetes', [PackageController::class, 'index'])->middleware([EnsureUserIsAdmin::class])->name('packages.index');
-Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('packages.edit');    
+Route::get('/paquete/editar/{package:slug}', [PackageController::class, 'edit'])->middleware([EnsureUserIsAdmin::class])->name('packages.edit');
 
 // Panel
 Route::middleware([EnsureUserIsAdmin::class])->group(function () {

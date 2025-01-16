@@ -175,6 +175,26 @@ new class extends Component {
         $this->dispatch('photoshootUpdatedToast');
     }
 
+    public function updateExistingPhotos($photos)
+    {
+        $this->existing_photos = $photos;
+    }
+
+    public function updateExistingPhotosOrder($orderedPhotos)
+    {
+        $this->existing_photos = collect($orderedPhotos)->map(function ($photo, $index) {
+            // Encuentra la imagen en el arreglo actual
+            $updatedPhoto = collect($this->existing_photos)->firstWhere('id', $photo['value']);
+
+            // Actualiza la posición en la base de datos
+            \App\Models\Photo::where('id', $photo['value'])->update(['position' => $index + 1]);
+
+            return $updatedPhoto;
+
+            $this->dispatch('photosUpdated', $this->existing_photos);
+        })->toArray();
+    }
+
     public function checkForNewPhotos()
     {
         $photoshootId = $this->photoshoot->id;
@@ -306,7 +326,43 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <livewire:dropzone :existing_photos="$existing_photos" wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" {{-- :multiple="true"  --}} />
+            <livewire:dropzone :$existing_photos wire:model="new_photos" :rules="['image', 'mimes:png,jpeg,webp,jpg', 'max:10240']" :multiple="true" />
+
+            @if (isset($existing_photos) && count($existing_photos) > 0)
+                <div wire:sortable="updateExistingPhotosOrder"
+                    class="dz-flex dz-flex-wrap dz-gap-x-10 dz-gap-y-2 dz-justify-start dz-w-full dz-mt-5">
+                    @foreach ($existing_photos as $photo)
+                        <div wire:sortable.item="{{ $photo['id'] }}"
+                            class="dz-flex dz-items-center dz-justify-between dz-gap-2 dz-border dz-rounded dz-border-gray-200 dz-w-full dz-h-auto dz-overflow-hidden hover:scale-[102%] hover:shadow-md hover:transition-transform hover:duration-200 max-w-[38rem]"
+                            wire:key='{{ $photo['id'] }}'>
+
+                            <div wire:sortable.handle
+                                class="flex-1 dz-flex dz-items-center dz-gap-3 dz-w-full dz-h-full dz-p-2 hover:cursor-grab">
+                                <div class="dz-flex-none dz-w-14 dz-h-14">
+                                    <img src="{{ Storage::disk('s3')->url($photo['filename']) }}"
+                                        class="dz-object-fill dz-w-full dz-h-full" alt="{{ $photo['filename'] }}">
+                                </div>
+                                <div class="dz-flex dz-flex-col dz-items-start dz-gap-1">
+                                    <div class="dz-text-center dz-text-slate-900 dz-text-sm dz-font-medium">
+                                        {{ basename($photo['filename']) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dz-flex dz-items-center dz-mr-3">
+                                <button type="button" wire:click="removeExistingFile({{ $photo['id'] }})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="dz-w-6 dz-h-6 dz-text-black">
+                                        <path fill-rule="evenodd"
+                                            d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
 
             <x-input-error :messages="$errors->get('new_photos')" class="mt-2" />
             <x-input-error :messages="$errors->get('existing_photos')" class="mt-2" />
@@ -358,7 +414,8 @@ new class extends Component {
                 <span class="text-yellow-600">*</span>
             </div>
 
-            <select x-model="status" class="block w-full mt-1">
+            <select x-model="status"
+                class="block w-full mt-1 border-2 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500">
                 <option value="published">{{ __('Publicado') }}</option>
                 <option value="draft">{{ __('Borrador') }}</option>
                 <option value="client_preview">{{ __('En revisión') }}</option>
@@ -377,7 +434,8 @@ new class extends Component {
                 <x-input-label for="category_id" :value="__('Categoría')" />
                 <span class="text-yellow-600">*</span>
             </div>
-            <select wire:model="category_id" class="block w-full mt-1">
+            <select wire:model="category_id"
+                class="block w-full mt-1 border-2 border-gray-300 rounded-md shadow-sm focus:border-yellow-500 focus:ring-yellow-500">
                 <!-- Populate options dynamically -->
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>

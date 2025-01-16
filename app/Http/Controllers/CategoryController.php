@@ -38,11 +38,19 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $photoshoots = PhotoShoot::where('category_id', $category->id)->get();
+
+        if ($photoshoots->isEmpty()) {
+            return view('categories.show', [
+                'category' => $category,
+                'randomPhotoshoot' => null,
+            ]);
+        }
+
         $randomPhotoshoot = $photoshoots->random();
 
         return view('categories.show', [
             'category' => $category,
-            'randomPhotoshoot' => $randomPhotoshoot
+            'randomPhotoshoot' => $randomPhotoshoot,
         ]);
     }
 
