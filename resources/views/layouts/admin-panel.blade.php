@@ -57,7 +57,7 @@
                         <livewire:admin.sidebar />
                     </div>
                 @elseif(Auth::user())
-                    <div class="mr-6 sm:mr-0 sm:w-1/4">
+                    <div class="mr-8 sm:mr-0 sm:w-1/4">
                         <livewire:client.sidebar />
                     </div>
                 @endif
