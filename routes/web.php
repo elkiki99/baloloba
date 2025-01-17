@@ -13,7 +13,7 @@ use App\Http\Controllers\PhotoShootController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Middleware\CheckPhotoShootAccess;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Middleware\EnsureUserIsNotAdmin;
 
 Route::get('/success', function () {
     return redirect('/contacto');
@@ -66,7 +66,7 @@ Route::middleware([EnsureUserIsAdmin::class])->group(function () {
     Route::get('componentes/editar/footer', [FooterController::class, 'edit'])->name('footer.edit');
 });
 
-Route::get('/mis-photoshoots', [PhotoShootController::class, 'clientPhotoshoots'])->middleware(['auth'])->name('client.photoshoots');
+Route::get('/mis-photoshoots', [PhotoShootController::class, 'clientPhotoshoots'])->middleware([EnsureUserIsNotAdmin::class])->name('client.photoshoots');
 
 Route::view('perfil', 'profile')
     ->middleware(['auth'])

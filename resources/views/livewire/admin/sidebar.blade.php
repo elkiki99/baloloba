@@ -6,7 +6,7 @@ new class extends Component {
     
 }; ?>
 
-<aside class="flex sticky top-0 flex-col space-y-6 pb-[20vh] pt-[12vh]">
+<aside class="flex sticky top-0 flex-col space-y-6 pb-[20vh] sm:pt-[12vh] pt-[8vh]">
     <!-- Home -->
     <a wire:navigate href="{{ route('panel') }}" wire:current.strict='text-yellow-600 font-black' class="flex items-center gap-2 hover:blur-xs">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"

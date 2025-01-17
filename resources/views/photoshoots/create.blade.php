@@ -1,6 +1,6 @@
 <x-admin-panel-layout>
-    <section class="pt-12 pb-[20vh] sm:px-6 lg:px-8 px-0">
-        <div class="space-y-6 md:mx-auto sm:mt-10 max-w-7xl">
+    <section class="pb-[20vh] sm:pt-[12vh] pt-[6vh] sm:px-6 lg:px-8 px-4">
+        <div class="space-y-6 md:mx-auto max-w-7xl">
             <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Crear photoshoot</h1>
 
             <!-- Breadcrumbs -->

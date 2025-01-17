@@ -20,7 +20,7 @@ new class extends Component {
                 <tr>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Nombre</th>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Subtítulo</th>
-                    <th class="px-4 py-2 font-semibold text-left text-gray-600">Descripción</th>
+                    <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 md:table-cell">Descripción</th>
                     <th class="px-4 py-2 font-semibold text-gray-600 text-end">Acciones</th>
                 </tr>
             </thead>
@@ -29,7 +29,7 @@ new class extends Component {
                     <tr class="border-b hover:bg-gray-50">
                         <td class="px-4 py-4">{{ $header->title }}</td>
                         <td class="px-4 py-4">{{ Str::limit($header->sub_title, 30, '...') }}</td>
-                        <td class="px-4 py-4">{{ Str::limit($header->description, 30, '...') ?? $header->description ?? 'Sin descripción' }}</td>
+                        <td class="hidden px-4 py-4 md:table-cell">{{ Str::limit($header->description, 30, '...') ?? $header->description ?? 'Sin descripción' }}</td>
                         <td class="h-full px-4 py-2">
                             <div class="flex items-center justify-end gap-2">
                                 <div class="flex items-center justify-center">

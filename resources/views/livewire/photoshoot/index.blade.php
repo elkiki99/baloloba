@@ -24,9 +24,9 @@ new class extends Component {
             <thead class="bg-gray-100">
                 <tr>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Nombre</th>
-                    <th class="px-4 py-2 font-semibold text-left text-gray-600">Categoría</th>
-                    <th class="px-4 py-2 font-semibold text-left text-gray-600">Precio</th>
-                    <th class="px-4 py-2 font-semibold text-left text-gray-600">Ubicación</th>
+                    <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 sm:table-cell">Categoría</th>
+                    <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 md:table-cell">Precio</th>
+                    <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 lg:table-cell">Ubicación</th>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Estado</th>
                     <th class="px-4 py-2 font-semibold text-gray-600 text-end">Acciones</th>
                 </tr>
@@ -35,9 +35,9 @@ new class extends Component {
                 @forelse ($photoshoots as $photoshoot)
                     <tr class="border-b hover:bg-gray-50">
                         <td class="px-4 py-4">{{ $photoshoot->name }}</td>
-                        <td class="px-4 py-4">{{ $photoshoot->category->name ?? 'Sin categoría' }}</td>
-                        <td class="px-4 py-4">${{ number_format($photoshoot->price, 2) }}</td>
-                        <td class="px-4 py-4">{{ $photoshoot->location }}</td>
+                        <td class="hidden px-4 py-4 sm:table-cell">{{ $photoshoot->category->name ?? 'Sin categoría' }}</td>
+                        <td class="hidden px-4 py-4 md:table-cell">${{ number_format($photoshoot->price, 2) }}</td>
+                        <td class="hidden px-4 py-4 lg:table-cell">{{ $photoshoot->location }}</td>
                         <td class="px-4 py-4">
                             <span
                                 class="px-2 py-1 text-sm rounded-full 

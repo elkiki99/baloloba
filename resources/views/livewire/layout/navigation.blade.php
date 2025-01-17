@@ -14,7 +14,7 @@ new class extends Component {
         <!-- Logo -->
         <div class="flex items-center">
             <a href="{{ route('welcome') }}">
-                <x-application-logo class="w-10 h-10 text-gray-500 fill-current" />
+                <x-application-logo class="w-8 h-8 text-gray-500 fill-current" />
             </a>
         </div>
 

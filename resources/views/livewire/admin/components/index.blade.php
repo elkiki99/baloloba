@@ -12,7 +12,7 @@ new class extends Component {
             <thead class="bg-gray-100">
                 <tr>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Nombre</th>
-                    <th class="px-4 py-2 font-semibold text-left text-gray-600">Descripción</th>
+                    <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 md:table-cell">Descripción</th>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Componente</th>
                     <th class="px-4 py-2 font-semibold text-gray-600 text-end">Acciones</th>
                 </tr>
@@ -21,7 +21,7 @@ new class extends Component {
                 <!-- Header -->
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-4">Headers</td>
-                    <td class="px-4 py-4">Edita los headers</td>
+                    <td class="hidden px-4 py-4 md:table-cell">Edita los headers</td>
                     <td class="px-4 py-4">Headers</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
@@ -43,7 +43,7 @@ new class extends Component {
                 <!-- Secciones -->
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-4">Secciones</td>
-                    <td class="px-4 py-4">Edita las secciones</td>
+                    <td class="hidden px-4 py-4 md:table-cell">Edita las secciones</td>
                     <td class="px-4 py-4">Secciones</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
@@ -65,7 +65,7 @@ new class extends Component {
                 <!-- Testimonios -->
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-4">Testimonios</td>
-                    <td class="px-4 py-4">Testimonios de la página principal</td>
+                    <td class="hidden px-4 py-4 md:table-cell">Testimonios de la página principal</td>
                     <td class="px-4 py-4">Página principal</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
@@ -87,7 +87,7 @@ new class extends Component {
                 <!-- Footer -->
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-4">Footer</td>
-                    <td class="px-4 py-4">Texto de la página footer</td>
+                    <td class="hidden px-4 py-4 md:table-cell">Texto de la página footer</td>
                     <td class="px-4 py-4">Footer</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">

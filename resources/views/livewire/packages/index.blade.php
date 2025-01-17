@@ -19,8 +19,8 @@ new class extends Component {
             <tr>
                 <th class="px-4 py-2 font-semibold text-left text-gray-600">Nombre</th>
                 <th class="px-4 py-2 font-semibold text-left text-gray-600">Precio básico</th>
-                <th class="px-4 py-2 font-semibold text-left text-gray-600">Precio extendido</th>
-                <th class="px-4 py-2 font-semibold text-left text-gray-600">Descripción</th>
+                <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 sm:table-cell">Precio extendido</th>
+                <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 lg:table-cell">Descripción</th>
                 <th class="px-4 py-2 font-semibold text-gray-600 text-end">Acciones</th>
 
             </tr>
@@ -30,8 +30,8 @@ new class extends Component {
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-4">{{ $package->name }}</td>
                     <td class="px-4 py-4">${{ number_format($package->basic_price, 2) }}</td>
-                    <td class="px-4 py-4">${{ number_format($package->extended_price, 2) }}</td>
-                    <td class="px-4 py-4">{{ $package->description }}</td>
+                    <td class="hidden px-4 py-4 sm:table-cell">${{ number_format($package->extended_price, 2) }}</td>
+                    <td class="hidden px-4 py-4 lg:table-cell">{{ $package->description }}</td>
                     <td class="h-full px-4 py-2">
                         <div class="flex items-center justify-end gap-2">
                             <div class="flex items-center justify-center">

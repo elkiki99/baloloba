@@ -20,16 +20,16 @@ new class extends Component {
                 <tr>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Nombre</th>
                     <th class="px-4 py-2 font-semibold text-left text-gray-600">Subtítulo</th>
-                    <th class="px-4 py-2 font-semibold text-left text-gray-600">Descripción</th>
+                    <th class="hidden px-4 py-2 font-semibold text-left text-gray-600 md:table-cell">Descripción</th>
                     <th class="px-4 py-2 font-semibold text-gray-600 text-end">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($sections as $section)
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-4 py-4">{{ $section->title }}</td>
+                        <td class="px-4 py-4">{{ Str::limit($section->title, 20, '...') ?? $section->title }}</td>
                         <td class="px-4 py-4">{{ Str::limit($section->sub_title, 30, '...') ?? 'Sin subtítulo' }}</td>
-                        <td class="px-4 py-4">{{ Str::limit($section->description, 30, '...') ?? $section->description ?? 'Sin descripción' }}</td>
+                        <td class="hidden px-4 py-4 md:table-cell">{{ Str::limit($section->description, 30, '...') ?? $section->description ?? 'Sin descripción' }}</td>
                         <td class="h-full px-4 py-2">
                             <div class="flex items-center justify-end gap-2">
                                 <div class="flex items-center justify-center">

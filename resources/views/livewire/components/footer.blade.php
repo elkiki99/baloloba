@@ -27,7 +27,7 @@ new class extends Component {
             <!-- About Us Section -->
             <div class="w-full px-4 py-2 md:w-1/3">
                 <h3 class="mb-2 text-lg font-bold">{{ $footer->title ?? null }}</h3>
-                <p class="text-sm text-gray-400 md:text-md">{{ $footer->description ?? null }}</p>
+                <p class="text-xs text-gray-400 md:text-sm">{{ $footer->description ?? null }}</p>
             </div>
 
             <!-- Contact & Socials Section -->
@@ -40,7 +40,7 @@ new class extends Component {
                         <div class="">
                             <a href="{{ $footer->address ?? null }}"
                                 rel="noopener noreferrer" target="blank"
-                                class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                                class="inline-flex items-center text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="mr-1 size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -54,13 +54,13 @@ new class extends Component {
 
                         <!-- Call me -->
                         <div
-                            class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                            class="inline-flex items-center text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="mr-1 size-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
                             </svg>
-                            <p class="text-sm text-gray-400 md:text-md">{{ $footer->phone ?? null }}</p>
+                            <p class="text-xs text-gray-400 md:text-sm">{{ $footer->phone ?? null }}</p>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@ new class extends Component {
                             <!-- Mail -->
                             <li class="">
                                 <a href="mailto:{{ $footer->email ?? null }}"
-                                    class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                                    class="inline-flex items-center text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 size-5" fill="none"
                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -85,7 +85,7 @@ new class extends Component {
                             <li class="p-0.5">
                                 <a href="https://www.linkedin.com/in/camila-fernandez16/" rel="noopener noreferrer"
                                     target="blank"
-                                    class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                                    class="inline-flex items-center text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">
                                     <svg class="mr-2 size-4" xmlns="http://www.w3.org/2000/svg"
                                         preserveAspectRatio="xMidYMid" viewBox="0 0 256 256">
                                         <path
@@ -98,7 +98,7 @@ new class extends Component {
                             <!-- Instagram -->
                             <li class="p-0.5">
                                 <a href="{{ $footer->instagram ?? null }}" rel="noopener noreferrer" target="blank"
-                                    class="inline-flex items-center text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">
+                                    class="inline-flex items-center text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 size-4"
                                         preserveAspectRatio="xMidYMid" viewBox="0 0 256 256">
                                         <path fill="#fff"
@@ -114,16 +114,16 @@ new class extends Component {
                         <h3 class="mb-2 text-lg font-bold">Acceso directo</h3>
                         <ul>
                             <li><a wire:navigate href="{{ route('welcome') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Inicio</a>
+                                    class="text-xs text-gray-400 hover:blur-xs md:text-sm hover:text-gray-200">Inicio</a>
                             </li>
                             <li><a wire:navigate href="{{ route('about') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Sobre
+                                    class="text-xs text-gray-400 hover:blur-xs md:text-sm hover:text-gray-200">Sobre
                                     mi</a></li>
                             <li><a wire:navigate href="{{ route('contact') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Contacto</a>
+                                    class="text-xs text-gray-400 hover:blur-xs md:text-sm hover:text-gray-200">Contacto</a>
                             </li>
                             <li><a wire:navigate href="{{ route('portfolio') }}"
-                                    class="text-sm text-gray-400 hover:blur-xs md:text-md hover:text-gray-200">Porfolio</a>
+                                    class="text-xs text-gray-400 hover:blur-xs md:text-sm hover:text-gray-200">Porfolio</a>
                             </li>
                         </ul>
                     </div>
@@ -133,22 +133,22 @@ new class extends Component {
                         <h3 class="mb-2 text-lg font-bold">Legal</h3>
                         <ul>
                             <li><a wire:navigate href="{{ route('terms') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Términos
+                                    class="text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">Términos
                                     y condiciones</a>
                             </li>
                             <li><a wire:navigate href="{{ route('privacy') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Política
+                                    class="text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">Política
                                     de privacidad</a></li>
                             <li><a wire:navigate href="{{ route('refund') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Devoluciones</a>
+                                    class="text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">Devoluciones</a>
                             </li>
 
                             <li><a wire:navigate href="{{ route('disclaimer') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Aviso
+                                    class="text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">Aviso
                                     legal</a>
                             </li>
                             <li><a wire:navigate href="{{ route('cookies') }}"
-                                    class="text-sm text-gray-400 md:text-md hover:text-gray-200 hover:blur-xs">Cookies</a>
+                                    class="text-xs text-gray-400 md:text-sm hover:text-gray-200 hover:blur-xs">Cookies</a>
                             </li>
                         </ul>
                     </div>
@@ -162,7 +162,7 @@ new class extends Component {
                 <h1 class="hidden text-6xl font-bold lg:text-8xl xl:text-9xl md:inline-block">Balo <span
                         class="super-thin">Loba</span>
                 </h1>
-                <p class="text-sm text-gray-400 md:text-md">© {{ now()->year }} {{ config('app.name') }}. Todos los
+                <p class="text-xs text-gray-400 md:text-sm">© {{ now()->year }} {{ config('app.name') }}. Todos los
                     derechos reservados.</p>
             </div>
 

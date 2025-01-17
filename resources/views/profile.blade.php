@@ -1,5 +1,5 @@
 <x-admin-panel-layout>
-    <div class="pb-[20vh] pt-[12vh]">
+    <div class="pb-[20vh] pt-[6vh] sm:pt-[12vh]">
         <div class="px-4 mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
             <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Perfil
             </h1>
@@ -7,7 +7,7 @@
             <!-- Breadcrumbs -->
             <nav class="flex justify-between px-3.5 py-1 rounded-md">
                 <ol
-                    class="inline-flex items-center mb-3 space-x-1 text-xs text-neutral-500 [&_.active-breadcrumb]:text-neutral-600 [&_.active-breadcrumb]:font-medium sm:mb-0">
+                    class="inline-flex items-center space-x-1 text-xs text-neutral-500 [&_.active-breadcrumb]:text-neutral-600 [&_.active-breadcrumb]:font-medium sm:mb-0">
                     <li class="flex items-center h-full"><a wire:navigate href="{{ route('panel') }}"
                             class="py-1 hover:text-neutral-900"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor" class="size-4">
