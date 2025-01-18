@@ -60,7 +60,6 @@ class PaymentController extends Controller
         MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::LOCAL);
     }
 
-    // Función para crear la estructura de preferencia 
     function createPreferenceRequest($items, $payer): array
     {
         $paymentMethods = [

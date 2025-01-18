@@ -204,7 +204,9 @@ new class extends Component {
 
 @script
     <script>
-        const mp = new MercadoPago("{{ env('MERCADO_PAGO_PUBLIC_KEY') }}");
+        const mp = new MercadoPago("{{ env('MERCADO_PAGO_PUBLIC_KEY') }}", {
+            locale: "es-UY"
+        });
 
         function handleCheckout(packageType) {
             const id = document.getElementById(`${packageType}_product_id`).value;
@@ -218,7 +220,7 @@ new class extends Component {
                 product: [{
                     id,
                     title: name,
-                    description,
+                    description: description,
                     currency_id: "UYU",
                     quantity: 1,
                     unit_price: price,
@@ -259,7 +261,6 @@ new class extends Component {
                         },
                         autoOpen: true
                     });
-                    console.log(`Respuesta de la preferencia (${packageType}):`, preference);
                 })
                 .catch(error => console.error(`Error al crear la preferencia (${packageType}):`, error));
         }

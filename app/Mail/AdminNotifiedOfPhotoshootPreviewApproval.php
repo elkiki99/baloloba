@@ -15,7 +15,7 @@ class AdminNotifiedOfPhotoshootPreviewApproval extends Mailable
 
     /**
      * Create a new message instance.
-    */
+     */
 
     public $photoshoot;
     public $user;
@@ -46,7 +46,7 @@ class AdminNotifiedOfPhotoshootPreviewApproval extends Mailable
             with: [
                 'photoshoot' => $this->photoshoot,
                 'user' => $this->user,
-                'url' => url('/photoshoot/' . $this->photoshoot->slug),
+                'url' => 'https://baloloba.fly.dev/photoshoot/' . $this->photoshoot->slug,
             ],
         );
     }

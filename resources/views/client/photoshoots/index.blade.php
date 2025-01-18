@@ -2,7 +2,7 @@
     <section class="pb-[20vh] pt-[6vh] sm:pt-[12vh] sm:px-6 lg:px-8 px-4">
         <div class="space-y-6 md:mx-auto max-w-7xl">
             <h1 class="text-5xl font-bold underline md:text-7xl decoration-yellow-500">Mis photoshoots</h1>
-
+            
             <div class="flex items-center justify-between">
                 <!-- Breadcrumbs -->
                 <nav class="flex justify-between px-3.5 py-1 rounded-md">
