@@ -245,9 +245,9 @@ new class extends Component {
             <x-input-error :messages="$errors->get('photos')" class="mt-2" />
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="items-center gap-4 space-y-6 sm:flex sm:space-y-0">
             <!-- Price -->
-            <div class="w-1/2">
+            <div class="w-full sm:w-1/2">
                 <x-input-label for="price" :value="__('Precio (pesos)')" />
                 <x-text-input wire:model="price" class="block w-full mt-1" type="number" step="0.01"
                     autocomplete="price" />
@@ -255,7 +255,7 @@ new class extends Component {
             </div>
 
             <!-- Duration -->
-            <div class="w-1/2">
+            <div class="w-full sm:w-1/2">
                 <x-input-label for="duration" :value="__('Duración (minutos)')" />
                 <x-text-input wire:model="duration" class="block w-full mt-1" type="number" step="0.5" />
                 <x-input-error :messages="$errors->get('duration')" class="mt-2" />

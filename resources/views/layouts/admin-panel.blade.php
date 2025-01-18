@@ -53,11 +53,11 @@
         <div class="relative z-30 bg-white">
             <div class="flex min-h-screen px-4 mx-auto bg-white max-w-7xl sm:px-6 lg:px-8">
                 @if (Auth::user() && Auth::user()->isAdmin())
-                    <div class="mr-8 sm:mr-0 sm:w-1/4">
+                    <div class="mr-6 sm:mr-0 sm:w-1/4">
                         <livewire:admin.sidebar />
                     </div>
                 @elseif(Auth::user())
-                    <div class="mr-8 sm:mr-0 sm:w-1/4">
+                    <div class="mr-6 sm:mr-0 sm:w-1/4">
                         <livewire:client.sidebar />
                     </div>
                 @endif
