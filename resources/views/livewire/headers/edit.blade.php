@@ -1,20 +1,33 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Header;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use App\Models\Header;
 
 new class extends Component {
     use WithFileUploads;
 
     public $header;
+
+    #[Validate('required|string|max:255', as: 'título')]
     public $title;
+
+    #[Validate('required|string|max:255', as: 'subtítulo')]
     public $sub_title;
+
+    #[Validate('nullable|string|max:500', as: 'descripción')]
     public $description;
+
+    #[Validate('nullable|string|max:255', as: 'botón')]
     public $button_text;
+
+    #[Validate('nullable|string|max:255', as: 'enlace del botón')]
     public $button_link;
+
+    #[Validate('nullable|image|max:10240', as: 'imagen')]
     public $new_image;
 
     public function mount($id)
@@ -27,16 +40,7 @@ new class extends Component {
         $this->button_text = $this->header->button_text;
         $this->button_link = $this->header->button_link;
     }
-
-    protected $rules = [
-        'title' => 'required|string|max:255',
-        'sub_title' => 'required|string|max:255',
-        'description' => 'nullable|string|max:500',
-        'button_text' => 'nullable|string|max:255',
-        'button_link' => 'nullable|string|max:255',
-        'new_image' => 'nullable|image|max:10240',
-    ];
-
+    
     public function updateHeader()
     {
         if (!Gate::allows('modify-page')) {

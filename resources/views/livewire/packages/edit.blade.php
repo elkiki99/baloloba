@@ -2,26 +2,28 @@
 
 use Livewire\Volt\Component;
 use App\Models\Package;
+use Livewire\Attributes\Validate;
 
 new class extends Component {
     public $package;
-    public $name;
-    public $basic_price;
-    public $extended_price;
-    public $description;
-    public $basic_features;
-    public $extended_features;
 
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'basic_price' => 'required|numeric|min:0',
-        'extended_price' => 'required|numeric|min:0',
-        'description' => 'nullable|string|max:500',
-        'basic_features' => 'required|string',
-        'basic_features.*' => 'string|max:255',
-        'extended_features' => 'required|string',
-        'extended_features.*' => 'string|max:255',
-    ];
+    #[Validate('required|string|max:255', as: 'nombre')]
+    public $name;
+
+    #[Validate('required|numeric|min:0', as: 'precio extendido')]
+    public $basic_price;
+
+    #[Validate('required|numeric|min:0', as: 'precio extendido')]
+    public $extended_price;
+
+    #[Validate('nullable|string|max:500', as: 'descripción')]
+    public $description;
+
+    #[Validate('required|string', as: 'características báscias')]
+    public $basic_features;
+
+    #[Validate('required|string|max:500', as: 'características extendidas')]
+    public $extended_features;
 
     public function mount($id)
     {

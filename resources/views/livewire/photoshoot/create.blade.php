@@ -3,6 +3,7 @@
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File as HttpFile;
+use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use Illuminate\Support\Str;
 use App\Models\PhotoShoot;
@@ -12,72 +13,42 @@ use App\Models\Photo;
 new class extends Component {
     use WithFileUploads;
 
+    #[Validate('required|string|max:48', as: 'nombre')]
     public $name;
-    public $description;
-    public $cover_photo;
-    public $header_photo;
-    public $date;
-    public $status = 'published';
-    public $category_id = 1;
-    public $price;
-    public $location;
-    public $duration;
-    public $slug;
 
+    #[Validate('nullable|string|max:500', as: 'descripcion')]
+    public $description;
+
+    #[Validate('required|image|max:10240', as: 'foto de portada')]
+    public $cover_photo;
+
+    #[Validate('required|image|max:10240', as: 'foto de cabecera')]
+    public $header_photo;
+
+    #[Validate('required|date', as: 'fecha')]
+    public $date;
+
+    #[Validate('required|string|in:published,draft,client_preview', as: 'estado')]
+    public $status = 'published';
+
+    #[Validate('required|exists:categories,id', as: 'categoría')]
+    public $category_id = 1;
+
+    #[Validate('nullable|numeric|min:0', as: 'precio')]
+    public $price;
+
+    #[Validate('required|string|max:255', as: 'ubicación')]
+    public $location;
+
+    #[Validate('nullable|integer|min:1', as: 'duración')]
+    public $duration;
+        
+    #[Validate('required', as: 'fotos')]
     public $photos = [];
+    
+    public $slug;
     public $categories = [];
 
-    protected function rules()
-    {
-        return [
-            'name' => 'required|string|max:48|',
-            'description' => 'nullable|string|max:500',
-            'cover_photo' => 'required|image|max:10240',
-            'header_photo' => 'required|image|max:10240',
-            'date' => 'required|date',
-            'status' => 'required|string|in:published,draft,client_preview',
-            'category_id' => 'required|exists:categories,id',
-            'location' => 'required|string|max:255',
-            'price' => 'nullable|numeric|min:0',
-            'duration' => 'nullable|integer|min:1',
-            'photos.*' => 'required',
-            'photos' => 'required',
-        ];
-    }
-
-    protected $messages = [
-        'name.required' => 'El nombre es obligatorio.',
-        'name.string' => 'El nombre debe ser una cadena de texto.',
-        'name.max' => 'El nombre no puede superar los 48 caracteres.',
-        'description.string' => 'La descripción debe ser una cadena de texto.',
-        'description.max' => 'La descripción no puede superar los 500 caracteres.',
-        'cover_photo.required' => 'La foto de portada es obligatoria.',
-        'cover_photo.image' => 'La foto de portada debe ser una imagen válida.',
-        'cover_photo.max' => 'La foto de portada no debe superar los 10 MB.',
-        'header_photo.required' => 'La foto del encabezado es obligatoria.',
-        'header_photo.image' => 'La foto del encabezado debe ser una imagen válida.',
-        'header_photo.max' => 'La foto del encabezado no debe superar los 10 MB.',
-        'date.required' => 'La fecha es obligatoria.',
-        'date.date' => 'La fecha debe ser válida.',
-        'status.required' => 'El estado es obligatorio.',
-        'status.in' => 'El estado debe ser "Publicado", "Borrador" o "En revisión".',
-        'category_id.required' => 'La categoría es obligatoria.',
-        'category_id.exists' => 'La categoría seleccionada no es válida.',
-        'price.required' => 'El precio es obligatorio.',
-        'price.numeric' => 'El precio debe ser un número.',
-        'price.min' => 'El precio debe ser mayor o igual a 0.',
-        'location.required' => 'La ubicación es obligatoria.',
-        'location.string' => 'La ubicación debe ser una cadena de texto.',
-        'location.max' => 'La ubicación no puede superar los 255 caracteres.',
-        'duration.integer' => 'La duración debe ser un número entero.',
-        'duration.min' => 'La duración debe ser al menos de 1 minuto.',
-
-        'photos.required' => 'Las fotos son obligatorias.',
-        'photos.*.required' => 'Las fotos son obligatorias.',
-        'photos.*.image' => 'Cada foto debe ser una imagen válida.',
-        'photos.*.mimes' => 'Cada foto debe tener una extensión válida (png, jpeg, jpg, webp).',
-        'photos.*.max' => 'Cada foto no debe superar los 10 MB.',
-    ];
 
     public function mount()
     {
@@ -106,7 +77,7 @@ new class extends Component {
         }
 
         $this->validate();
-
+        
         $this->generateSlug();
 
         $photoshoot = PhotoShoot::create([

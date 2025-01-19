@@ -1,20 +1,33 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Testimonial;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
+use App\Models\Testimonial;
 
 new class extends Component {
     use WithFileUploads;
 
     public $testimonial;
+
+    #[Validate('required|string|max:255', as: 'nombre')]
     public $name;
+
+    #[Validate('nullable|image|max:10240', as: 'imagen de perfil')]
     public $new_profile_image;
+
+    #[Validate('required|string|max:255', as: 'encabezado')]
     public $headline;
+
+    #[Validate('required|string|max:1000', as: 'cita')]
     public $quote;
+
+    #[Validate('required|string|max:255', as: 'nombre de usuario')]
     public $username;
+
+    #[Validate('required|string|max:1000', as: 'biografia')]
     public $bio;
 
     public function mount($id)
@@ -28,15 +41,6 @@ new class extends Component {
         $this->username = $this->testimonial->username;
         $this->bio = $this->testimonial->bio;
     }
-
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'new_profile_image' => 'nullable|image|max:10240',
-        'headline' => 'required|string|max:255',
-        'quote' => 'required|string|max:1000',
-        'username' => 'required|string|max:255',
-        'bio' => 'required|string|max:1000',
-    ];
 
     public function updateTestimonial()
     {

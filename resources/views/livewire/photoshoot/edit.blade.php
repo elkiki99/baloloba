@@ -3,31 +3,53 @@
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File as HttpFile;
+use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use Illuminate\Support\Str;
 use App\Models\PhotoShoot;
 use App\Models\Category;
 use App\Models\Photo;
 
+
 new class extends Component {
     use WithFileUploads;
 
     public $photoshoot;
+
+    #[Validate('required|string|max:48', as: 'nombre')]
     public $name;
+
+    #[Validate('nullable|string|max:500', as: 'descripcion')]
     public $description;
+    
     public $cover_photo;
     public $new_cover_photo;
     public $header_photo;
     public $new_header_photo;
+
+    #[Validate('required|date', as: 'fecha')]
     public $date;
+
+    #[Validate('required|string|in:published,draft,client_preview', as: 'estado')]
     public $status;
+    
+    #[Validate('required|exists:categories,id', as: 'categoría')]
     public $category_id;
+
+    #[Validate('nullable|numeric|min:0', as: 'precio')]
     public $price;
+
+    #[Validate('required|string|max:255', as: 'ubicación')]
     public $location;
+
+    #[Validate('nullable|integer|min:1', as: 'duración')]
     public $duration;
+    
     public $slug;
 
+    #[Validate('nullable', as: 'fotos')]
     public $new_photos = [];
+    
     public $existing_photos = [];
     public $existing_deleted_photos = [];
     public $categories = [];
@@ -35,16 +57,6 @@ new class extends Component {
     protected function rules()
     {
         $rules = [
-            'name' => 'required|string|max:48',
-            'description' => 'nullable|string|max:500',
-            'date' => 'required|date',
-            'status' => 'required|string|in:published,draft,client_preview',
-            'category_id' => 'required|exists:categories,id',
-            'location' => 'required|string|max:255',
-            'price' => 'nullable|numeric|min:0',
-            'duration' => 'nullable|integer|min:1',
-            'new_photos.*' => 'nullable',
-            'new_photos' => 'nullable',
             'existing_photos' => [
                 function ($attribute, $value, $fail) {
                     $remainingExistingPhotos = count(
@@ -64,37 +76,6 @@ new class extends Component {
 
         return $rules;
     }
-
-    protected $messages = [
-        'name.required' => 'El nombre es obligatorio.',
-        'name.string' => 'El nombre debe ser una cadena de texto.',
-        'name.max' => 'El nombre no puede superar los 48 caracteres.',
-        'description.string' => 'La descripción debe ser una cadena de texto.',
-        'description.max' => 'La descripción no puede superar los 500 caracteres.',
-        'cover_photo.required' => 'La foto de portada es obligatoria.',
-        'cover_photo.image' => 'La foto de portada debe ser una imagen válida.',
-        'cover_photo.max' => 'La foto de portada no debe superar los 10 MB.',
-        'header_photo.required' => 'La foto del encabezado es obligatoria.',
-        'header_photo.image' => 'La foto del encabezado debe ser una imagen válida.',
-        'header_photo.max' => 'La foto del encabezado no debe superar los 10 MB.',
-        'date.required' => 'La fecha es obligatoria.',
-        'date.date' => 'La fecha debe ser válida.',
-        'status.required' => 'El estado es obligatorio.',
-        'status.in' => 'El estado debe ser "Publicado", "Borrador" o "En revisión".',
-        'category_id.required' => 'La categoría es obligatoria.',
-        'category_id.exists' => 'La categoría seleccionada no es válida.',
-        'price.required' => 'El precio es obligatorio.',
-        'price.numeric' => 'El precio debe ser un número.',
-        'price.min' => 'El precio debe ser mayor o igual a 0.',
-        'location.string' => 'La ubicación debe ser una cadena de texto.',
-        'location.max' => 'La ubicación no puede superar los 255 caracteres.',
-        'duration.integer' => 'La duración debe ser un número entero.',
-        'duration.min' => 'La duración debe ser al menos de 1 minuto.',
-
-        'new_photos.*.image' => 'Cada foto debe ser una imagen válida.',
-        'new_photos.*.mimes' => 'Cada foto debe tener una extensión válida (png, jpeg, jpg, webp).',
-        'new_photos.*.max' => 'Cada foto no debe superar los 10 MB.',
-    ];
 
     protected $listeners = [
         'existingFileRemoved' => 'removeExistingFile',

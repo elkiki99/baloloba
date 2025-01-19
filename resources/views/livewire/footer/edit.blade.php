@@ -1,17 +1,32 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Footer;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Validate;
+use App\Models\Footer;
 
 new class extends Component {
     public $footer;
+
+    #[Validate('required|string|max:255', as: 'título')]
     public $title;
+
+    #[Validate('required|string|max:500', as: 'descripción')]
     public $description;
+
+    #[Validate('required|string|max:255', as: 'dirección')]
     public $address;
+
+    #[Validate('required|url|max:255', as: 'enlace de LinkedIn')]
     public $linkedin;
+
+    #[Validate('required|url|max:255', as: 'enlace de Instagram')]
     public $instagram;
+
+    #[Validate('required|string|max:20', as: 'telefono')]
     public $phone;
+
+    #[Validate('required|email|max:255', as: 'email')]
     public $email;
 
     public function mount()
@@ -25,16 +40,6 @@ new class extends Component {
         $this->phone = $this->footer->phone;
         $this->email = $this->footer->email;
     }
-
-    protected $rules = [
-        'title' => 'required|string|max:255',
-        'description' => 'required|string|max:500',
-        'address' => 'required|string|max:255',
-        'phone' => 'required|string|max:20',
-        'email' => 'required|email|max:255',
-        'linkedin' => 'required|url|max:255',
-        'instagram' => 'required|url|max:255',
-    ];
 
     public function updateFooter()
     {

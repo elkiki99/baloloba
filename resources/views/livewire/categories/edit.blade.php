@@ -1,13 +1,20 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Validate;
+use App\Models\Category;
 
 new class extends Component {
     public $category;
+
+    #[Validate('required|string|max:255', as:'nombre')]
     public $name;
+
+    #[Validate('required|string|max:255', as:'slug')]
     public $slug;
+
+    #[Validate('nullable|string|max:500', as:'descripción')]
     public $description;
 
     public function mount($id)
@@ -17,12 +24,6 @@ new class extends Component {
         $this->slug = $this->category->slug;
         $this->description = $this->category->description;
     }
-
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'slug' => 'required|string|max:255',
-        'description' => 'nullable|string|max:500',
-    ];
 
     public function updateCategory()
     {
